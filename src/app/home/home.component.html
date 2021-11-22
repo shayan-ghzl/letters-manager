@@ -1,1 +1,18 @@
-{{ persons | json}}
+<p-table [value]="persons">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>نام پدر</th>
+            <th>کد ملی</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-person>
+        <tr>
+            <td>{{person.firstName}}</td>
+            <td>{{person.lastName}}</td>
+            <td>{{person.fatherName}}</td>
+            <td>{{person.nationalID}}</td>
+        </tr>
+    </ng-template>
+</p-table>
