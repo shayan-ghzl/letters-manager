@@ -1,1 +1,18 @@
-<router-outlet></router-outlet>
+<div id="application-container">
+    <aside id="vertical-menu">
+        <!-- logo -->
+        <a [routerLink]="" class="logo">
+            <span class="logo-lg">
+                <img src="./assets/images/logo.png" alt="branding logo" height="16">
+            </span>
+            <span class="logo-sm">
+                <img src="./assets/images/logo_sm.png" alt="branding logo" height="16">
+            </span>
+        </a>
+    </aside>
+    <div id="app-body">
+        <header class="app-navbar"></header>
+        <router-outlet></router-outlet>
+    </div>
+    <aside id="app-setting"></aside>
+</div>
