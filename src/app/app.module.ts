@@ -9,11 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import {TableModule} from 'primeng/table';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AcVmAccordionComponent } from './shared/components/ac-vm-accordion/ac-vm-accordion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    AcVmAccordionComponent
   ],
   imports: [
     BrowserModule,

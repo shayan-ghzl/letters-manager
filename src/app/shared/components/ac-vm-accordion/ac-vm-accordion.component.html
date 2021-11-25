@@ -1,0 +1,15 @@
+
+    <accordion-group *ngFor="let accordionItem of accordionInitObject" [isOpen]="false" [isDisabled]="false">
+       <!-- has children accordion head -->
+        <a *ngIf="accordionItem.children.length" (click)="false" class="accordion-heading has-child" accordion-heading>
+            <i [class]="accordionItem.icon"></i>
+            <span>{{ accordionItem.name }}</span>
+            <i class="icon-acc-arrow"></i>
+        </a>
+        <!-- has no children accordion head -->
+        <a *ngIf="!accordionItem.children.length" [routerLink]="accordionItem.url" class="accordion-heading" accordion-heading>
+            {{ accordionItem.name }}
+        </a>
+        <app-ac-vm-accordion [accordionInitObject]="accordionItem.children"></app-ac-vm-accordion>
+    </accordion-group>
+

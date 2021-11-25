@@ -9,6 +9,10 @@
                 <img src="./assets/images/logo_sm.png" alt="branding logo" height="16">
             </span>
         </a>
+        <!-- accordion -->
+        <accordion [isAnimated]="true" [closeOthers]="true">
+            <app-ac-vm-accordion [accordionInitObject]="accordionInitObject"></app-ac-vm-accordion>
+        </accordion>
     </aside>
     <div id="app-body">
         <header class="app-navbar"></header>

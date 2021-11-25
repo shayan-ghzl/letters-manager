@@ -1,0 +1,66 @@
+#vertical-menu {
+    accordion-group {
+        .card {
+            background-color: transparent;
+            border: none;
+        }
+        .card-header {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+        }
+        .card-body {
+            padding: 0 1rem;
+        }
+
+        a.accordion-heading {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem 1rem;
+            text-decoration: none;
+            color: #8391a2;
+            font-size: 0.9rem;
+            &:hover {
+                color: #bccee4;
+                i:first-child ,  i.icon-acc-arrow {
+                    &::before {
+                        color: #bccee4;
+                    }
+                }
+        
+            }
+            i:first-child {
+                margin-left: 0.7rem;
+                vertical-align: middle;
+            }
+            &:not(.has-child) {
+                padding: 0.45rem 1.7rem !important;
+                font-size: 0.8rem !important;
+            }
+            i.icon-acc-arrow {
+                margin-right: auto;
+                font-size: 10px;
+                transform: rotate(90deg);
+                transform-origin: 50% 50%;
+                vertical-align: middle;
+                transition: transform 200ms;
+            }
+        }
+        .accordion-toggle[aria-expanded="true"] {
+            > a {
+                color: #fff !important;
+                i:first-child {
+                    &::before {
+                        color: #fff;
+                    }
+                }
+                i.icon-acc-arrow {
+                    transform: rotate(0deg);
+                    &::before {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
