@@ -24,68 +24,48 @@
                 </div>
             </div>
             <div class="toolbar-menu">
-                <ul class="list-unstyled mb-0">
-                    <li class="search-btn-item">
+                <ul>
+                    <li>
                         <button type="button" class="btn">
                             <i class="icon-search"></i>
                         </button>
                     </li>
-                    <li class="setting-btn-item">
+                    <li>
                         <button type="button" class="btn">
                             <i class="icon-settings"></i>
                         </button>
                     </li>
-                    <li class="account-dropdown-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <span class="account-user-avatar">
-                                <img src="./assets/images/avatar.jpg" alt="user-image">
-                            </span>
-                            <span>
-                                <span class="account-user-name">شایان غزالی</span>
-                                <span class="account-position">مدیر کل</span>
-                            </span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-animated dropdown-menu-end" style="">
-                            <!-- item-->
-                            <div class=" dropdown-header">
-                                <h6 class="text-overflow m-0">خوش آمدین !</h6>
-                            </div>
-        
-                            <!-- item-->
-                            <a href="#" class="dropdown-item">
-                                <i class="mdi mdi-account-circle me-1"></i>
-                                <span>حساب کاربری</span>
-                            </a>
-        
-                            <!-- item-->
-                            <a href="#" class="dropdown-item">
-                                <i class="mdi mdi-account-edit me-1"></i>
-                                <span>تنظیمات</span>
-                            </a>
-        
-                            <!-- item-->
-                            <a href="#" class="dropdown-item">
-                                <i class="mdi mdi-lifebuoy me-1"></i>
-                                <span>پشتیبانی</span>
-                            </a>
-        
-                            <!-- item-->
-                            <a href="#" class="dropdown-item">
-                                <i class="mdi mdi-lock-outline me-1"></i>
-                                <span>صفحه نمایش</span>
-                            </a>
-        
-                            <!-- item-->
-                            <a href="#" class="dropdown-item">
-                                <i class="mdi mdi-logout me-1"></i>
-                                <span>خروج</span>
-                            </a>
+                    <li>
+                        <div class="btn-group" dropdown>
+                            <button id="account-dropdown-btn" dropdownToggle type="button" class="btn dropdown-toggle"
+                                aria-controls="dropdown-basic">
+                                <span class="avatar">
+                                    <img src="./assets/images/avatar.jpg" alt="user-image">
+                                </span>
+                                <span>
+                                    <span class="name">شایان غزالی</span>
+                                    <span class="role">مدیر کل</span>
+                                </span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="account-dropdown-btn">
+                                <li role="menuitem"><a class="dropdown-item" href="#">خوش آمدین !</a></li>
+                                <li role="menuitem"><a class="dropdown-item" href="#">حساب کاربری</a></li>
+                                <li role="menuitem"><a class="dropdown-item" href="#">تنظیمات</a></li>
+                                <li class="divider dropdown-divider"></li>
+                                <li role="menuitem"><a class="dropdown-item" href="#">پشتیبانی</a>
+                                <li role="menuitem"><a class="dropdown-item" href="#">صفحه نمایش</a>
+                                <li role="menuitem"><a class="dropdown-item" href="#">خروج</a>
+                                </li>
+                            </ul>
                         </div>
                     </li>
                 </ul>
             </div>
         </header>
+    <div class="router-container">
         <router-outlet></router-outlet>
+    </div>
     </div>
     <aside id="app-setting"></aside>
 </div>

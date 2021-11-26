@@ -8,7 +8,7 @@ import { PersonService } from '../shared/services/person.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  
+
   persons: Person[] = [];
 
   constructor(private personService: PersonService) {
@@ -24,5 +24,16 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
+
+
+
+
+  display: boolean = false;
+
+  showDialog() {
+      this.display = true;
+  }
+
 
 }

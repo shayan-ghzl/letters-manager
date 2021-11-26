@@ -11,6 +11,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AcVmAccordionComponent } from './shared/components/ac-vm-accordion/ac-vm-accordion.component';
 import { SubAccordionGroupComponent } from './shared/components/ac-vm-accordion/sub-accordion-group/sub-accordion-group.component';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SubAccordionGroupComponent } from './shared/components/ac-vm-accordion/
     BrowserAnimationsModule,
     AccordionModule.forRoot(),
     BsDropdownModule.forRoot(),
+    DialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
