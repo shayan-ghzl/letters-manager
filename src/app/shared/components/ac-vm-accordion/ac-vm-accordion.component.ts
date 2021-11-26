@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { VmAccordionObject } from '../../models/ac-vm-accordion';
 
 @Component({
   selector: 'app-ac-vm-accordion',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AcVmAccordionComponent implements OnInit {
 
-@Input() accordionInitObject:any;
+@Input() accordionInitObject:VmAccordionObject[] = [];
 
   constructor() { }
 

@@ -10,12 +10,14 @@ import {TableModule} from 'primeng/table';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AcVmAccordionComponent } from './shared/components/ac-vm-accordion/ac-vm-accordion.component';
+import { SubAccordionGroupComponent } from './shared/components/ac-vm-accordion/sub-accordion-group/sub-accordion-group.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AcVmAccordionComponent
+    AcVmAccordionComponent,
+    SubAccordionGroupComponent
   ],
   imports: [
     BrowserModule,

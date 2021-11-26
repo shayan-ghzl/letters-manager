@@ -10,12 +10,81 @@
             </span>
         </a>
         <!-- accordion -->
-        <accordion [isAnimated]="true" [closeOthers]="true">
-            <app-ac-vm-accordion [accordionInitObject]="accordionInitObject"></app-ac-vm-accordion>
-        </accordion>
+        <app-ac-vm-accordion [accordionInitObject]="accordionInitObject"></app-ac-vm-accordion>
+
     </aside>
     <div id="app-body">
-        <header class="app-navbar"></header>
+        <header class="app-navbar">
+            <div class="col-span">
+                <button type="button" class="btn hamburger-btn">
+                    <i class="icon-hamburger"></i>
+                </button>
+                <div class="search-form">
+
+                </div>
+            </div>
+            <div class="toolbar-menu">
+                <ul class="list-unstyled mb-0">
+                    <li class="search-btn-item">
+                        <button type="button" class="btn">
+                            <i class="icon-search"></i>
+                        </button>
+                    </li>
+                    <li class="setting-btn-item">
+                        <button type="button" class="btn">
+                            <i class="icon-settings"></i>
+                        </button>
+                    </li>
+                    <li class="account-dropdown-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <span class="account-user-avatar">
+                                <img src="./assets/images/avatar.jpg" alt="user-image">
+                            </span>
+                            <span>
+                                <span class="account-user-name">شایان غزالی</span>
+                                <span class="account-position">مدیر کل</span>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-animated dropdown-menu-end" style="">
+                            <!-- item-->
+                            <div class=" dropdown-header">
+                                <h6 class="text-overflow m-0">خوش آمدین !</h6>
+                            </div>
+        
+                            <!-- item-->
+                            <a href="#" class="dropdown-item">
+                                <i class="mdi mdi-account-circle me-1"></i>
+                                <span>حساب کاربری</span>
+                            </a>
+        
+                            <!-- item-->
+                            <a href="#" class="dropdown-item">
+                                <i class="mdi mdi-account-edit me-1"></i>
+                                <span>تنظیمات</span>
+                            </a>
+        
+                            <!-- item-->
+                            <a href="#" class="dropdown-item">
+                                <i class="mdi mdi-lifebuoy me-1"></i>
+                                <span>پشتیبانی</span>
+                            </a>
+        
+                            <!-- item-->
+                            <a href="#" class="dropdown-item">
+                                <i class="mdi mdi-lock-outline me-1"></i>
+                                <span>صفحه نمایش</span>
+                            </a>
+        
+                            <!-- item-->
+                            <a href="#" class="dropdown-item">
+                                <i class="mdi mdi-logout me-1"></i>
+                                <span>خروج</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
         <router-outlet></router-outlet>
     </div>
     <aside id="app-setting"></aside>

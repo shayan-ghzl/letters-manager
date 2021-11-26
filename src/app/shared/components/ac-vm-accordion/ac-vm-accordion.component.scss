@@ -1,0 +1,38 @@
+.menu-single-item {
+  
+    color: #8391a2;
+    font-size: 0.9rem;
+    &:hover {
+        color: #bccee4;
+        i {
+            &::before {
+                color: #bccee4;
+            }
+        }
+
+    }
+}
+.menu-heading {
+    font-weight: bold;
+    color: #fff;
+    font-size: 0.8rem;
+    i {
+        &::before{
+            color: #fff;  
+        }
+    }
+}
+.menu-group {
+  &:not(:first-of-type){
+    margin-top: 1rem;
+  }
+    > a {
+        text-decoration: none;
+        padding: 0.7rem 1rem;
+        display: block;
+        i {
+            vertical-align: middle;
+            margin-left: 0.7rem;
+        }
+    }
+}

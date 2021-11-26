@@ -1,15 +1,11 @@
-
-    <accordion-group *ngFor="let accordionItem of accordionInitObject" [isOpen]="false" [isDisabled]="false">
-       <!-- has children accordion head -->
-        <a *ngIf="accordionItem.children.length" (click)="false" class="accordion-heading has-child" accordion-heading>
-            <i [class]="accordionItem.icon"></i>
-            <span>{{ accordionItem.name }}</span>
-            <i class="icon-acc-arrow"></i>
-        </a>
-        <!-- has no children accordion head -->
-        <a *ngIf="!accordionItem.children.length" [routerLink]="accordionItem.url" class="accordion-heading" accordion-heading>
-            {{ accordionItem.name }}
-        </a>
-        <app-ac-vm-accordion [accordionInitObject]="accordionItem.children"></app-ac-vm-accordion>
-    </accordion-group>
-
+<div class="menu-group" *ngFor="let accordionItem of accordionInitObject">
+    <a *ngIf="accordionItem.url.length" class="menu-single-item" [routerLink]="accordionItem.url">
+        <i *ngIf="accordionItem.icon.length" [class]="accordionItem.icon"></i>
+        <span>{{accordionItem.heading}}</span>
+    </a>
+    <a *ngIf="!accordionItem.url.length" class="menu-heading" (click)="false">
+        <i *ngIf="accordionItem.icon.length" [class]="accordionItem.icon"></i>
+        <span>{{accordionItem.heading}}</span>
+    </a>
+    <app-sub-accordion-group [accordionGroupItem]="accordionItem.group"></app-sub-accordion-group>
+</div>
