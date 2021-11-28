@@ -1,4 +1,4 @@
-<p-table [value]="persons" styleClass="p-datatable-sm">
+<p-table [value]="persons" styleClass="p-datatable-sm p-datatable-gridlines" responsiveLayout="scroll">
     <ng-template pTemplate="header">
         <tr>
             <th>ردیف</th>
@@ -28,22 +28,85 @@
             <td>{{person.stringBirthDate}}</td>
             <td>{{person.address}}</td>
             <td>{{person.phoneNumber}}</td>
-            <td><span (click)="showDialog()">ویرایش</span></td>
+            <td><span class="app-operation-edit" (click)="showDialog(person , rowIndex)">ویرایش</span></td>
         </tr>
     </ng-template>
 </p-table>
 
 <p-dialog [(visible)]="display" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
     <ng-template pTemplate="header">
-        Header content here
+        <h4>ویرایش ردیف {{ editPersonRowIndex }}</h4>
     </ng-template>
-    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه
-    روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود
-    ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد،
-    تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد
-    کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان
-    مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+<div class="row">
+    <div class="p-field col-4">
+        <label for="username2">نام</label>
+        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_firstname" class="p-inputtext-sm" pInputText />
+        
+    </div>  
+   
+    <div class="p-field col-4">
+        <label for="username2">نام خانوادگی</label>
+        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_lastname" class="p-inputtext-sm" pInputText />
+    </div> 
+    <div class="p-field col-4">
+        <label for="username2">نام پدر</label>
+        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_father_name" class="p-inputtext-sm" pInputText />
+        
+    </div>  
+</div> 
+<div class="row">
+
+   
+    <div class="p-field col-4">
+        <label for="username2">کد ملی</label>
+        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_national_id" class="p-inputtext-sm" pInputText />
+    </div> 
+    <div class="p-field col-4">
+        <label for="username2">شماره شناسنامه</label>
+        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_certificate_number" class="p-inputtext-sm" pInputText />
+        
+    </div>  
+   
+    <div class="p-field col-4">
+        <label for="username2">صادره از</label>
+        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_from_location" class="p-inputtext-sm" pInputText />
+    </div> 
+</div> 
+
+<div class="row">
+
+    <div class="p-field col-4">
+        <label for="username2">تاریخ تولد</label>
+        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_birth_date" class="ng-invalid ng-dirty p-inputtext-sm" pInputText />
+        <small id="username2-help" class="p-error">Username is not available.</small>
+    </div>  
+    <div class="p-field col-4">
+        <label for="username2">تاریخ تولد</label>
+        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_string_birth_date" class="p-inputtext-sm" pInputText />
+    </div> 
+    <div class="p-field col-4">
+        <label for="username2">آدرس</label>
+        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_address" class="p-inputtext-sm" pInputText />
+        
+    </div>  
+
+</div> 
+<div class="row">
+
+   
+
+   
+    <div class="p-field col-4">
+        <label for="username2">تلفن</label>
+        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_phone_number" class="p-inputtext-sm" pInputText />
+    </div> 
+</div> 
+
     <ng-template pTemplate="footer">
-        //buttons
+        <div class="d-flex pt-3">
+            <p-button label="لغو" (onClick)="handleClick($event)" styleClass="p-button-danger p-button-outlined" class="ms-auto">
+            </p-button>
+            <p-button label="ثبت" (onClick)="handleClick2($event)" styleClass="p-button-success"></p-button>
+        </div>
     </ng-template>
 </p-dialog>

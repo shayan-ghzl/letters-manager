@@ -12,6 +12,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AcVmAccordionComponent } from './shared/components/ac-vm-accordion/ac-vm-accordion.component';
 import { SubAccordionGroupComponent } from './shared/components/ac-vm-accordion/sub-accordion-group/sub-accordion-group.component';
 import {DialogModule} from 'primeng/dialog';
+import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import {DialogModule} from 'primeng/dialog';
     AccordionModule.forRoot(),
     BsDropdownModule.forRoot(),
     DialogModule,
+    ButtonModule,
+    InputTextModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
