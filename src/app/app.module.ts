@@ -6,15 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-import {TableModule} from 'primeng/table';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AcVmAccordionComponent } from './shared/components/ac-vm-accordion/ac-vm-accordion.component';
 import { SubAccordionGroupComponent } from './shared/components/ac-vm-accordion/sub-accordion-group/sub-accordion-group.component';
-import {DialogModule} from 'primeng/dialog';
-import {ButtonModule} from 'primeng/button';
-import {InputTextModule} from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+
+import { PersonModule } from './person/person.module';
 
 @NgModule({
   declarations: [
@@ -27,14 +24,10 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    TableModule,
     BrowserAnimationsModule,
     AccordionModule.forRoot(),
     BsDropdownModule.forRoot(),
-    DialogModule,
-    ButtonModule,
-    InputTextModule,
-    FormsModule
+    PersonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

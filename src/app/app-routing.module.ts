@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent
   },
+  {
+    path: 'person',
+    loadChildren: () => import('./person/person.module').then(mod => mod.PersonModule)
+  },
 
 ];
 
