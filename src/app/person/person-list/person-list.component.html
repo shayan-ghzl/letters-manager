@@ -9,7 +9,6 @@
             <th>شماره شناسنامه</th>
             <th>محل تولد</th>
             <th>تاریخ تولد</th>
-            <th>نام</th>
             <th>آدرس</th>
             <th>تلفن</th>
             <th>عملیات</th>
@@ -24,7 +23,6 @@
             <td>{{person.nationalID}}</td>
             <td>{{person.certificateNumber}}</td>
             <td>{{person.fromLocation}}</td>
-            <td>{{person.birthDate}}</td>
             <td>{{person.stringBirthDate}}</td>
             <td>{{person.address}}</td>
             <td>{{person.phoneNumber}}</td>
@@ -75,32 +73,23 @@
 
 <div class="row">
 
+
     <div class="p-field col-4">
         <label for="username2">تاریخ تولد</label>
-        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_birth_date" class="ng-invalid ng-dirty p-inputtext-sm" pInputText />
+        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_string_birth_date" class="ng-invalid ng-dirty p-inputtext-sm" pInputText />
         <small id="username2-help" class="p-error">Username is not available.</small>
-    </div>  
-    <div class="p-field col-4">
-        <label for="username2">تاریخ تولد</label>
-        <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_string_birth_date" class="p-inputtext-sm" pInputText />
     </div> 
     <div class="p-field col-4">
         <label for="username2">آدرس</label>
         <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_address" class="p-inputtext-sm" pInputText />
         
     </div>  
-
-</div> 
-<div class="row">
-
-   
-
-   
     <div class="p-field col-4">
         <label for="username2">تلفن</label>
         <input id="username2" type="username" aria-describedby="username2-help" [(ngModel)]="editPerson_phone_number" class="p-inputtext-sm" pInputText />
     </div> 
 </div> 
+
 
     <ng-template pTemplate="footer">
         <div class="d-flex pt-3">

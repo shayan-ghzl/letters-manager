@@ -6,8 +6,7 @@ export interface Person {
     nationalID: string;
     certificateNumber: string;
     fromLocation: string;
-    birthDate: string;
-    stringBirthDate: string | null;
+    stringBirthDate: string ;
     address: string;
     phoneNumber: string;
 }

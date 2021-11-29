@@ -18,8 +18,16 @@ export class PersonService {
     return this.http.get<Person>(this.baseUrl + 'lm/v1/person')
     .pipe(
       map((response: any) => {
-        console.log(response);
+        // console.log(response);
         return response.content;
+      })
+    );
+  }
+  putPerson(person: Person): Observable<any>{
+    return this.http.put<any>(this.baseUrl + 'lm/v1/person/' + person.personUUID , person)
+    .pipe(
+      map(response => {
+        return response;
       })
     );
   }
