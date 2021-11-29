@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { Person } from '../models/person';
 import { PersonService } from '../person.service';
 
@@ -9,7 +10,7 @@ import { PersonService } from '../person.service';
 })
 export class PersonListComponent implements OnInit {
 
-  display: boolean = false;
+  DialogEditPerson: boolean = false;
 
   persons: Person[] = [];
 
@@ -26,7 +27,7 @@ export class PersonListComponent implements OnInit {
   editPerson!: Person;
   editPersonRowIndex!: number;
 
-  constructor(private personService: PersonService) {
+  constructor(private personService: PersonService , private messageService: MessageService) {
     this.personService.getPersons().subscribe(
       (data) => {
         this.persons = data;
@@ -41,6 +42,12 @@ export class PersonListComponent implements OnInit {
   }
 
 
+
+
+clear() {
+    this.messageService.clear('personEditResult');
+}
+
   showDialog(person: Person , rowIndex:number) {
     this.editPerson = person;
     this.editPersonRowIndex = rowIndex + 1;
@@ -54,12 +61,12 @@ export class PersonListComponent implements OnInit {
     this.editPerson_address = person.address;
     this.editPerson_phone_number = person.phoneNumber;
 
-    this.display = true;
+    this.DialogEditPerson = true;
   }
   handleClick(e: any) {
 
   }
-  handleClick2(e: any) {
+  editPersonSubmit() {
 
     this.personService.putPerson(
       {
@@ -76,10 +83,16 @@ export class PersonListComponent implements OnInit {
       }
     ).subscribe(
       (data) => {
-        console.log(data + 'SUCCESS');
+        console.log(data);
+        this.messageService.add({key: 'personEditResult', severity:'success', summary:'موفقیت آمیز', detail:`ردیف ${this.editPersonRowIndex} ویرایش شد.` , life	:7000});
       },
-      (error) => { console.log(error + ' ERROR'); },
-      () => { },
+      (error) => { 
+        console.log(error);
+        this.messageService.add({key: 'personEditResult', severity:'success', summary:'خطا', detail:'خطا رخ داد.' , life	:7000});
+      },
+      () => {
+        this.DialogEditPerson = false;
+       },
     );
   }
 

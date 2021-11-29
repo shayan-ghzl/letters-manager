@@ -8,7 +8,9 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-
+import {ToastModule} from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,11 @@ import { FormsModule } from '@angular/forms';
     ButtonModule,
     InputTextModule,
     FormsModule,
+    ToastModule,
+    ProgressSpinnerModule
+  ],
+  providers: [
+    MessageService
   ]
 })
 export class PersonModule { }
