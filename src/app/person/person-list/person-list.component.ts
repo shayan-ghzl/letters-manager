@@ -11,6 +11,8 @@ import { PersonService } from '../person.service';
 export class PersonListComponent implements OnInit {
 
   DialogEditPerson: boolean = false;
+  displayDialogSpinner: boolean = false;
+  displaySubmitBtn: boolean = true;
 
   persons: Person[] = [];
 
@@ -27,7 +29,58 @@ export class PersonListComponent implements OnInit {
   editPerson!: Person;
   editPersonRowIndex!: number;
 
-  constructor(private personService: PersonService , private messageService: MessageService) {
+  editPersonValidateObj = {
+    'firstName': {
+      'hasError': false,
+      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'validateCondition': '${2 <= this.editPerson_firstname.trim().length && this.editPerson_firstname.trim().length <= 30}'
+    },
+    'lastName': {
+      'hasError': false,
+      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'validateCondition': '${2 <= this.editPerson_lastname.trim().length && this.editPerson_lastname.trim().length <= 30}'
+    },
+    'fatherName': {
+      'hasError': false,
+      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'validateCondition': '${2 <= this.editPerson_father_name.trim().length && this.editPerson_father_name.trim().length <= 30}'
+    },
+    'nationalID': {
+      'hasError': false,
+      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'validateCondition': '${10 == this.editPerson_father_name.trim().length && this.editPerson_father_name.trim().match("[0-9]+")}'
+    },
+    'certificateNumber': {
+      'hasError': false,
+      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'validateCondition': '${0 <= this.editPerson_certificate_number.trim().length && this.editPerson_certificate_number.trim().length <= 12 && this.editPerson_certificate_number.trim().match("[0-9]+")}'
+    },
+    'fromLocation': {
+      'hasError': false,
+      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'validateCondition': '${0 <= this.editPerson_from_location.trim().length && this.editPerson_from_location.trim().length <= 30}'
+    },
+    'stringBirthDate': {
+      'hasError': false,
+      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'validateCondition': '${this.editPerson_string_birth_date.trim().match("^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|([1-2][0-9])|(0[1-9]))))$")}'
+    },
+    'address': {
+      'hasError': false,
+      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'validateCondition': '${0 <= this.editPerson_address.trim().length && this.editPerson_address.trim().length <= 350}'
+    },
+    'phoneNumber': {
+      'hasError': false,
+      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'validateCondition': '${11 == this.editPerson_phone_number.trim().length && this.editPerson_phone_number.trim().match("[0-9]+")}',
+      'shayan': () => {
+        return `${11 == this.editPerson_phone_number.trim().length && this.editPerson_phone_number.trim().match("[0-9]+")}`;
+      }
+    },
+  };
+
+  constructor(private personService: PersonService, private messageService: MessageService) {
     this.personService.getPersons().subscribe(
       (data) => {
         this.persons = data;
@@ -44,11 +97,11 @@ export class PersonListComponent implements OnInit {
 
 
 
-clear() {
+  clear() {
     this.messageService.clear('personEditResult');
-}
+  }
 
-  showDialog(person: Person , rowIndex:number) {
+  showDialog(person: Person, rowIndex: number) {
     this.editPerson = person;
     this.editPersonRowIndex = rowIndex + 1;
     this.editPerson_firstname = person.firstName;
@@ -67,34 +120,48 @@ clear() {
 
   }
   editPersonSubmit() {
-
+    this.displaySubmitBtn = true;
+    this.displayDialogSpinner = true;
     this.personService.putPerson(
       {
         personUUID: this.editPerson.personUUID,
-        firstName:this.editPerson_firstname,
-        lastName:this.editPerson_lastname,
-        fatherName:this.editPerson_father_name,
-        nationalID:this.editPerson_national_id,
-        certificateNumber:this.editPerson_certificate_number,
-        fromLocation:this.editPerson_from_location,
-        stringBirthDate:this.editPerson_string_birth_date,
-        address:this.editPerson_address,
-        phoneNumber:this.editPerson_phone_number
+        firstName: this.editPerson_firstname,
+        lastName: this.editPerson_lastname,
+        fatherName: this.editPerson_father_name,
+        nationalID: this.editPerson_national_id,
+        certificateNumber: this.editPerson_certificate_number,
+        fromLocation: this.editPerson_from_location,
+        stringBirthDate: this.editPerson_string_birth_date,
+        address: this.editPerson_address,
+        phoneNumber: this.editPerson_phone_number
       }
     ).subscribe(
       (data) => {
         console.log(data);
-        this.messageService.add({key: 'personEditResult', severity:'success', summary:'موفقیت آمیز', detail:`ردیف ${this.editPersonRowIndex} ویرایش شد.` , life	:7000});
+        this.messageService.add({ key: 'personEditResult', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف ${this.editPersonRowIndex} ویرایش شد.`, life: 7000 });
       },
-      (error) => { 
+      (error) => {
         console.log(error);
-        this.messageService.add({key: 'personEditResult', severity:'success', summary:'خطا', detail:'خطا رخ داد.' , life	:7000});
+        this.messageService.add({ key: 'personEditResult', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
+        this.DialogEditPerson = false;
+        this.displayDialogSpinner = false;
       },
       () => {
         this.DialogEditPerson = false;
-       },
+        this.displayDialogSpinner = false;
+      },
     );
   }
 
+  editPersonValidate(e: any) {
+    
+     console.log(this.editPersonValidateObj.phoneNumber.shayan());
+    if (!(2 <= this.editPerson_firstname.trim().length && this.editPerson_firstname.trim().length <= 30)) {
+      this.editPersonValidateObj.firstName.hasError = true;
+    } else {
+      this.editPersonValidateObj.firstName.hasError = false;
 
+    }
+
+  }
 }
