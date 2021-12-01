@@ -33,49 +33,64 @@ export class PersonListComponent implements OnInit {
     'firstName': {
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
-      'validateCondition': '${2 <= this.editPerson_firstname.trim().length && this.editPerson_firstname.trim().length <= 30}'
+      isValid: () => {
+        return (2 <= this.editPerson_firstname.trim().length && this.editPerson_firstname.trim().length <= 30);
+      }
     },
     'lastName': {
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
-      'validateCondition': '${2 <= this.editPerson_lastname.trim().length && this.editPerson_lastname.trim().length <= 30}'
+      isValid: () => {
+        return (2 <= this.editPerson_lastname.trim().length && this.editPerson_lastname.trim().length <= 30);
+      }
     },
     'fatherName': {
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
-      'validateCondition': '${2 <= this.editPerson_father_name.trim().length && this.editPerson_father_name.trim().length <= 30}'
+      isValid: () => {
+        return (2 <= this.editPerson_father_name.trim().length && this.editPerson_father_name.trim().length <= 30);
+      }
     },
     'nationalID': {
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
-      'validateCondition': '${10 == this.editPerson_father_name.trim().length && this.editPerson_father_name.trim().match("[0-9]+")}'
+      isValid: () => {
+        return (10 == this.editPerson_father_name.trim().length && this.editPerson_father_name.trim().match("[0-9]+") != null);
+      }
     },
     'certificateNumber': {
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
-      'validateCondition': '${0 <= this.editPerson_certificate_number.trim().length && this.editPerson_certificate_number.trim().length <= 12 && this.editPerson_certificate_number.trim().match("[0-9]+")}'
+      isValid: () => {
+        return (0 <= this.editPerson_certificate_number.trim().length && this.editPerson_certificate_number.trim().length <= 12 && this.editPerson_certificate_number.trim().match("[0-9]+") != null);
+      }
     },
     'fromLocation': {
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
-      'validateCondition': '${0 <= this.editPerson_from_location.trim().length && this.editPerson_from_location.trim().length <= 30}'
+      isValid: () => {
+        return (0 <= this.editPerson_from_location.trim().length && this.editPerson_from_location.trim().length <= 30);
+      }
     },
     'stringBirthDate': {
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
-      'validateCondition': '${this.editPerson_string_birth_date.trim().match("^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|([1-2][0-9])|(0[1-9]))))$")}'
+      isValid: () => {
+        return (this.editPerson_string_birth_date.trim().match("^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|([1-2][0-9])|(0[1-9]))))$") != null);
+      }
     },
     'address': {
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
-      'validateCondition': '${0 <= this.editPerson_address.trim().length && this.editPerson_address.trim().length <= 350}'
+      isValid: () => {
+        return (0 <= this.editPerson_address.trim().length && this.editPerson_address.trim().length <= 350);
+      }
     },
     'phoneNumber': {
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
-      'validateCondition': '${11 == this.editPerson_phone_number.trim().length && this.editPerson_phone_number.trim().match("[0-9]+")}',
-      'shayan': () => {
-        return `${11 == this.editPerson_phone_number.trim().length && this.editPerson_phone_number.trim().match("[0-9]+")}`;
+      isValid: () => {
+        return (11 == this.editPerson_phone_number.trim().length && this.editPerson_phone_number.trim().match("[0-9]+") != null);
       }
     },
   };
@@ -153,15 +168,81 @@ export class PersonListComponent implements OnInit {
     );
   }
 
-  editPersonValidate(e: any) {
-    
-     console.log(this.editPersonValidateObj.phoneNumber.shayan());
-    if (!(2 <= this.editPerson_firstname.trim().length && this.editPerson_firstname.trim().length <= 30)) {
-      this.editPersonValidateObj.firstName.hasError = true;
-    } else {
-      this.editPersonValidateObj.firstName.hasError = false;
+  editPersonValidate(fieldName: string) {
 
-    }
+    // switch (fieldName) {
+    //   case 'value':
+    //     if () {
+    //       this.editPersonValidateObj.firstName.hasError = true;
+    //     } else {
+    //       this.editPersonValidateObj.firstName.hasError = false;
+    //     }
+    //     break;
+    //   case 'value':
+    //     if () {
+    //       this.editPersonValidateObj.firstName.hasError = true;
+    //     } else {
+    //       this.editPersonValidateObj.firstName.hasError = false;
+    //     }
+    //     break;
+    //   case 'value':
+    //     if () {
+    //       this.editPersonValidateObj.firstName.hasError = true;
+    //     } else {
+    //       this.editPersonValidateObj.firstName.hasError = false;
+    //     }
+    //     break;
+    //   case 'value':
+    //     if () {
+    //       this.editPersonValidateObj.firstName.hasError = true;
+    //     } else {
+    //       this.editPersonValidateObj.firstName.hasError = false;
+    //     }
+    //     break;
+    //   case 'value':
+    //     if () {
+    //       this.editPersonValidateObj.firstName.hasError = true;
+    //     } else {
+    //       this.editPersonValidateObj.firstName.hasError = false;
+    //     }
+    //     break;
+    //   case 'value':
+    //     if () {
+    //       this.editPersonValidateObj.firstName.hasError = true;
+    //     } else {
+    //       this.editPersonValidateObj.firstName.hasError = false;
+    //     }
+    //     break;
+    //   case 'value':
+    //     if () {
+    //       this.editPersonValidateObj.firstName.hasError = true;
+    //     } else {
+    //       this.editPersonValidateObj.firstName.hasError = false;
+    //     }
+    //     break;
+    //   case 'value':
+    //     if () {
+    //       this.editPersonValidateObj.firstName.hasError = true;
+    //     } else {
+    //       this.editPersonValidateObj.firstName.hasError = false;
+    //     }
+    //     break;
+    //   case 'value':
+    //     if () {
+    //       this.editPersonValidateObj.firstName.hasError = true;
+    //     } else {
+    //       this.editPersonValidateObj.firstName.hasError = false;
+    //     }
+    //     break;
+
+    //   default:
+    //     if () {
+    //       this.editPersonValidateObj.firstName.hasError = true;
+    //     } else {
+    //       this.editPersonValidateObj.firstName.hasError = false;
+    //     }
+    //     break;
+    // }
 
   }
 }
