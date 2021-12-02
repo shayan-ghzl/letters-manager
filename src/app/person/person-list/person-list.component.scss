@@ -24,10 +24,15 @@ p-dialog{
         
     }
 }
-.app-operation-edit{
+.app-operation-item{
     border-bottom: 1px dotted #0d6efd80;
     cursor: pointer;
     color: #0d6efd;
+    display: inline-block;
+    font-size: 0.8rem;
+    &:not(:last-child){
+        margin-left: 0.5rem;
+    }
 }
 .progress-spinner{
     position: absolute;

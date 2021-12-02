@@ -15,6 +15,7 @@ export class PersonListComponent implements OnInit {
   displaySubmitBtn: boolean = true;
 
   persons: Person[] = [];
+  selectedPerson!:Person;
 
   editPerson_firstname: string = '';
   editPerson_lastname: string = '';
@@ -104,7 +105,7 @@ export class PersonListComponent implements OnInit {
   };
 
   constructor(private personService: PersonService, private messageService: MessageService) {
-    this.personService.getPersons().subscribe(
+    this.personService.getPersons({ size: 5, page: 0 }).subscribe(
       (data) => {
         this.persons = data;
       },
@@ -119,6 +120,12 @@ export class PersonListComponent implements OnInit {
 
   clear() {
     this.messageService.clear('personEditResult');
+  }
+
+  hideDialog() {
+    for (const [key, value] of Object.entries(this.editPersonValidateObj)) {
+      value.hasError = false;
+    }
   }
 
   showDialog(person: Person, rowIndex: number) {
@@ -158,7 +165,8 @@ export class PersonListComponent implements OnInit {
         }
       ).subscribe(
         (data) => {
-          console.log(data);
+          this.persons[this.persons.findIndex(p => p.personUUID == data.personUUID)] = data;
+          this.selectedPerson = data;
           this.messageService.add({ key: 'personEditResult', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف ${this.editPersonRowIndex} ویرایش شد.`, life: 7000 });
         },
         (error) => {
@@ -348,38 +356,5 @@ export class PersonListComponent implements OnInit {
     }
 
   }
-  preventPaste(e: any) {
-    e.preventDefault();
-    return false;
-  }
-  onlyNumbersAllowed(e: KeyboardEvent) {
-    // var codeKey = e.keyCode;
-    // if (!((codeKey >= 48 && codeKey <= 57) || (codeKey >= 96 && codeKey <= 105) || codeKey == 8)) {
-    //     e.preventDefault();
-    //     return false;
-    // }
-    // codeKey != 8
-    // (this.input.value.length == 0 && (codeKey == 96 || codeKey == 48 || codeKey == 97 || codeKey == 49)) || (this.input.value.length == 2 && +(this.input.value[0]) == 1 && codeKey == 8)
-  }
-  // setInputFilter(textbox: Element, inputFilter: (value: string) => boolean): void {
-  //   ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
-  //     textbox.addEventListener(event, function (this: (HTMLInputElement | HTMLTextAreaElement) & { oldValue: string; oldSelectionStart: number | null, oldSelectionEnd: number | null }) {
-  //       if (inputFilter(this.value)) {
-  //         this.oldValue = this.value;
-  //         this.oldSelectionStart = this.selectionStart;
-  //         this.oldSelectionEnd = this.selectionEnd;
-  //       } else if (Object.prototype.hasOwnProperty.call(this, 'oldValue')) {
-  //         this.value = this.oldValue;
-  //         if (this.oldSelectionStart !== null && this.oldSelectionEnd !== null) {
-  //           this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-  //         }
-  //       } else {
-  //         this.value = "";
-  //       }
-  //     });
-  //   });
-  // }
-  // setInputFilter(document.getElementById("myTextBox"), function(value) {
-  //   return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
-  // });
+
 }

@@ -18,7 +18,7 @@ import { PersonModule } from './person/person.module';
     AppComponent,
     HomeComponent,
     AcVmAccordionComponent,
-    SubAccordionGroupComponent
+    SubAccordionGroupComponent,
   ],
   imports: [
     BrowserModule,

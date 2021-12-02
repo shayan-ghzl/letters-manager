@@ -1,6 +1,6 @@
 <p-toast key="personEditResult" [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'400ms'" [baseZIndex]="1102"
     [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
-<p-table [value]="persons" styleClass="p-datatable-sm p-datatable-gridlines" responsiveLayout="scroll">
+<p-table selectionMode="single" [(selection)]="selectedPerson" [value]="persons" styleClass="p-datatable-sm p-datatable-gridlines" responsiveLayout="scroll">
     <ng-template pTemplate="header">
         <tr>
             <th>ردیف</th>
@@ -17,7 +17,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-person let-rowIndex="rowIndex">
-        <tr>
+        <tr [pSelectableRow]="person">
             <td>{{rowIndex+1}}</td>
             <td>{{person.firstName}}</td>
             <td>{{person.lastName}}</td>
@@ -28,12 +28,15 @@
             <td>{{person.stringBirthDate}}</td>
             <td>{{person.address}}</td>
             <td>{{person.phoneNumber}}</td>
-            <td><span class="app-operation-edit" (click)="showDialog(person , rowIndex)">ویرایش</span></td>
+            <td>
+                <span class="app-operation-item" (click)="showDialog(person , rowIndex)">ویرایش</span>
+                <span class="app-operation-item">حذف</span>
+            </td>
         </tr>
     </ng-template>
 </p-table>
 
-<p-dialog [(visible)]="DialogEditPerson" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+<p-dialog (onHide)="hideDialog()" [(visible)]="DialogEditPerson" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
     <ng-template pTemplate="header">
         <h4>ویرایش ردیف {{ editPersonRowIndex }}</h4>
     </ng-template>
@@ -81,13 +84,13 @@
 
         <div class="p-field col-4">
             <label>کد ملی</label>
-            <input type="text" (paste)="preventPaste($event)" (keydown)="onlyNumbersAllowed($event)" (input)="editPersonValidate('nationalID')" [(ngModel)]="editPerson_national_id"
+            <input type="text" appOnlyNumbers (input)="editPersonValidate('nationalID')" [(ngModel)]="editPerson_national_id"
                 class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.nationalID.hasError" [class.ng-invalid]="editPersonValidateObj.nationalID.hasError" pInputText />
             <small class="p-error" *ngIf="editPersonValidateObj.nationalID.hasError">{{editPersonValidateObj.nationalID.errorMessage}}</small>
         </div>
         <div class="p-field col-4">
             <label>شماره شناسنامه</label>
-            <input type="text" (paste)="preventPaste($event)" (keydown)="onlyNumbersAllowed($event)" (input)="editPersonValidate('certificateNumber')" [(ngModel)]="editPerson_certificate_number"
+            <input type="text" appOnlyNumbers (input)="editPersonValidate('certificateNumber')" [(ngModel)]="editPerson_certificate_number"
                 class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.certificateNumber.hasError" [class.ng-invalid]="editPersonValidateObj.certificateNumber.hasError" pInputText />
             <small class="p-error" *ngIf="editPersonValidateObj.certificateNumber.hasError">{{editPersonValidateObj.certificateNumber.errorMessage}}</small>
 
@@ -119,7 +122,7 @@
         </div>
         <div class="p-field col-4">
             <label>تلفن</label>
-            <input type="text" (paste)="preventPaste($event)" (keydown)="onlyNumbersAllowed($event)" (input)="editPersonValidate('phoneNumber')" [(ngModel)]="editPerson_phone_number"
+            <input type="text" appOnlyNumbers (input)="editPersonValidate('phoneNumber')" [(ngModel)]="editPerson_phone_number"
                 class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.phoneNumber.hasError" [class.ng-invalid]="editPersonValidateObj.phoneNumber.hasError" pInputText />
             <small class="p-error" *ngIf="editPersonValidateObj.phoneNumber.hasError">{{editPersonValidateObj.phoneNumber.errorMessage}}</small>
         </div>
