@@ -20,6 +20,8 @@ export class PersonListComponent implements OnInit {
   customSortOrder: number | undefined = 0;
   tableRows: number = 2;
   tableRowsTotal!: number;
+  tableSort!: string | undefined;
+  tableOrder!: number | undefined;
 
   editPerson_firstname: string = '';
   editPerson_lastname: string = '';
@@ -150,6 +152,22 @@ export class PersonListComponent implements OnInit {
     this.editPerson_string_birth_date = person.stringBirthDate;
     this.editPerson_address = person.address;
     this.editPerson_phone_number = person.phoneNumber;
+
+    this.DialogEditPerson = true;
+  }
+  addNewPersonDialog() {
+   
+   
+    this.editPersonRowIndex =  1;
+    this.editPerson_firstname = '';
+    this.editPerson_lastname = '';
+    this.editPerson_father_name = '';
+    this.editPerson_national_id = '';
+    this.editPerson_certificate_number = '';
+    this.editPerson_from_location = '';
+    this.editPerson_string_birth_date = '';
+    this.editPerson_address = '';
+    this.editPerson_phone_number = '';
 
     this.DialogEditPerson = true;
   }
@@ -399,12 +417,14 @@ export class PersonListComponent implements OnInit {
   customSort(event: SortEvent) {
     if (this.customSortOrder != event.order) {
       this.customSortOrder = event.order;
+      this.tableSort = event.field;
+      this.tableOrder = event.order;
       this.getPerson({ size: this.tableRows, page: 0, sort: event.field, order: (event.order == 1) ? 'asc' : 'desc' });
     }
   }
-  paginate(event:any) {
+  paginate(event: any) {
     console.log(event);
     this.tableRows = event.rows;
-    this.getPerson({ size: this.tableRows, page: event.page});
-}
+    this.getPerson({ size: this.tableRows, page: event.page, sort: this.tableSort, order: (this.tableOrder == 1) ? 'asc' : 'desc' });
+  }
 }

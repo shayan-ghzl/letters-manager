@@ -15,11 +15,13 @@ p-toast {
 .p-dialog-rtl {
     .p-dialog-footer {
         display: flex;
-        .p-button-icon {
-            margin-left: 0.5rem;
-            margin-right: 0;
-        }
+  
     }
+}
+// button
+.p-button .p-button-icon-left {
+    margin-left: 0.5rem;
+    margin-right: 0;
 }
 // p-sortable
 .p-datatable .p-sortable-column .p-sortable-column-icon {
