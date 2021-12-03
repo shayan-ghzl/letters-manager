@@ -423,8 +423,12 @@ export class PersonListComponent implements OnInit {
     }
   }
   paginate(event: any) {
-    console.log(event);
     this.tableRows = event.rows;
+    console.log(this.tableRows);
+    console.log(event.page);
+    console.log( this.tableSort);
+    console.log(this.tableOrder);
+    console.log((this.tableOrder == 1) ? 'asc' : 'desc');
     this.getPerson({ size: this.tableRows, page: event.page, sort: this.tableSort, order: (this.tableOrder == 1) ? 'asc' : 'desc' });
   }
 }
