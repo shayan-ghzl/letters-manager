@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { Person } from '../models/person';
+import { ConfirmationService, MessageService, SortEvent } from 'primeng/api';
+import { Person, PersonParams } from '../models/person';
 import { PersonService } from '../person.service';
+
 
 @Component({
   selector: 'app-person-list',
@@ -15,7 +16,10 @@ export class PersonListComponent implements OnInit {
   displaySubmitBtn: boolean = true;
 
   persons: Person[] = [];
-  selectedPerson!:Person;
+  selectedPerson!: Person;
+  customSortOrder: number | undefined = 0;
+  tableRows: number = 2;
+  tableRowsTotal!: number;
 
   editPerson_firstname: string = '';
   editPerson_lastname: string = '';
@@ -104,20 +108,23 @@ export class PersonListComponent implements OnInit {
     },
   };
 
-  constructor(private personService: PersonService, private messageService: MessageService) {
-    this.personService.getPersons({ size: 5, page: 0 }).subscribe(
-      (data) => {
-        this.persons = data;
-      },
-      (error) => { console.log(error); },
-      () => { },
-    );
+  constructor(private personService: PersonService, private messageService: MessageService, private confirmationService: ConfirmationService) {
+    this.getPerson({ size: this.tableRows, page: 0 });
   }
 
   ngOnInit(): void {
 
   }
-
+  getPerson(params: PersonParams) {
+    this.personService.getPersons(params).subscribe(
+      (data) => {
+        this.tableRowsTotal = data.totalPages;
+        this.persons = data.content;
+      },
+      (error) => { console.log(error); },
+      () => { },
+    );
+  }
   clear() {
     this.messageService.clear('personEditResult');
   }
@@ -128,7 +135,10 @@ export class PersonListComponent implements OnInit {
     }
   }
 
-  showDialog(person: Person, rowIndex: number) {
+  showEditPersonDialog(person: Person, rowIndex: number): void | boolean {
+    if (person.isRemoved) {
+      return false;
+    }
     this.editPerson = person;
     this.editPersonRowIndex = rowIndex + 1;
     this.editPerson_firstname = person.firstName;
@@ -142,6 +152,36 @@ export class PersonListComponent implements OnInit {
     this.editPerson_phone_number = person.phoneNumber;
 
     this.DialogEditPerson = true;
+  }
+  showDeletePersonConf(person: Person, rowIndex: number): void | boolean {
+    if (person.isRemoved) {
+      return false;
+    }
+    this.confirmationService.confirm({
+      header: 'پیغام',
+      message: `آیا از حذف ردیف ${rowIndex + 1} اطمینان دارید؟`,
+      accept: () => {
+        this.personService.deletePerson(person).subscribe(
+          (data) => {
+            this.selectedPerson = person;
+            person.isRemoved = true;
+            setTimeout(() => {
+              let index = this.persons.findIndex(p => p.personUUID == person.personUUID);
+              if (index > -1) {
+                this.persons.splice(index, 1);
+              }
+              this.messageService.add({ key: 'personEditResult', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف ${rowIndex + 1} با موفقیت حذف شد`, life: 7000 });
+            }, 1000);
+          },
+          (error) => {
+            console.log(error);
+            this.messageService.add({ key: 'personEditResult', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
+          },
+          () => { },
+        );
+
+      }
+    });
   }
   handleClick(e: any) {
 
@@ -356,5 +396,15 @@ export class PersonListComponent implements OnInit {
     }
 
   }
-
+  customSort(event: SortEvent) {
+    if (this.customSortOrder != event.order) {
+      this.customSortOrder = event.order;
+      this.getPerson({ size: this.tableRows, page: 0, sort: event.field, order: (event.order == 1) ? 'asc' : 'desc' });
+    }
+  }
+  paginate(event:any) {
+    console.log(event);
+    this.tableRows = event.rows;
+    this.getPerson({ size: this.tableRows, page: event.page});
+}
 }

@@ -11,7 +11,9 @@ import { FormsModule } from '@angular/forms';
 import {ToastModule} from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { OnlyNumbersDirective } from './directives/only-numbers.directive';
-
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+import {PaginatorModule} from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -27,10 +29,13 @@ import { OnlyNumbersDirective } from './directives/only-numbers.directive';
     InputTextModule,
     FormsModule,
     ToastModule,
+    ConfirmDialogModule,
+    PaginatorModule
 
   ],
   providers: [
-    MessageService
+    MessageService,
+    ConfirmationService
   ]
 })
 export class PersonModule { }

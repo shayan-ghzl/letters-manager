@@ -34,12 +34,20 @@ export class PersonService {
     return this.http.get<Person>(this.baseUrl + 'lm/v1/person', { params: params })
       .pipe(
         map((response: any) => {
-          return response.content;
+          return response;
         })
       );
   }
   putPerson(person: Person): Observable<any> {
     return this.http.put<any>(this.baseUrl + 'lm/v1/person/' + person.personUUID, person)
+      .pipe(
+        map(response => {
+          return response;
+        })
+      );
+  }
+  deletePerson(person: Person): Observable<any> {
+    return this.http.delete<any>(this.baseUrl + 'lm/v1/person/' + person.personUUID)
       .pipe(
         map(response => {
           return response;

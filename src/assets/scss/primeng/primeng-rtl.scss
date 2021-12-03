@@ -1,0 +1,32 @@
+.p-datatable .p-datatable-tbody > tr > td,
+.p-datatable .p-datatable-thead > tr > th {
+    text-align: right;
+}
+// p-toast
+p-toast {
+    .p-toast {
+        z-index: 1102;
+    }
+    .p-toast-message-text {
+        margin: 0 1rem 0 0 !important;
+    }
+}
+// p-dialog
+.p-dialog-rtl {
+    .p-dialog-footer {
+        display: flex;
+        .p-button-icon {
+            margin-left: 0.5rem;
+            margin-right: 0;
+        }
+    }
+}
+// p-sortable
+.p-datatable .p-sortable-column .p-sortable-column-icon {
+    margin-right: 0.5rem;
+    margin-left: 0;
+}
+// p-paginator
+p-paginator {
+    direction: ltr;
+}
