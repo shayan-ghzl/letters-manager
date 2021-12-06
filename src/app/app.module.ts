@@ -8,17 +8,14 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { AcVmAccordionComponent } from './shared/components/ac-vm-accordion/ac-vm-accordion.component';
-import { SubAccordionGroupComponent } from './shared/components/ac-vm-accordion/sub-accordion-group/sub-accordion-group.component';
 
 import { PersonModule } from './person/person.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AcVmAccordionComponent,
-    SubAccordionGroupComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +24,8 @@ import { PersonModule } from './person/person.module';
     BrowserAnimationsModule,
     AccordionModule.forRoot(),
     BsDropdownModule.forRoot(),
-    PersonModule
+    PersonModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

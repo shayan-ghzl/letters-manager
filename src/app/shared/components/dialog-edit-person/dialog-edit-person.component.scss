@@ -1,0 +1,46 @@
+
+p-dialog{
+    .p-field{
+        font-size: 0.9rem;
+        position: relative;
+        label , input , small{
+            display: block;
+        }
+        input{
+            width: 90%;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        small{
+            position: absolute;
+            bottom: -1.8em;
+        }
+    }
+    .row{
+        
+            margin-top: 1.5rem;
+        
+    }
+}
+.progress-spinner{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    background-color: #ffffff80;
+  }
+  .lds-spinner {
+      color: official;
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+      transform: scale(0.6);
+    }

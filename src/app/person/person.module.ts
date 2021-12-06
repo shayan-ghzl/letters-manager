@@ -4,38 +4,26 @@ import { PersonListComponent } from './person-list/person-list.component';
 import { PersonRoutingModule } from './person-routing.module';
 
 import { TableModule } from 'primeng/table';
-import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
-import {ToastModule} from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { OnlyNumbersDirective } from './directives/only-numbers.directive';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {ConfirmationService} from 'primeng/api';
-import {PaginatorModule} from 'primeng/paginator';
+import { PaginatorModule } from 'primeng/paginator';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     PersonListComponent,
-    OnlyNumbersDirective
   ],
   imports: [
     CommonModule,
     PersonRoutingModule,
     TableModule,
-    DialogModule,
     ButtonModule,
     InputTextModule,
-    FormsModule,
-    ToastModule,
-    ConfirmDialogModule,
-    PaginatorModule
-
+    PaginatorModule,
+    SharedModule
   ],
   providers: [
-    MessageService,
-    ConfirmationService
+
   ]
 })
 export class PersonModule { }

@@ -1,0 +1,128 @@
+ <p-toast key="dialogEditPersonToast" [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'400ms'" [baseZIndex]="1102"
+    [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast> 
+<p-dialog (onHide)="hideDialog()" [(visible)]="DialogEditPerson" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+    [style]="{width: '50vw'}">
+    <ng-template pTemplate="header">
+        <h4>ویرایش ردیف {{ editPersonRowIndex }}</h4>
+    </ng-template>
+    <div class="progress-spinner" [class.d-none]="!displayDialogSpinner">
+        <div class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="p-field col-4">
+            <label>نام</label>
+            <input type="text" (input)="editPersonValidate('firstName')" [(ngModel)]="editPerson_firstname"
+                class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.firstName.hasError"
+                [class.ng-invalid]="editPersonValidateObj.firstName.hasError" pInputText />
+            <small class="p-error"
+                *ngIf="editPersonValidateObj.firstName.hasError">{{editPersonValidateObj.firstName.errorMessage}}</small>
+
+        </div>
+
+        <div class="p-field col-4">
+            <label>نام خانوادگی</label>
+            <input type="text" (input)="editPersonValidate('lastName')" [(ngModel)]="editPerson_lastname"
+                class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.lastName.hasError"
+                [class.ng-invalid]="editPersonValidateObj.lastName.hasError" pInputText />
+            <small class="p-error"
+                *ngIf="editPersonValidateObj.lastName.hasError">{{editPersonValidateObj.lastName.errorMessage}}</small>
+        </div>
+        <div class="p-field col-4">
+            <label>نام پدر</label>
+            <input type="text" (input)="editPersonValidate('fatherName')" [(ngModel)]="editPerson_father_name"
+                class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.fatherName.hasError"
+                [class.ng-invalid]="editPersonValidateObj.fatherName.hasError" pInputText />
+            <small class="p-error"
+                *ngIf="editPersonValidateObj.fatherName.hasError">{{editPersonValidateObj.fatherName.errorMessage}}</small>
+
+        </div>
+    </div>
+    <div class="row">
+
+
+        <div class="p-field col-4">
+            <label>کد ملی</label>
+            <input type="text" appOnlyNumbers (input)="editPersonValidate('nationalID')"
+                [(ngModel)]="editPerson_national_id" class="p-inputtext-sm"
+                [class.ng-dirty]="editPersonValidateObj.nationalID.hasError"
+                [class.ng-invalid]="editPersonValidateObj.nationalID.hasError" pInputText />
+            <small class="p-error"
+                *ngIf="editPersonValidateObj.nationalID.hasError">{{editPersonValidateObj.nationalID.errorMessage}}</small>
+        </div>
+        <div class="p-field col-4">
+            <label>شماره شناسنامه</label>
+            <input type="text" appOnlyNumbers (input)="editPersonValidate('certificateNumber')"
+                [(ngModel)]="editPerson_certificate_number" class="p-inputtext-sm"
+                [class.ng-dirty]="editPersonValidateObj.certificateNumber.hasError"
+                [class.ng-invalid]="editPersonValidateObj.certificateNumber.hasError" pInputText />
+            <small class="p-error"
+                *ngIf="editPersonValidateObj.certificateNumber.hasError">{{editPersonValidateObj.certificateNumber.errorMessage}}</small>
+
+        </div>
+
+        <div class="p-field col-4">
+            <label>صادره از</label>
+            <input type="text" (input)="editPersonValidate('fromLocation')" [(ngModel)]="editPerson_from_location"
+                class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.fromLocation.hasError"
+                [class.ng-invalid]="editPersonValidateObj.fromLocation.hasError" pInputText />
+            <small class="p-error"
+                *ngIf="editPersonValidateObj.fromLocation.hasError">{{editPersonValidateObj.fromLocation.errorMessage}}</small>
+        </div>
+    </div>
+
+    <div class="row">
+
+
+        <div class="p-field col-4">
+            <label>تاریخ تولد</label>
+            <input type="text" (input)="editPersonValidate('stringBirthDate')"
+                [(ngModel)]="editPerson_string_birth_date" class="p-inputtext-sm"
+                [class.ng-dirty]="editPersonValidateObj.stringBirthDate.hasError"
+                [class.ng-invalid]="editPersonValidateObj.stringBirthDate.hasError" pInputText />
+            <small class="p-error"
+                *ngIf="editPersonValidateObj.stringBirthDate.hasError">{{editPersonValidateObj.stringBirthDate.errorMessage}}</small>
+        </div>
+        <div class="p-field col-4">
+            <label>آدرس</label>
+            <input type="text" (input)="editPersonValidate('address')" [(ngModel)]="editPerson_address"
+                class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.address.hasError"
+                [class.ng-invalid]="editPersonValidateObj.address.hasError" pInputText />
+            <small class="p-error"
+                *ngIf="editPersonValidateObj.address.hasError">{{editPersonValidateObj.address.errorMessage}}</small>
+
+        </div>
+        <div class="p-field col-4">
+            <label>تلفن</label>
+            <input type="text" appOnlyNumbers (input)="editPersonValidate('phoneNumber')"
+                [(ngModel)]="editPerson_phone_number" class="p-inputtext-sm"
+                [class.ng-dirty]="editPersonValidateObj.phoneNumber.hasError"
+                [class.ng-invalid]="editPersonValidateObj.phoneNumber.hasError" pInputText />
+            <small class="p-error"
+                *ngIf="editPersonValidateObj.phoneNumber.hasError">{{editPersonValidateObj.phoneNumber.errorMessage}}</small>
+        </div>
+    </div>
+
+
+    <ng-template pTemplate="footer">
+        <div class="d-flex pt-3">
+            <p-button label="لغو" (onClick)="DialogEditPerson = false" styleClass="p-button-danger p-button-outlined"
+                class="ms-auto">
+            </p-button>
+            <p-button label="ثبت" [disabled]="displaySubmitBtn" (onClick)="editPersonSubmit()"
+                styleClass="p-button-success"></p-button>
+        </div>
+    </ng-template>
+</p-dialog> 
