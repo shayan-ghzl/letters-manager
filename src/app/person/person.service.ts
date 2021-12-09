@@ -13,7 +13,8 @@ export class PersonService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
-
+  
+  // this is for get person
   getPersons(parameters: any): Observable<any> {
     let params = new HttpParams();
     if (parameters.page) {
@@ -38,6 +39,7 @@ export class PersonService {
         })
       );
   }
+  // this is for edit person 
   putPerson(person: Person): Observable<any> {
     return this.http.put<any>(this.baseUrl + 'lm/v1/person/' + person.personUUID, person)
       .pipe(
@@ -46,6 +48,7 @@ export class PersonService {
         })
       );
   }
+  // this is for delete person
   deletePerson(person: Person): Observable<any> {
     return this.http.delete<any>(this.baseUrl + 'lm/v1/person/' + person.personUUID)
       .pipe(

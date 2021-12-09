@@ -1,20 +1,22 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {  MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { PersonService } from 'src/app/person/person.service';
 import { Person } from '../../models/person';
 
 @Component({
-  selector: 'app-dialog-edit-person',
-  templateUrl: './dialog-edit-person.component.html',
-  styleUrls: ['./dialog-edit-person.component.scss']
+  selector: 'app-dialog-person',
+  templateUrl: './dialog-person.component.html',
+  styleUrls: ['./dialog-person.component.scss']
 })
-export class DialogEditPersonComponent implements OnInit {
+export class DialogPersonComponent implements OnInit {
 
   @Output() update = new EventEmitter<Person>();
 
-  DialogEditPerson: boolean = false;
+  DialogPerson: boolean = false;
   displayDialogSpinner: boolean = false;
   displaySubmitBtn: boolean = true;
+  dialogTitle = '';
+dialogStatus = 'addPerson';
 
   editPerson_firstname: string = '';
   editPerson_lastname: string = '';
@@ -103,64 +105,86 @@ export class DialogEditPersonComponent implements OnInit {
     },
   };
 
-  constructor( private personService: PersonService,private messageService: MessageService) { }
+  constructor(private personService: PersonService, private messageService: MessageService) { }
 
   ngOnInit(): void {
   }
   clear() {
-    this.messageService.clear('dialogEditPersonToast');
+    this.messageService.clear('DialogPersonToast');
   }
-  showEditPersonDialog(person: Person, rowIndex: number): void | boolean {
-    if (person.isRemoved) {
-      return false;
+  showPersonDialog(person: Person | null = null, rowIndex: number = 1): void | boolean {
+    if (person) {
+      if (person.isRemoved || person.isEdited) {
+        return false;
+      }
+      this.dialogStatus = 'editPerson';
+      this.editPerson = person;
+      this.editPersonRowIndex = rowIndex;
+      this.dialogTitle = `ویرایش ردیف ${rowIndex}`;
+      this.editPerson_firstname = person.firstName;
+      this.editPerson_lastname = person.lastName;
+      this.editPerson_father_name = person.fatherName;
+      this.editPerson_national_id = person.nationalID;
+      this.editPerson_certificate_number = person.certificateNumber;
+      this.editPerson_from_location = person.fromLocation;
+      this.editPerson_string_birth_date = person.stringBirthDate;
+      this.editPerson_address = person.address;
+      this.editPerson_phone_number = person.phoneNumber;
+    } else {
+      this.dialogStatus = 'addPerson';
+      this.dialogTitle = 'افزودن جدید';
+      this.editPerson_firstname = '';
+      this.editPerson_lastname = '';
+      this.editPerson_father_name = '';
+      this.editPerson_national_id = '';
+      this.editPerson_certificate_number = '';
+      this.editPerson_from_location = '';
+      this.editPerson_string_birth_date = '';
+      this.editPerson_address = '';
+      this.editPerson_phone_number = '';
     }
-    this.editPerson = person;
-    this.editPersonRowIndex = rowIndex + 1;
-    this.editPerson_firstname = person.firstName;
-    this.editPerson_lastname = person.lastName;
-    this.editPerson_father_name = person.fatherName;
-    this.editPerson_national_id = person.nationalID;
-    this.editPerson_certificate_number = person.certificateNumber;
-    this.editPerson_from_location = person.fromLocation;
-    this.editPerson_string_birth_date = person.stringBirthDate;
-    this.editPerson_address = person.address;
-    this.editPerson_phone_number = person.phoneNumber;
-
-    this.DialogEditPerson = true;
+    this.DialogPerson = true;
   }
-  editPersonSubmit() {
+  dialogPersonSubmit(status = 'editPerson') {
+
     if (this.editPersonValidate('allFields')) {
       this.displaySubmitBtn = true;
       this.displayDialogSpinner = true;
-      this.personService.putPerson(
-        {
-          personUUID: this.editPerson.personUUID,
-          firstName: this.editPerson_firstname,
-          lastName: this.editPerson_lastname,
-          fatherName: this.editPerson_father_name,
-          nationalID: this.editPerson_national_id,
-          certificateNumber: this.editPerson_certificate_number,
-          fromLocation: this.editPerson_from_location,
-          stringBirthDate: this.editPerson_string_birth_date,
-          address: this.editPerson_address,
-          phoneNumber: this.editPerson_phone_number
-        }
-      ).subscribe(
-        (data) => {
-          this.update.emit(data);
-          this.messageService.add({ key: 'dialogEditPersonToast', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف ${this.editPersonRowIndex} ویرایش شد.`, life: 7000 });
-        },
-        (error) => {
-          console.log(error);
-          this.messageService.add({ key: 'dialogEditPersonToast', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
-          this.DialogEditPerson = false;
-          this.displayDialogSpinner = false;
-        },
-        () => {
-          this.DialogEditPerson = false;
-          this.displayDialogSpinner = false;
-        },
-      );
+      if (status == 'editPerson') {
+        this.personService.putPerson(
+          {
+            personUUID: this.editPerson.personUUID,
+            firstName: this.editPerson_firstname,
+            lastName: this.editPerson_lastname,
+            fatherName: this.editPerson_father_name,
+            nationalID: this.editPerson_national_id,
+            certificateNumber: this.editPerson_certificate_number,
+            fromLocation: this.editPerson_from_location,
+            stringBirthDate: this.editPerson_string_birth_date,
+            address: this.editPerson_address,
+            phoneNumber: this.editPerson_phone_number
+          }
+        ).subscribe(
+          (data) => {
+            this.update.emit(data);
+            this.messageService.add({ key: 'DialogPersonToast', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف ${this.editPersonRowIndex} ویرایش شد.`, life: 7000 });
+          },
+          (error) => {
+            console.log(error);
+            this.messageService.add({ key: 'DialogPersonToast', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
+            this.DialogPerson = false;
+            this.displayDialogSpinner = false;
+          },
+          () => {
+            this.DialogPerson = false;
+            this.displayDialogSpinner = false;
+          },
+        );
+      } else {
+        
+      }
+
+
     }
   }
 
@@ -342,4 +366,5 @@ export class DialogEditPersonComponent implements OnInit {
       value.hasError = false;
     }
   }
+
 }

@@ -20,12 +20,13 @@ export class ConfirmDeletePersonComponent implements OnInit {
     this.messageService.clear('confirmDeletePersonToast');
   }
   showDeletePersonConf(person: Person, rowIndex: number): void | boolean {
-    if (person.isRemoved) {
+    console.log(person);
+    if (person.isRemoved || person.isEdited) {
       return false;
     }
     this.confirmationService.confirm({
       header: 'پیغام',
-      message: `آیا از حذف ردیف ${rowIndex + 1} اطمینان دارید؟`,
+      message: `آیا از حذف ردیف ${rowIndex} اطمینان دارید؟`,
       accept: () => {
         this.personService.deletePerson(person).subscribe(
           (data) => {
@@ -38,7 +39,6 @@ export class ConfirmDeletePersonComponent implements OnInit {
           },
           () => { },
         );
-
       }
     });
   }

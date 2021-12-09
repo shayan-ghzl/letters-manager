@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AcVmAccordionComponent } from './components/ac-vm-accordion/ac-vm-accordion.component';
 import { SubAccordionGroupComponent } from './components/ac-vm-accordion/sub-accordion-group/sub-accordion-group.component';
-import { DialogEditPersonComponent } from './components/dialog-edit-person/dialog-edit-person.component';
-import { DialogCreatePersonComponent } from './components/dialog-create-person/dialog-create-person.component';
 import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -14,15 +12,18 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+
+import { RouterModule } from '@angular/router';
+import { DialogPersonComponent } from './components/dialog-person/dialog-person.component';
 
 @NgModule({
   declarations: [
     AcVmAccordionComponent,
     SubAccordionGroupComponent,
-    DialogEditPersonComponent,
-    DialogCreatePersonComponent,
     OnlyNumbersDirective,
-    ConfirmDeletePersonComponent
+    ConfirmDeletePersonComponent,
+    DialogPersonComponent
   ],
   imports: [
     CommonModule,
@@ -31,14 +32,15 @@ import { FormsModule } from '@angular/forms';
     InputTextModule,
     ToastModule,
     ConfirmDialogModule,
-    FormsModule
+    FormsModule,
+    AccordionModule.forRoot(),
+    RouterModule,
   ],
   exports: [
-    DialogEditPersonComponent,
-    DialogCreatePersonComponent,
     AcVmAccordionComponent,
     OnlyNumbersDirective,
-    ConfirmDeletePersonComponent
+    ConfirmDeletePersonComponent,
+    DialogPersonComponent
   ],
   providers: [
     ConfirmationService,
