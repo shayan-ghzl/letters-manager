@@ -1,5 +1,8 @@
-tr.app-remove-highlight{
+tr.app-remove-highlight {
     background: #ffe4e2 !important;
+}
+tr.app-edit-highlight {
+    background: #fff8e2 !important;
 }
 
 .custom-table-summary {
@@ -10,6 +13,19 @@ tr.app-remove-highlight{
     padding: 0.5rem 0.5rem;
     font-weight: 600;
 }
-.table-search{
+.table-search {
     width: 270px;
+}
+// table columns sort 
+.p-datatable .p-datatable-thead > tr > th.p-element.p-sortable-column {
+    color: #3f51b5;
+    .p-sortable-column-icon {
+        color: #3f51b5;
+    }
+}
+.p-datatable .p-sortable-column.p-highlight {
+    color: #2196f3 !important;
+    .p-sortable-column-icon {
+        color: #2196f3 !important;
+    }
 }

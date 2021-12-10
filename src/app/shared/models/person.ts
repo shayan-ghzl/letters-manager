@@ -10,6 +10,7 @@ export interface Person {
     address: string;
     phoneNumber: string;
     isRemoved?:boolean;
+    isEdited?:boolean;
 }
 export interface PersonParams {
     page?: number;
