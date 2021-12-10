@@ -23,6 +23,10 @@ export class PersonListComponent implements OnInit {
   tableSort!: string | undefined;
   tableOrder!: number | undefined;
   first = 0;
+  searchForm: string = '';
+  searchFormTimeout = setTimeout(() => { }, 200);
+  keyword!: string;
+
   constructor(private personService: PersonService) {
     this.getPerson({ size: this.tableRows, page: this.currentPage });
   }
@@ -48,7 +52,7 @@ export class PersonListComponent implements OnInit {
       this.tableSort = event.field;
       this.tableOrder = event.order;
       this.currentPage = 0;
-      this.getPerson({ size: this.tableRows, page: this.currentPage, sort: event.field, order: (event.order == 1) ? 'asc' : 'desc' });
+      this.getPerson({ size: this.tableRows, page: this.currentPage, keyword: this.keyword, sort: event.field, order: (event.order == 1) ? 'desc' : 'asc' });
       this.first = 0;
     }
   }
@@ -57,7 +61,7 @@ export class PersonListComponent implements OnInit {
     this.tableRows = event.rows;
     this.currentPage = event.page;
     this.first = event.first;
-    this.getPerson({ size: this.tableRows, page: this.currentPage, sort: this.tableSort, order: (this.tableOrder == 1) ? 'asc' : 'desc' });
+    this.getPerson({ size: this.tableRows, page: this.currentPage, keyword: this.keyword, sort: this.tableSort, order: (this.tableOrder == 1) ? 'desc' : 'asc' });
   }
 
   updateFromPersonDialog(e: any) {
@@ -87,5 +91,11 @@ export class PersonListComponent implements OnInit {
       }
     }, 1000);
   }
-
+  searchFormPerson() {
+    this.keyword = this.searchForm;
+    clearTimeout(this.searchFormTimeout);
+    this.searchFormTimeout = setTimeout(() => {
+      this.getPerson({ size: this.tableRows, page: this.currentPage, keyword: this.keyword, sort: this.tableSort, order: (this.tableOrder == 1) ? 'desc' : 'asc' });
+    }, 200);
+  }
 }

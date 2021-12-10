@@ -7,7 +7,7 @@ p-dialog{
             display: block;
         }
         input{
-            width: 90%;
+            width: 100%;
         }
         label {
             font-weight: bold;
@@ -16,6 +16,7 @@ p-dialog{
         small{
             position: absolute;
             bottom: -1.8em;
+            font-size: 0.7rem;
         }
     }
     .row{
@@ -35,6 +36,12 @@ p-dialog{
     justify-content: center;
     z-index: 1;
     background-color: #ffffff80;
+  }
+  .app-input-counter{
+    position: absolute;
+    left: 0.9rem;
+    font-size: 0.7rem;
+    color: #9e9e9e;
   }
   .lds-spinner {
       color: official;

@@ -35,7 +35,7 @@ export class DialogPersonComponent implements OnInit {
     'firstName': {
       'isRequired': true,
       'hasError': false,
-      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'errorMessage': 'بین 2 تا 30 حرف مجاز است',
       isValid: () => {
         let temp = this.editPerson_firstname.trim().length;
         return (2 <= temp && temp <= 30);
@@ -44,7 +44,7 @@ export class DialogPersonComponent implements OnInit {
     'lastName': {
       'isRequired': true,
       'hasError': false,
-      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'errorMessage': 'بین 2 تا 30 حرف مجاز است',
       isValid: () => {
         let temp = this.editPerson_lastname.trim().length;
         return (2 <= temp && temp <= 30);
@@ -53,7 +53,7 @@ export class DialogPersonComponent implements OnInit {
     'fatherName': {
       'isRequired': true,
       'hasError': false,
-      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'errorMessage': 'بین 2 تا 30 حرف مجاز است',
       isValid: () => {
         let temp = this.editPerson_father_name.trim().length;
         return (2 <= temp && temp <= 30);
@@ -62,7 +62,7 @@ export class DialogPersonComponent implements OnInit {
     'nationalID': {
       'isRequired': true,
       'hasError': false,
-      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'errorMessage': '10 رقم مجاز است',
       isValid: () => {
         let temp = this.editPerson_national_id.trim();
         return (10 == temp.length && temp.match("[0-9]+") != null);
@@ -71,16 +71,16 @@ export class DialogPersonComponent implements OnInit {
     'certificateNumber': {
       'isRequired': true,
       'hasError': false,
-      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'errorMessage': 'بیش از 12 رقم مجاز نیست',
       isValid: () => {
         let temp = this.editPerson_certificate_number.trim();
-        return (0 <= temp.length && temp.length <= 12 && temp.match("[0-9]+") != null);
+        return ( temp.length <= 12 && temp.match("[0-9]+") != null);
       }
     },
     'fromLocation': {
       'isRequired': false,
       'hasError': false,
-      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'errorMessage': 'بیش از 30 حرف مجاز نیست',
       isValid: () => {
         let temp = this.editPerson_from_location.trim().length;
         return (temp <= 30);
@@ -89,7 +89,7 @@ export class DialogPersonComponent implements OnInit {
     'stringBirthDate': {
       'isRequired': true,
       'hasError': false,
-      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'errorMessage': 'xxxx/xx/xx فرمت مجاز می باشد',
       isValid: () => {
         return (this.editPerson_string_birth_date.trim().match("^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|([1-2][0-9])|(0[1-9]))))$") != null);
       }
@@ -97,7 +97,7 @@ export class DialogPersonComponent implements OnInit {
     'address': {
       'isRequired': false,
       'hasError': false,
-      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'errorMessage': 'بیش از 350 حرف مجاز نیست',
       isValid: () => {
         let temp = this.editPerson_address.trim().length;
         return (temp <= 350);
@@ -106,7 +106,7 @@ export class DialogPersonComponent implements OnInit {
     'phoneNumber': {
       'isRequired': true,
       'hasError': false,
-      'errorMessage': 'مقدار ورودی صحیح نیست',
+      'errorMessage': '11 رقم مجاز است',
       isValid: () => {
         let temp = this.editPerson_phone_number.trim();
         return (11 == temp.length && temp.match("[0-9]+") != null);
@@ -221,15 +221,10 @@ export class DialogPersonComponent implements OnInit {
           },
         );
       }
-
-
     }
+
   }
-  enableSubmitBtn() {
-    if (this.editPersonValidate('allFields')) {
-      this.displaySubmitBtn = false;
-    }
-  }
+
   editPersonValidate(fieldName: string): boolean {
 
     switch (fieldName) {
@@ -333,18 +328,23 @@ export class DialogPersonComponent implements OnInit {
         }
         break;
       default:
-        let isFormValid: boolean = true;
+        let isFormValid: number = 0;
         for (const [key, value] of Object.entries(this.editPersonValidateObj)) {
           if (value.isValid()) {
             value.hasError = false;
-            isFormValid = true;
+            isFormValid++;
           } else {
             value.hasError = true;
-            isFormValid = false;
+            isFormValid--;
           }
         }
-        this.displaySubmitBtn = !isFormValid;
-        return isFormValid;
+        if (Object.entries(this.editPersonValidateObj).length == isFormValid) {
+          this.displaySubmitBtn = false;
+          return true;
+        } else {
+          this.displaySubmitBtn = true;
+          return false;
+        }
         break;
     }
 

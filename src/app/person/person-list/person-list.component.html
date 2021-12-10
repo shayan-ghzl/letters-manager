@@ -5,7 +5,7 @@
         <div class="d-flex">
             <span class="p-input-icon-right">
                 <i class="pi pi-search"></i>
-                <input type="text" class="p-inputtext-sm table-search" pInputText placeholder="جستجو" />
+                <input type="text" class="p-inputtext-sm table-search" pInputText [(ngModel)]="searchForm" (input)="searchFormPerson()" placeholder="جستجو" />
             </span>
             <button pButton type="button" label="افزودن" icon="pi pi-plus" (click)="dialogPersonComponent.showPersonDialog()"
                 class="p-button-sm p-button-success ms-auto"></button>

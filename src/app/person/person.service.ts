@@ -32,40 +32,19 @@ export class PersonService {
     if (parameters.keyword) {
       params = params.append('keyword', parameters.keyword);
     }
-    return this.http.get<Person>(this.baseUrl + 'lm/v1/person', { params: params })
-      .pipe(
-        map((response: any) => {
-          return response;
-        })
-      );
+    return this.http.get<Person>(this.baseUrl + 'lm/v1/person', { params: params });
   }
   // this is for edit person 
   putPerson(person: Person): Observable<any> {
-    return this.http.put<any>(this.baseUrl + 'lm/v1/person/' + person.personUUID, person)
-      .pipe(
-        map(response => {
-          return response;
-        })
-      );
+    return this.http.put<any>(this.baseUrl + 'lm/v1/person/' + person.personUUID, person);
   }
   // this is for delete person
   deletePerson(person: Person): Observable<any> {
-    return this.http.delete<any>(this.baseUrl + 'lm/v1/person/' + person.personUUID)
-      .pipe(
-        map(response => {
-          return response;
-        })
-      );
+    return this.http.delete<any>(this.baseUrl + 'lm/v1/person/' + person.personUUID);
   }
   // this is for add person
   addPerson(person: Person): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'lm/v1/person',person)
-      .pipe(
-        map(response => {
-          console.log(response);
-          return response;
-        })
-      );
+    return this.http.post<any>(this.baseUrl + 'lm/v1/person',person);
   }
 
 }
