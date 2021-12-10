@@ -15,251 +15,297 @@ export class AppComponent {
       icon: '',
       group: [
         {
-          name: 'آیتم اول',
-          url: '',
+          name: 'خانه',
+          url: 'home',
           icon: 'icon-dashboard',
-          children: [
-            {
-              name: 'بچه اول',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه دوم',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه سوم',
-              url: 'google',
-              icon: '',
-              children: []
-            }
-          ]
+          children: []
         },
         {
-          name: 'آیتم دوم',
-          url: '',
+          name: 'اشخاص',
+          url: 'person',
           icon: 'icon-dashboard',
-          children: [
-            {
-              name: 'بچه اول',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه دوم',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه سوم',
-              url: 'google',
-              icon: '',
-              children: []
-            }
-          ]
+          children: []
         },
         {
-          name: 'آیتم سوم',
-          url: '',
+          name: 'قولنامه ها',
+          url: 'letter',
           icon: 'icon-dashboard',
-          children: [
-            {
-              name: 'بچه اول',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه دوم',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه سوم',
-              url: 'google',
-              icon: '',
-              children: []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      heading: 'رسانه',
-      url: '',
-      icon: '',
-      group: [
-        {
-          name: 'آیتم اول',
-          url: '',
-          icon: 'icon-dashboard',
-          children: [
-            {
-              name: 'بچه اول',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه دوم',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه سوم',
-              url: 'google',
-              icon: '',
-              children: []
-            }
-          ]
+          children: []
+
         },
         {
-          name: 'آیتم دوم',
-          url: '',
+          name: 'رسانه',
+          url: 'upload',
           icon: 'icon-dashboard',
-          children: [
-            {
-              name: 'بچه اول',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه دوم',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه سوم',
-              url: 'google',
-              icon: '',
-              children: []
-            }
-          ]
+          children: []
         },
         {
-          name: 'آیتم سوم',
+          name: 'رنگ',
           url: '',
           icon: 'icon-dashboard',
-          children: [
-            {
-              name: 'بچه اول',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه دوم',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه سوم',
-              url: 'google',
-              icon: '',
-              children: []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      heading: 'رسانه',
-      url: 'google',
-      icon: 'icon-dashboard',
-      group: []
-    },
-    {
-      heading: 'داشبورد',
-      url: '',
-      icon: '',
-      group: [
-        {
-          name: 'آیتم اول',
-          url: '',
-          icon: 'icon-dashboard',
-          children: [
-            {
-              name: 'بچه اول',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه دوم',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه سوم',
-              url: 'google',
-              icon: '',
-              children: []
-            }
-          ]
+          children: []
         },
         {
-          name: 'آیتم دوم',
+          name: 'سیستم',
           url: '',
           icon: 'icon-dashboard',
-          children: [
-            {
-              name: 'بچه اول',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه دوم',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه سوم',
-              url: 'google',
-              icon: '',
-              children: []
-            }
-          ]
+          children: []
         },
-        {
-          name: 'آیتم سوم',
-          url: '',
-          icon: 'icon-dashboard',
-          children: [
-            {
-              name: 'بچه اول',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه دوم',
-              url: 'google',
-              icon: '',
-              children: []
-            },
-            {
-              name: 'بچه سوم',
-              url: 'google',
-              icon: '',
-              children: []
-            }
-          ]
-        }
       ]
     },
   ];
+  // accordionInitObject: VmAccordionObject[] = [
+  //   {
+  //     heading: 'داشبورد',
+  //     url: '',
+  //     icon: '',
+  //     group: [
+  //       {
+  //         name: 'آیتم اول',
+  //         url: '',
+  //         icon: 'icon-dashboard',
+  //         children: [
+  //           {
+  //             name: 'بچه اول',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه دوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه سوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         name: 'آیتم دوم',
+  //         url: '',
+  //         icon: 'icon-dashboard',
+  //         children: [
+  //           {
+  //             name: 'بچه اول',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه دوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه سوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         name: 'آیتم سوم',
+  //         url: '',
+  //         icon: 'icon-dashboard',
+  //         children: [
+  //           {
+  //             name: 'بچه اول',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه دوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه سوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           }
+  //         ]
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     heading: 'رسانه',
+  //     url: '',
+  //     icon: '',
+  //     group: [
+  //       {
+  //         name: 'آیتم اول',
+  //         url: '',
+  //         icon: 'icon-dashboard',
+  //         children: [
+  //           {
+  //             name: 'بچه اول',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه دوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه سوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         name: 'آیتم دوم',
+  //         url: '',
+  //         icon: 'icon-dashboard',
+  //         children: [
+  //           {
+  //             name: 'بچه اول',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه دوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه سوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         name: 'آیتم سوم',
+  //         url: '',
+  //         icon: 'icon-dashboard',
+  //         children: [
+  //           {
+  //             name: 'بچه اول',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه دوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه سوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           }
+  //         ]
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     heading: 'رسانه',
+  //     url: 'google',
+  //     icon: 'icon-dashboard',
+  //     group: []
+  //   },
+  //   {
+  //     heading: 'داشبورد',
+  //     url: '',
+  //     icon: '',
+  //     group: [
+  //       {
+  //         name: 'آیتم اول',
+  //         url: '',
+  //         icon: 'icon-dashboard',
+  //         children: [
+  //           {
+  //             name: 'بچه اول',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه دوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه سوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         name: 'آیتم دوم',
+  //         url: '',
+  //         icon: 'icon-dashboard',
+  //         children: [
+  //           {
+  //             name: 'بچه اول',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه دوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه سوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           }
+  //         ]
+  //       },
+  //       {
+  //         name: 'آیتم سوم',
+  //         url: '',
+  //         icon: 'icon-dashboard',
+  //         children: [
+  //           {
+  //             name: 'بچه اول',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه دوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           },
+  //           {
+  //             name: 'بچه سوم',
+  //             url: 'google',
+  //             icon: '',
+  //             children: []
+  //           }
+  //         ]
+  //       }
+  //     ]
+  //   },
+  // ];
 }

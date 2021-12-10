@@ -17,7 +17,19 @@ const routes: Routes = [
   },
   {
     path: 'upload',
-    loadChildren: () => import('./media/media.module').then(mod => mod.MediaModule)
+    loadChildren: () => import('./upload/upload.module').then(mod => mod.UploadModule)
+  },
+  {
+    path: 'letter',
+    loadChildren: () => import('./letter/letter.module').then(mod => mod.LetterModule)
+  },
+  {
+    path: 'color',
+    loadChildren: () => import('./color/color.module').then(mod => mod.ColorModule)
+  },
+  {
+    path: 'system',
+    loadChildren: () => import('./system/system.module').then(mod => mod.SystemModule)
   },
 
 ];

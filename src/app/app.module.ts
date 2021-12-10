@@ -8,7 +8,6 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
-import { PersonModule } from './person/person.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    PersonModule,
     SharedModule,
     BsDropdownModule.forRoot()
   ],

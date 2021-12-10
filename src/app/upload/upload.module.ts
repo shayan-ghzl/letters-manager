@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PersonRoutingModule } from './media-routing.module';
-import { MediaListComponent } from './media-list/media-list.component';
+import {  UploadRoutingModule } from './upload-routing.module';
+import {  UploadListComponent } from './upload-list/upload-list.component';
 import { InputTextModule } from 'primeng/inputtext';
 
 
 @NgModule({
   declarations: [
-    MediaListComponent
+    UploadListComponent
   ],
   imports: [
     CommonModule,
-    PersonRoutingModule,
+    UploadRoutingModule,
     InputTextModule
   ]
 })
-export class MediaModule { }
+export class UploadModule { }

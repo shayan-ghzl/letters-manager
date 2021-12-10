@@ -26,7 +26,7 @@
         padding: 0 2rem;
     }
 }
-.media-toolbar {
+.upload-toolbar {
     margin-top: 1.3rem;
     padding: 0.7rem;
     box-shadow: 0 1px 1px #0000000a;
@@ -69,7 +69,7 @@
             background: #f0f0f1;
             cursor: pointer;
             box-shadow: 0 0 0 1px #fff, 0 0 0 2px #00000026;
-            .media-modal-icon {
+            .upload-modal-icon {
                 display: block;
                 background-position: -21px 0;
                 height: 15px;
@@ -134,7 +134,7 @@
                 transform: translate(50%, -50%);
             }
         }
-        .media-progress-bar {
+        .upload-progress-bar {
             position: absolute;
             top: 50%;
             right: 15%;
