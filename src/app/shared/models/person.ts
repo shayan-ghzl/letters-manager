@@ -11,6 +11,7 @@ export interface Person {
     phoneNumber: string;
     isRemoved?:boolean;
     isEdited?:boolean;
+    isAdded?:boolean;
 }
 export interface PersonParams {
     page?: number;

@@ -10,13 +10,13 @@ import { Person } from '../../models/person';
 })
 export class DialogPersonComponent implements OnInit {
 
-  @Output() update = new EventEmitter<Person>();
+  @Output() update = new EventEmitter<any>();
 
   DialogPerson: boolean = false;
   displayDialogSpinner: boolean = false;
   displaySubmitBtn: boolean = true;
   dialogTitle = '';
-dialogStatus = 'addPerson';
+  dialogStatus = 'addPerson';
 
   editPerson_firstname: string = '';
   editPerson_lastname: string = '';
@@ -33,6 +33,7 @@ dialogStatus = 'addPerson';
 
   editPersonValidateObj = {
     'firstName': {
+      'isRequired': true,
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
       isValid: () => {
@@ -41,6 +42,7 @@ dialogStatus = 'addPerson';
       }
     },
     'lastName': {
+      'isRequired': true,
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
       isValid: () => {
@@ -49,6 +51,7 @@ dialogStatus = 'addPerson';
       }
     },
     'fatherName': {
+      'isRequired': true,
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
       isValid: () => {
@@ -57,6 +60,7 @@ dialogStatus = 'addPerson';
       }
     },
     'nationalID': {
+      'isRequired': true,
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
       isValid: () => {
@@ -65,6 +69,7 @@ dialogStatus = 'addPerson';
       }
     },
     'certificateNumber': {
+      'isRequired': true,
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
       isValid: () => {
@@ -73,14 +78,16 @@ dialogStatus = 'addPerson';
       }
     },
     'fromLocation': {
+      'isRequired': false,
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
       isValid: () => {
         let temp = this.editPerson_from_location.trim().length;
-        return (0 <= temp && temp <= 30);
+        return (temp <= 30);
       }
     },
     'stringBirthDate': {
+      'isRequired': true,
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
       isValid: () => {
@@ -88,14 +95,16 @@ dialogStatus = 'addPerson';
       }
     },
     'address': {
+      'isRequired': false,
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
       isValid: () => {
         let temp = this.editPerson_address.trim().length;
-        return (0 <= temp && temp <= 350);
+        return (temp <= 350);
       }
     },
     'phoneNumber': {
+      'isRequired': true,
       'hasError': false,
       'errorMessage': 'مقدار ورودی صحیح نیست',
       isValid: () => {
@@ -142,6 +151,7 @@ dialogStatus = 'addPerson';
       this.editPerson_string_birth_date = '';
       this.editPerson_address = '';
       this.editPerson_phone_number = '';
+      this.editPersonValidate('allFields');
     }
     this.DialogPerson = true;
   }
@@ -166,7 +176,7 @@ dialogStatus = 'addPerson';
           }
         ).subscribe(
           (data) => {
-            this.update.emit(data);
+            this.update.emit({ 'data': data, 'status': status });
             this.messageService.add({ key: 'DialogPersonToast', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف ${this.editPersonRowIndex} ویرایش شد.`, life: 7000 });
           },
           (error) => {
@@ -181,20 +191,52 @@ dialogStatus = 'addPerson';
           },
         );
       } else {
-        
+        this.personService.addPerson(
+          {
+            personUUID: '',
+            firstName: this.editPerson_firstname,
+            lastName: this.editPerson_lastname,
+            fatherName: this.editPerson_father_name,
+            nationalID: this.editPerson_national_id,
+            certificateNumber: this.editPerson_certificate_number,
+            fromLocation: this.editPerson_from_location,
+            stringBirthDate: this.editPerson_string_birth_date,
+            address: this.editPerson_address,
+            phoneNumber: this.editPerson_phone_number
+          }
+        ).subscribe(
+          (data) => {
+            this.update.emit({ 'data': data, 'status': status });
+            this.messageService.add({ key: 'DialogPersonToast', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف جدید افزوده شد.`, life: 7000 });
+          },
+          (error) => {
+            console.log(error);
+            this.messageService.add({ key: 'DialogPersonToast', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
+            this.DialogPerson = false;
+            this.displayDialogSpinner = false;
+          },
+          () => {
+            this.DialogPerson = false;
+            this.displayDialogSpinner = false;
+          },
+        );
       }
 
 
     }
   }
-
+  enableSubmitBtn() {
+    if (this.editPersonValidate('allFields')) {
+      this.displaySubmitBtn = false;
+    }
+  }
   editPersonValidate(fieldName: string): boolean {
 
     switch (fieldName) {
       case 'firstName':
         if (this.editPersonValidateObj.firstName.isValid()) {
           this.editPersonValidateObj.firstName.hasError = false;
-          this.displaySubmitBtn = false;
+
           return true;
         } else {
           this.editPersonValidateObj.firstName.hasError = true;
@@ -205,7 +247,7 @@ dialogStatus = 'addPerson';
       case 'lastName':
         if (this.editPersonValidateObj.lastName.isValid()) {
           this.editPersonValidateObj.lastName.hasError = false;
-          this.displaySubmitBtn = false;
+
           return true;
         } else {
           this.editPersonValidateObj.lastName.hasError = true;
@@ -216,7 +258,7 @@ dialogStatus = 'addPerson';
       case 'fatherName':
         if (this.editPersonValidateObj.fatherName.isValid()) {
           this.editPersonValidateObj.fatherName.hasError = false;
-          this.displaySubmitBtn = false;
+
           return true;
         } else {
           this.editPersonValidateObj.fatherName.hasError = true;
@@ -227,7 +269,7 @@ dialogStatus = 'addPerson';
       case 'nationalID':
         if (this.editPersonValidateObj.nationalID.isValid()) {
           this.editPersonValidateObj.nationalID.hasError = false;
-          this.displaySubmitBtn = false;
+
           return true;
         } else {
           this.editPersonValidateObj.nationalID.hasError = true;
@@ -238,7 +280,7 @@ dialogStatus = 'addPerson';
       case 'certificateNumber':
         if (this.editPersonValidateObj.certificateNumber.isValid()) {
           this.editPersonValidateObj.certificateNumber.hasError = false;
-          this.displaySubmitBtn = false;
+
           return true;
         } else {
           this.editPersonValidateObj.certificateNumber.hasError = true;
@@ -249,7 +291,7 @@ dialogStatus = 'addPerson';
       case 'fromLocation':
         if (this.editPersonValidateObj.fromLocation.isValid()) {
           this.editPersonValidateObj.fromLocation.hasError = false;
-          this.displaySubmitBtn = false;
+
           return true;
         } else {
           this.editPersonValidateObj.fromLocation.hasError = true;
@@ -260,7 +302,7 @@ dialogStatus = 'addPerson';
       case 'stringBirthDate':
         if (this.editPersonValidateObj.stringBirthDate.isValid()) {
           this.editPersonValidateObj.stringBirthDate.hasError = false;
-          this.displaySubmitBtn = false;
+
           return true;
         } else {
           this.editPersonValidateObj.stringBirthDate.hasError = true;
@@ -271,7 +313,7 @@ dialogStatus = 'addPerson';
       case 'address':
         if (this.editPersonValidateObj.address.isValid()) {
           this.editPersonValidateObj.address.hasError = false;
-          this.displaySubmitBtn = false;
+
           return true;
         } else {
           this.editPersonValidateObj.address.hasError = true;
@@ -282,7 +324,7 @@ dialogStatus = 'addPerson';
       case 'phoneNumber':
         if (this.editPersonValidateObj.phoneNumber.isValid()) {
           this.editPersonValidateObj.phoneNumber.hasError = false;
-          this.displaySubmitBtn = false;
+
           return true;
         } else {
           this.editPersonValidateObj.phoneNumber.hasError = true;
@@ -292,68 +334,14 @@ dialogStatus = 'addPerson';
         break;
       default:
         let isFormValid: boolean = true;
-        if (this.editPersonValidateObj.firstName.isValid()) {
-          this.editPersonValidateObj.firstName.hasError = false;
-          isFormValid = true;
-        } else {
-          this.editPersonValidateObj.firstName.hasError = true;
-          isFormValid = false;
-        }
-        if (this.editPersonValidateObj.lastName.isValid()) {
-          this.editPersonValidateObj.lastName.hasError = false;
-          isFormValid = true;
-        } else {
-          this.editPersonValidateObj.lastName.hasError = true;
-          isFormValid = false;
-        }
-        if (this.editPersonValidateObj.fatherName.isValid()) {
-          this.editPersonValidateObj.fatherName.hasError = false;
-          isFormValid = true;
-        } else {
-          this.editPersonValidateObj.fatherName.hasError = true;
-          isFormValid = false;
-        }
-        if (this.editPersonValidateObj.nationalID.isValid()) {
-          this.editPersonValidateObj.nationalID.hasError = false;
-          isFormValid = true;
-        } else {
-          this.editPersonValidateObj.nationalID.hasError = true;
-          isFormValid = false;
-        }
-        if (this.editPersonValidateObj.certificateNumber.isValid()) {
-          this.editPersonValidateObj.certificateNumber.hasError = false;
-          isFormValid = true;
-        } else {
-          this.editPersonValidateObj.certificateNumber.hasError = true;
-          isFormValid = false;
-        }
-        if (this.editPersonValidateObj.fromLocation.isValid()) {
-          this.editPersonValidateObj.fromLocation.hasError = false;
-          isFormValid = true;
-        } else {
-          this.editPersonValidateObj.fromLocation.hasError = true;
-          isFormValid = false;
-        }
-        if (this.editPersonValidateObj.stringBirthDate.isValid()) {
-          this.editPersonValidateObj.stringBirthDate.hasError = false;
-          isFormValid = true;
-        } else {
-          this.editPersonValidateObj.stringBirthDate.hasError = true;
-          isFormValid = false;
-        }
-        if (this.editPersonValidateObj.address.isValid()) {
-          this.editPersonValidateObj.address.hasError = false;
-          isFormValid = true;
-        } else {
-          this.editPersonValidateObj.address.hasError = true;
-          isFormValid = false;
-        }
-        if (this.editPersonValidateObj.phoneNumber.isValid()) {
-          this.editPersonValidateObj.phoneNumber.hasError = false;
-          isFormValid = true;
-        } else {
-          this.editPersonValidateObj.phoneNumber.hasError = true;
-          isFormValid = false;
+        for (const [key, value] of Object.entries(this.editPersonValidateObj)) {
+          if (value.isValid()) {
+            value.hasError = false;
+            isFormValid = true;
+          } else {
+            value.hasError = true;
+            isFormValid = false;
+          }
         }
         this.displaySubmitBtn = !isFormValid;
         return isFormValid;

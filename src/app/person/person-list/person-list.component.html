@@ -32,7 +32,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-person let-rowIndex="rowIndex">
-        <tr [class.app-remove-highlight]="person.isRemoved" [class.app-edit-highlight]="person.isEdited" [pSelectableRow]="person">
+        <tr [class.app-remove-highlight]="person.isRemoved" [class.app-edit-highlight]="person.isEdited" [class.app-add-highlight]="person.isAdded" [pSelectableRow]="person">
             <td>{{currentPage*tableRows+rowIndex+1}}</td>
             <td>{{person.firstName}}</td>
             <td>{{person.lastName}}</td>
@@ -51,7 +51,7 @@
     </ng-template>
 </p-table>
 <div class="custom-table-summary">
-    <p-paginator [rows]="tableRows" [totalRecords]="tableRowsTotal" [rowsPerPageOptions]="[10,20,30]"
+    <p-paginator [rows]="tableRows" [first]="first" [totalRecords]="tableRowsTotal" [rowsPerPageOptions]="[10,20,30]"
         (onPageChange)="paginate($event)"></p-paginator>
 </div>
 

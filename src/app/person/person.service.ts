@@ -57,5 +57,15 @@ export class PersonService {
         })
       );
   }
+  // this is for add person
+  addPerson(person: Person): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'lm/v1/person',person)
+      .pipe(
+        map(response => {
+          console.log(response);
+          return response;
+        })
+      );
+  }
 
 }

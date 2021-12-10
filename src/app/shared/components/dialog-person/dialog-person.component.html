@@ -23,8 +23,8 @@
 </div>
 <div class="row">
     <div class="p-field col-4">
-        <label>نام</label>
-        <input type="text" (input)="editPersonValidate('firstName')" [(ngModel)]="editPerson_firstname"
+        <label>نام<span class="app-required-star" *ngIf="editPersonValidateObj.firstName.isRequired">*</span></label>
+        <input type="text" (input)="enableSubmitBtn()" [(ngModel)]="editPerson_firstname"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.firstName.hasError"
             [class.ng-invalid]="editPersonValidateObj.firstName.hasError" pInputText />
         <small class="p-error"
@@ -33,16 +33,16 @@
     </div>
 
     <div class="p-field col-4">
-        <label>نام خانوادگی</label>
-        <input type="text" (input)="editPersonValidate('lastName')" [(ngModel)]="editPerson_lastname"
+        <label>نام خانوادگی<span class="app-required-star" *ngIf="editPersonValidateObj.lastName.isRequired">*</span></label>
+        <input type="text" (input)="enableSubmitBtn()" [(ngModel)]="editPerson_lastname"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.lastName.hasError"
             [class.ng-invalid]="editPersonValidateObj.lastName.hasError" pInputText />
         <small class="p-error"
             *ngIf="editPersonValidateObj.lastName.hasError">{{editPersonValidateObj.lastName.errorMessage}}</small>
     </div>
     <div class="p-field col-4">
-        <label>نام پدر</label>
-        <input type="text" (input)="editPersonValidate('fatherName')" [(ngModel)]="editPerson_father_name"
+        <label>نام پدر<span class="app-required-star" *ngIf="editPersonValidateObj.fatherName.isRequired">*</span></label>
+        <input type="text" (input)="enableSubmitBtn()" [(ngModel)]="editPerson_father_name"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.fatherName.hasError"
             [class.ng-invalid]="editPersonValidateObj.fatherName.hasError" pInputText />
         <small class="p-error"
@@ -54,8 +54,8 @@
 
 
     <div class="p-field col-4">
-        <label>کد ملی</label>
-        <input type="text" appOnlyNumbers (input)="editPersonValidate('nationalID')"
+        <label>کد ملی<span class="app-required-star" *ngIf="editPersonValidateObj.nationalID.isRequired">*</span></label>
+        <input type="text" appOnlyNumbers (input)="enableSubmitBtn()"
             [(ngModel)]="editPerson_national_id" class="p-inputtext-sm"
             [class.ng-dirty]="editPersonValidateObj.nationalID.hasError"
             [class.ng-invalid]="editPersonValidateObj.nationalID.hasError" pInputText />
@@ -63,8 +63,8 @@
             *ngIf="editPersonValidateObj.nationalID.hasError">{{editPersonValidateObj.nationalID.errorMessage}}</small>
     </div>
     <div class="p-field col-4">
-        <label>شماره شناسنامه</label>
-        <input type="text" appOnlyNumbers (input)="editPersonValidate('certificateNumber')"
+        <label>شماره شناسنامه<span class="app-required-star" *ngIf="editPersonValidateObj.certificateNumber.isRequired">*</span></label>
+        <input type="text" appOnlyNumbers (input)="enableSubmitBtn()"
             [(ngModel)]="editPerson_certificate_number" class="p-inputtext-sm"
             [class.ng-dirty]="editPersonValidateObj.certificateNumber.hasError"
             [class.ng-invalid]="editPersonValidateObj.certificateNumber.hasError" pInputText />
@@ -74,8 +74,8 @@
     </div>
 
     <div class="p-field col-4">
-        <label>صادره از</label>
-        <input type="text" (input)="editPersonValidate('fromLocation')" [(ngModel)]="editPerson_from_location"
+        <label>صادره از<span class="app-required-star" *ngIf="editPersonValidateObj.fromLocation.isRequired">*</span></label>
+        <input type="text" (input)="enableSubmitBtn()" [(ngModel)]="editPerson_from_location"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.fromLocation.hasError"
             [class.ng-invalid]="editPersonValidateObj.fromLocation.hasError" pInputText />
         <small class="p-error"
@@ -87,8 +87,8 @@
 
 
     <div class="p-field col-4">
-        <label>تاریخ تولد</label>
-        <input type="text" (input)="editPersonValidate('stringBirthDate')"
+        <label>تاریخ تولد<span class="app-required-star" *ngIf="editPersonValidateObj.stringBirthDate.isRequired">*</span></label>
+        <input type="text" (input)="enableSubmitBtn()"
             [(ngModel)]="editPerson_string_birth_date" class="p-inputtext-sm"
             [class.ng-dirty]="editPersonValidateObj.stringBirthDate.hasError"
             [class.ng-invalid]="editPersonValidateObj.stringBirthDate.hasError" pInputText />
@@ -96,8 +96,8 @@
             *ngIf="editPersonValidateObj.stringBirthDate.hasError">{{editPersonValidateObj.stringBirthDate.errorMessage}}</small>
     </div>
     <div class="p-field col-4">
-        <label>آدرس</label>
-        <input type="text" (input)="editPersonValidate('address')" [(ngModel)]="editPerson_address"
+        <label>آدرس<span class="app-required-star" *ngIf="editPersonValidateObj.address.isRequired">*</span></label>
+        <input type="text" (input)="enableSubmitBtn()" [(ngModel)]="editPerson_address"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.address.hasError"
             [class.ng-invalid]="editPersonValidateObj.address.hasError" pInputText />
         <small class="p-error"
@@ -105,8 +105,8 @@
 
     </div>
     <div class="p-field col-4">
-        <label>تلفن</label>
-        <input type="text" appOnlyNumbers (input)="editPersonValidate('phoneNumber')"
+        <label>تلفن<span class="app-required-star" *ngIf="editPersonValidateObj.phoneNumber.isRequired">*</span></label>
+        <input type="text" appOnlyNumbers (input)="enableSubmitBtn()"
             [(ngModel)]="editPerson_phone_number" class="p-inputtext-sm"
             [class.ng-dirty]="editPersonValidateObj.phoneNumber.hasError"
             [class.ng-invalid]="editPersonValidateObj.phoneNumber.hasError" pInputText />
