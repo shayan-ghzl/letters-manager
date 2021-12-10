@@ -1,4 +1,4 @@
-
+// https://loading.io/css/
 .lds-spinner {
     color: official;
     display: inline-block;
@@ -76,4 +76,14 @@
     100% {
       opacity: 0;
     }
+  }
+  // wp-spinner
+  .spinner{
+    background: url('../../images/spinner.gif') no-repeat;
+    background-size: 20px 20px;
+    display: inline-block;
+    opacity: .7;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
   }

@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'person',
     loadChildren: () => import('./person/person.module').then(mod => mod.PersonModule)
   },
+  {
+    path: 'upload',
+    loadChildren: () => import('./media/media.module').then(mod => mod.MediaModule)
+  },
 
 ];
 

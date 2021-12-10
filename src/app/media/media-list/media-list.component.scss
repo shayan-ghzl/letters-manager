@@ -1,0 +1,135 @@
+.uploader-inline {
+    position: relative;
+    margin-top: 1.3rem;
+    padding: 1.5rem 0;
+    border: 4px dashed #c3c4c7;
+    text-align: center;
+    color: #3c434a;
+    p {
+        margin: 0.4rem 0;
+        font-size: 0.8rem;
+    }
+    h2 {
+        font-size: 1.2rem;
+        line-height: 1.4;
+        font-weight: bold;
+        margin: 0;
+        color: #1d2327;
+    }
+    .upload-ui {
+        margin-bottom: 1.5rem;
+    }
+    .button-hero {
+        min-height: 45px;
+        line-height: 3;
+        font-size: 0.85rem;
+        padding: 0 2rem;
+    }
+}
+.media-toolbar {
+    margin-top: 1.3rem;
+    padding: 0.7rem;
+    box-shadow: 0 1px 1px #0000000a;
+    border: 1px solid #c3c4c7;
+    background: #fff;
+    color: #50575e;
+    font-size: 0.8rem;
+}
+.attachments-wrapper {
+    .attachments {
+        margin: 1.3rem 0 0 0;
+        padding: 0;
+        li {
+            position: relative;
+            float: right;
+            padding: 8px;
+            margin: 0;
+            color: #3c434a;
+            cursor: pointer;
+            list-style: none;
+            text-align: center;
+            -webkit-user-select: none;
+            user-select: none;
+            width: 14.285714%;
+        }
+        button.check{
+            display: none;
+            height: 24px;
+            width: 24px;
+            padding: 0;
+            border: 0;
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            outline: 0;
+            background: #f0f0f1;
+            cursor: pointer;
+            box-shadow: 0 0 0 1px #fff, 0 0 0 2px #00000026;
+            .media-modal-icon{
+                display: block;
+                background-position: -21px 0;
+                height: 15px;
+                width: 15px;
+                margin: 5px;
+                background-image: url('../../../assets/images/uploader-icons.png');
+                background-repeat: no-repeat;
+            }
+        }
+        li.selected{
+            box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 7px #2271b1;
+            .check{
+                background-color: #2271b1;
+                box-shadow: 0 0 0 1px #fff, 0 0 0 2px #2271b1;
+                display: block;
+            }
+        }
+    }
+    .attachment-preview {
+        position: relative;
+        box-shadow: inset 0 0 15px #0000001a, inset 0 0 0 1px #0000000d;
+        background: #f0f0f1;
+        cursor: pointer;
+        &::before {
+            content: "";
+            display: block;
+            padding-top: 100%;
+        }
+        .thumbnail {
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 1;
+            transition: opacity 0.1s;
+            &::after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                box-shadow: inset 0 0 0 1px #0000001a;
+                overflow: hidden;
+            }
+            .centered {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                transform: translate(-50%, 50%);
+            }
+            img {
+                position: absolute;
+                top: 0;
+                right: 0;
+                max-height: 100%;
+                transform: translate(50%,-50%);
+            }
+        }
+    }
+}
