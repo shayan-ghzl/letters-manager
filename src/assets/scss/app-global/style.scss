@@ -9,11 +9,31 @@
     background: #f6f7f7;
     -webkit-appearance: none;
     white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
     &:hover {
         background: #f0f0f1;
         border-color: #0a4b78;
         color: #0a4b78;
     }
+}
+
+.wp-btn-primary{
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+    &:hover{
+        background: #135e96;
+        border-color: #135e96;
+        color: #fff;
+    }
+   
 }
 .app-small-input{
     font-size: 0.8rem;

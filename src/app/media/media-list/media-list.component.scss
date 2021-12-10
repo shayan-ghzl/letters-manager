@@ -34,6 +34,9 @@
     background: #fff;
     color: #50575e;
     font-size: 0.8rem;
+    label {
+        margin-left: 1em;
+    }
 }
 .attachments-wrapper {
     .attachments {
@@ -50,9 +53,9 @@
             text-align: center;
             -webkit-user-select: none;
             user-select: none;
-            width: 14.285714%;
+            width: 12.5%;
         }
-        button.check{
+        button.check {
             display: none;
             height: 24px;
             width: 24px;
@@ -66,19 +69,19 @@
             background: #f0f0f1;
             cursor: pointer;
             box-shadow: 0 0 0 1px #fff, 0 0 0 2px #00000026;
-            .media-modal-icon{
+            .media-modal-icon {
                 display: block;
                 background-position: -21px 0;
                 height: 15px;
                 width: 15px;
                 margin: 5px;
-                background-image: url('../../../assets/images/uploader-icons.png');
+                background-image: url("../../../assets/images/uploader-icons.png");
                 background-repeat: no-repeat;
             }
         }
-        li.selected{
+        li.selected {
             box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 7px #2271b1;
-            .check{
+            .check {
                 background-color: #2271b1;
                 box-shadow: 0 0 0 1px #fff, 0 0 0 2px #2271b1;
                 display: block;
@@ -128,8 +131,39 @@
                 top: 0;
                 right: 0;
                 max-height: 100%;
-                transform: translate(50%,-50%);
+                transform: translate(50%, -50%);
             }
         }
+        .media-progress-bar {
+            position: absolute;
+            top: 50%;
+            right: 15%;
+            width: 70%;
+            margin: -5px 0 0 0;
+            height: 10px;
+            border-radius: 10px;
+            background: #dcdcde;
+            background: rgba(0, 0, 0, 0.1);
+            div {
+                height: 10px;
+                min-width: 20px;
+                width: 0;
+                background: #2271b1;
+                border-radius: 10px;
+                transition: width 0.3s;
+            }
+        }
+    }
+}
+.load-more-wrapper {
+    font-size: 0.8rem;
+    clear: both;
+    text-align: center;
+    padding: 1em 0;
+    .hidden {
+        display: none;
+    }
+    p {
+        margin: 0.5em 0 1em 0;
     }
 }

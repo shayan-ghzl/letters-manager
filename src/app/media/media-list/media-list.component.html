@@ -8,7 +8,7 @@
                 <div class="upload-ui">
                     <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
                     <p>یا</p>
-                    <button type="button" class="btn button-hero wp-btn">گزینش پرونده‌ها</button>
+                    <button type="button" class="button-hero wp-btn">گزینش پرونده‌ها</button>
                 </div>
                 <p class="max-upload-size">حداکثر اندازه پرونده برای بارگذاری: 200 مگابایت. </p>
             </div>
@@ -43,7 +43,22 @@
                     </button>
                 </li>
                 <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment selected">
+                    class="attachment">
+                    <div class="attachment-preview">
+                        <div class="thumbnail">
+                            <div class="media-progress-bar"><div style="width: 50%"></div></div>
+                            <!-- <div class="centered">
+                                <img src="./assets/images/sample-upload.jpg"
+                                    alt="">
+                            </div> -->
+                        </div>
+                    </div>
+                    <button type="button" class="check" tabindex="-1">
+                        <span class="media-modal-icon"></span>
+                    </button>
+                </li>
+                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
+                    class="attachment">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <!-- <div class="media-progress-bar"><div style="width: 5%"></div></div> -->
@@ -58,7 +73,7 @@
                     </button>
                 </li>
                 <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment selected">
+                    class="attachment">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <!-- <div class="media-progress-bar"><div style="width: 5%"></div></div> -->
@@ -73,7 +88,7 @@
                     </button>
                 </li>
                 <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment selected">
+                    class="attachment">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <!-- <div class="media-progress-bar"><div style="width: 5%"></div></div> -->
@@ -88,7 +103,7 @@
                     </button>
                 </li>
                 <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment selected">
+                    class="attachment">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <!-- <div class="media-progress-bar"><div style="width: 5%"></div></div> -->
@@ -103,7 +118,7 @@
                     </button>
                 </li>
                 <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment selected">
+                    class="attachment">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <!-- <div class="media-progress-bar"><div style="width: 5%"></div></div> -->
@@ -118,22 +133,7 @@
                     </button>
                 </li>
                 <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment selected">
-                    <div class="attachment-preview">
-                        <div class="thumbnail">
-                            <!-- <div class="media-progress-bar"><div style="width: 5%"></div></div> -->
-                            <div class="centered">
-                                <img src="./assets/images/sample-upload.jpg"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="check" tabindex="-1">
-                        <span class="media-modal-icon"></span>
-                    </button>
-                </li>
-                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment selected">
+                    class="attachment">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <!-- <div class="media-progress-bar"><div style="width: 5%"></div></div> -->
@@ -149,11 +149,10 @@
                 </li>
             </ul>
             <div class="load-more-wrapper">
-                <span class="spinner"></span>
+                <span class="spinner hidden"></span>
                 <p class="load-more-count">نمایش 80 از 171 موارد رسانه</p>
-                <button type="button" class="btn btn-primary">بارگذاری بیشتر</button>
-                <button type="button" class="btn load-more-jump hidden" disabled="">پرش به اولین مورد بارگذاری
-                    شده</button>
+                <button type="button" class="wp-btn wp-btn-primary">بارگذاری بیشتر</button>
+                <button type="button" class="btn load-more-jump hidden" disabled=""></button>
             </div>
         </div>
     </div>
