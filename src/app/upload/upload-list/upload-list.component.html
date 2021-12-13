@@ -6,6 +6,8 @@
             <!-- <button class="close"></button> -->
             <div class="uploader-inline-content">
                 <div class="upload-ui">
+                    <p-fileUpload name="myfile[]" url="http://localhost:8080/lm/v1/media/image" accept="image/*" [multiple]="true" [auto]="true">
+                    </p-fileUpload>
                     <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
                     <p>یا</p>
                     <button type="button" class="button-hero wp-btn">گزینش پرونده‌ها</button>
@@ -21,18 +23,19 @@
             </div>
             <div class="upload-toolbar-primary">
                 <label>جستجو</label>
-                <input type="text" class="app-small-input" pInputText/>
+                <input type="text" class="app-small-input" pInputText />
             </div>
         </div>
 
         <div class="attachments-wrapper">
-            <ul class="attachments" tabindex="-1">
-                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
+
+            <ul *ngIf="images.length; else noImage" class="attachments" tabindex="-1">
+                <!-- <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
                     class="attachment selected">
                     <div class="attachment-preview">
-                        <div class="thumbnail">
-                            <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
-                            <div class="centered">
+                        <div class="thumbnail"> -->
+                <!-- // <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
+                <!-- <div class="centered">
                                 <img src="./assets/images/sample-upload.jpg"
                                     alt="">
                             </div>
@@ -41,30 +44,28 @@
                     <button type="button" class="check" tabindex="-1">
                         <span class="upload-modal-icon"></span>
                     </button>
-                </li>
-                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
+                </li> -->
+                <!-- <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
                     class="attachment">
                     <div class="attachment-preview">
                         <div class="thumbnail">
-                            <div class="upload-progress-bar"><div style="width: 50%"></div></div>
-                            <!-- <div class="centered">
-                                <img src="./assets/images/sample-upload.jpg"
-                                    alt="">
-                            </div> -->
-                        </div>
+                            <div class="upload-progress-bar"><div style="width: 50%"></div></div> -->
+                <!--// <div class="centered">
+                               // <img src="./assets/images/sample-upload.jpg" alt="">
+                               // </div> -->
+                <!-- </div>
                     </div>
                     <button type="button" class="check" tabindex="-1">
                         <span class="upload-modal-icon"></span>
                     </button>
-                </li>
-                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment">
+                </li> -->
+                <li *ngFor="let image of images" tabindex="0" role="checkbox" aria-checked="false" class="attachment">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
                             <div class="centered">
-                                <img src="./assets/images/sample-upload.jpg"
-                                    alt="">
+                                <img [src]="'./assets/api/upload/MEDIA/IMAGE/' + image.mediaUUID + '/' + image.name"
+                                    [alt]="image.name.split('.')[0]">
                             </div>
                         </div>
                     </div>
@@ -72,88 +73,27 @@
                         <span class="upload-modal-icon"></span>
                     </button>
                 </li>
-                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment">
-                    <div class="attachment-preview">
-                        <div class="thumbnail">
-                            <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
-                            <div class="centered">
-                                <img src="./assets/images/sample-upload.jpg"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="check" tabindex="-1">
-                        <span class="upload-modal-icon"></span>
-                    </button>
-                </li>
-                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment">
-                    <div class="attachment-preview">
-                        <div class="thumbnail">
-                            <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
-                            <div class="centered">
-                                <img src="./assets/images/sample-upload.jpg"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="check" tabindex="-1">
-                        <span class="upload-modal-icon"></span>
-                    </button>
-                </li>
-                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment">
-                    <div class="attachment-preview">
-                        <div class="thumbnail">
-                            <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
-                            <div class="centered">
-                                <img src="./assets/images/sample-upload.jpg"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="check" tabindex="-1">
-                        <span class="upload-modal-icon"></span>
-                    </button>
-                </li>
-                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment">
-                    <div class="attachment-preview">
-                        <div class="thumbnail">
-                            <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
-                            <div class="centered">
-                                <img src="./assets/images/sample-upload.jpg"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="check" tabindex="-1">
-                        <span class="upload-modal-icon"></span>
-                    </button>
-                </li>
-                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment">
-                    <div class="attachment-preview">
-                        <div class="thumbnail">
-                            <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
-                            <div class="centered">
-                                <img src="./assets/images/sample-upload.jpg"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="check" tabindex="-1">
-                        <span class="upload-modal-icon"></span>
-                    </button>
-                </li>
+
             </ul>
-            <div class="load-more-wrapper">
-                <span class="spinner hidden"></span>
-                <p class="load-more-count">نمایش 80 از 171 موارد رسانه</p>
-                <button type="button" class="wp-btn wp-btn-primary">بارگذاری بیشتر</button>
+            <ng-template #noImage>
+                <div class="message-container">
+                    <ul class="message-wrapper">
+                        <li class="message-item">
+                            <h2 class="empty-text">
+                                موردی برای نمایش وجود ندارد.
+                            </h2>
+                        </li>
+                    </ul>
+                </div>
+            </ng-template>
+            <div *ngIf="images.length" class="load-more-wrapper">
+                <span class="spinner" [class.hidden]="!showLoading"></span>
+                <p class="load-more-count">نمایش {{images.length}} از {{tableRowsTotal}} موارد رسانه</p>
+                <button *ngIf="images.length != tableRowsTotal" type="button" class="wp-btn wp-btn-primary"
+                    (click)="loadMoreImage()">بارگذاری بیشتر</button>
                 <button type="button" class="btn load-more-jump hidden" disabled=""></button>
             </div>
         </div>
     </div>
 </div>
+<!-- <app-upload-details-dialog></app-upload-details-dialog> -->

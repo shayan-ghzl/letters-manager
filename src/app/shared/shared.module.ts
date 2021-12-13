@@ -16,6 +16,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import { RouterModule } from '@angular/router';
 import { DialogPersonComponent } from './components/dialog-person/dialog-person.component';
+import { UploadDetailsDialogComponent } from './components/upload-details-dialog/upload-details-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DialogPersonComponent } from './components/dialog-person/dialog-person.
     SubAccordionGroupComponent,
     OnlyNumbersDirective,
     ConfirmDeletePersonComponent,
-    DialogPersonComponent
+    DialogPersonComponent,
+    UploadDetailsDialogComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { DialogPersonComponent } from './components/dialog-person/dialog-person.
     AcVmAccordionComponent,
     OnlyNumbersDirective,
     ConfirmDeletePersonComponent,
-    DialogPersonComponent
+    DialogPersonComponent,
+    UploadDetailsDialogComponent
   ],
   providers: [
     ConfirmationService,

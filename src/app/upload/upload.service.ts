@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Image } from '../shared/models/upload';
+import { Image, ImageParams } from '../shared/models/upload';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class UploadService {
   constructor(private http: HttpClient) { }
 
   // this is for get image
-  getImages(parameters: any): Observable<any> {
+  getImages(parameters: ImageParams): Observable<any> {
     let params = new HttpParams();
     if (parameters.page) {
       params = params.append('page', parameters.page);
