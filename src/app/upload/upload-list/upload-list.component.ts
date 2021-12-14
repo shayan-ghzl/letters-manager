@@ -42,6 +42,6 @@ export class UploadListComponent implements OnInit {
     }
   }
   loadMoreImage() {
-    this.getImages({ size: this.tableRows, page: this.currentPage });
+    this.getImages({ size: this.tableRows, page: this.currentPage++ });
   }
 }

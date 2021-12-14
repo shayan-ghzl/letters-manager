@@ -29,16 +29,16 @@ export class UploadDetailsDialogComponent implements OnInit {
     this.messageService.clear('uploadDetailsDialogToast');
   }
 
-  showPersonDialog(image: Image | null = null) {
-    if (image) {
-      if (image.isRemoved || image.isEdited) {
-        return false;
-      }
-      this.dialogTitle = 'نمایش عکس فلانی';
+  // showPersonDialog(image: Image | null = null) {
+  //   if (image) {
+  //     if (image.isRemoved || image.isEdited) {
+  //       return false;
+  //     }
+  //     this.dialogTitle = 'نمایش عکس فلانی';
      
-    }
-    this.uploadDetailsDialog = true;
-  }
+  //   }
+  //   this.uploadDetailsDialog = true;
+  // }
 
   hideDialog() {
 
