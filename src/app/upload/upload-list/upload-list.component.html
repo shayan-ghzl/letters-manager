@@ -6,7 +6,7 @@
             <!-- <button class="close"></button> -->
             <div class="uploader-inline-content">
                 <div class="upload-ui">
-                    <p-fileUpload  [customUpload]="true" (uploadHandler)="onUpload($event)" name="image" accept="image/*" [multiple]="true" [auto]="true">
+                    <p-fileUpload  [customUpload]="true" (uploadHandler)="onUpload($event)" name="image[]" accept="image/*" [multiple]="true" [auto]="true">
                        
                     </p-fileUpload>
                     <!-- <input type="file" name="image" (change)="onUpload($event)" multiple/>  -->

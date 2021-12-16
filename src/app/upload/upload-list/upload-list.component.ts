@@ -62,7 +62,6 @@ export class UploadListComponent implements OnInit {
 
 
   onUpload(event: any) {
-    console.log(event);
     // console.log(event.target.files);
     for (let file of event.files) {
       this.uploadedFiles.push(file);
@@ -77,10 +76,9 @@ export class UploadListComponent implements OnInit {
 
   uploadFile(files: any[]) {
     this.uploadService.uploadImages(files).subscribe(response => {
-      console.log(response);
+      // console.log(response);
     }, (error) => {
-      console.log('error');
-      console.log(error);
+      // console.log(error);
     });
   }
 

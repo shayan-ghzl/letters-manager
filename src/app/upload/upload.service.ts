@@ -27,15 +27,14 @@ export class UploadService {
   }
 
   uploadImages(files: any[]) {
+    console.log(files);
     let fileToUpload = <File>files[0];
     let formData = new FormData();
-    console.log(fileToUpload);
-    console.log(fileToUpload.name);
-    console.log(formData);
     formData.append('file', fileToUpload, fileToUpload.name);
     return this.http.post<any>(this.baseUrl + 'lm/v1/media/image', formData, {
       headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
+        "Access-Control-Allow-Origin": "*"
       })
     });
   }
