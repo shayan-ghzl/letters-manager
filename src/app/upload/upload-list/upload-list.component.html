@@ -6,8 +6,14 @@
             <!-- <button class="close"></button> -->
             <div class="uploader-inline-content">
                 <div class="upload-ui">
-                    <p-fileUpload  [customUpload]="true" (uploadHandler)="onUpload($event)" name="image" accept="image/*" [multiple]="true" [auto]="true">
-                    </p-fileUpload>
+                    <!-- <p-fileUpload  [customUpload]="true" (uploadHandler)="onUpload($event)" name="image" accept="image/*" [multiple]="true" [auto]="true">
+                        <ng-template pTemplate="toolbar"></ng-template>
+                        <ng-template pTemplate="file"></ng-template>
+                        <ng-template pTemplate="content">
+                            <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
+                        </ng-template>
+                    </p-fileUpload> -->
+                    <input type="file" name="image" (change)="onUpload($event)" multiple/> 
                     <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
                     <p>یا</p>
                     <button type="button" class="button-hero wp-btn">گزینش پرونده‌ها</button>

@@ -63,6 +63,7 @@ export class UploadListComponent implements OnInit {
 
   onUpload(event: any) {
     console.log(event);
+    console.log(event.target.files);
     for (let file of event.files) {
       this.uploadedFiles.push(file);
     }
