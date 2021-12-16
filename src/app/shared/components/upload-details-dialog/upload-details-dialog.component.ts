@@ -16,9 +16,8 @@ export class UploadDetailsDialogComponent implements OnInit {
   uploadDetailsDialog: boolean = false;
   displayDialogSpinner: boolean = false;
   displaySubmitBtn: boolean = true;
-  dialogTitle = '';
-  dialogStatus = 'addPerson';
-
+  dialogTitle = 'نمایش ییوست';
+  image!: Image;
 
   constructor(private uploadService: UploadService, private messageService: MessageService) { }
 
@@ -29,19 +28,21 @@ export class UploadDetailsDialogComponent implements OnInit {
     this.messageService.clear('uploadDetailsDialogToast');
   }
 
-  // showPersonDialog(image: Image | null = null) {
-  //   if (image) {
-  //     if (image.isRemoved || image.isEdited) {
-  //       return false;
-  //     }
-  //     this.dialogTitle = 'نمایش عکس فلانی';
-     
-  //   }
-  //   this.uploadDetailsDialog = true;
-  // }
+  showUploadDetailsDialog(image: Image | null = null): void | boolean {
+    if (image) {
+      if (image.isRemoved || image.isEdited) {
+        return false;
+      }
+      this.image = image;
+
+      this.uploadDetailsDialog = true;
+    }
+  }
 
   hideDialog() {
 
   }
+
+
 
 }

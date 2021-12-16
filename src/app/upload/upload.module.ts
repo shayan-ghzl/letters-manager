@@ -5,6 +5,7 @@ import { UploadListComponent } from './upload-list/upload-list.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     InputTextModule,
     FileUploadModule,
     HttpClientModule,
-
+    SharedModule
   ]
 })
 export class UploadModule { }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -26,5 +26,17 @@ export class UploadService {
     return this.http.get<Image>(this.baseUrl + 'lm/v1/media/image', { params: params });
   }
 
-
+  uploadImages(files: any[]) {
+    let fileToUpload = <File>files[0];
+    let formData = new FormData();
+    console.log(fileToUpload);
+    console.log(fileToUpload.name);
+    console.log(formData);
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return this.http.post<any>(this.baseUrl + 'lm/v1/media/image', formData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'multipart/form-data'
+      })
+    });
+  }
 }

@@ -6,7 +6,7 @@
             <!-- <button class="close"></button> -->
             <div class="uploader-inline-content">
                 <div class="upload-ui">
-                    <p-fileUpload name="myfile[]" url="http://localhost:8080/lm/v1/media/image" accept="image/*" [multiple]="true" [auto]="true">
+                    <p-fileUpload  [customUpload]="true" (uploadHandler)="onUpload($event)" name="image" accept="image/*" [multiple]="true" [auto]="true">
                     </p-fileUpload>
                     <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
                     <p>یا</p>
@@ -59,7 +59,7 @@
                         <span class="upload-modal-icon"></span>
                     </button>
                 </li> -->
-                <li *ngFor="let image of images" tabindex="0" role="checkbox" aria-checked="false" class="attachment">
+                <li *ngFor="let image of images" (click)="openUploadDetailsDialog(image)" tabindex="0" role="checkbox" aria-checked="false" class="attachment">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
@@ -96,4 +96,4 @@
         </div>
     </div>
 </div>
-<!-- <app-upload-details-dialog></app-upload-details-dialog> -->
+<app-upload-details-dialog></app-upload-details-dialog>

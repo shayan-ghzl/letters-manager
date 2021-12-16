@@ -1,28 +1,68 @@
-<!-- <p-toast key="uploadDetailsDialogToast" [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'400ms'" [baseZIndex]="1102"
-[breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast> 
+<p-toast key="uploadDetailsDialogToast" [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'400ms'"
+    [baseZIndex]="1102" [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
 
-<p-dialog (onHide)="hideDialog()" [(visible)]="uploadDetailsDialog" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
-[style]="{width: '70vw'}">
-<ng-template pTemplate="header">
-    <h4>{{dialogTitle}}</h4>
-</ng-template>
-<div class="progress-spinner" [class.d-none]="!displayDialogSpinner">
-    <div class="lds-spinner">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+<p-dialog (onHide)="hideDialog()" [(visible)]="uploadDetailsDialog" [modal]="true" [dismissableMask]="true"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '90vw'}">
+    <ng-template pTemplate="header">
+        <h4>{{dialogTitle}}</h4>
+    </ng-template>
+    <div class="progress-spinner" [class.d-none]="!displayDialogSpinner">
+        <div class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-</div>
-<div class="row">
+
+    <div *ngIf="image" class="dialog-content">
+
+        <div class="row">
+            <div class="col-8 thumbnail-image">
+                <img *ngIf="image" class="details-image"
+                    [src]="'./assets/api/upload/MEDIA/IMAGE/' + image.mediaUUID + '/' + image.name"
+                    [alt]="image.name.split('.')[0]">
+            </div>
+            <div class="col-4 attachment-info">
+                <span class="settings-save-status" role="status">
+                    <span class="spinner"></span>
+                    <span class="saved">ذخیره‌شد.</span>
+                </span>
+                <div class="details">
+                    <h2 class="screen-reader-text">جزئیات</h2>
+                    <div class="uploaded"><strong>تاریخ بارگذاری:</strong> 21 آذر 1400</div>
+                    <div class="uploaded-by">
+                        <strong>بارگذاری شده توسط:</strong>
+
+                        <a href="https://petroll.ir/wp-admin/user-edit.php?user_id=3">باران حق شناس</a>
+
+                    </div>
+
+                    <div class="filename"><strong>نام پرونده:</strong> sliderrevlotion-news-1.jpg</div>
+                    <div class="file-type"><strong>نوع پرونده:</strong> image/jpeg</div>
+                    <div class="file-size"><strong>اندازه پرونده:</strong> 411 کیلوبایت</div>
+
+
+                    <div class="dimensions"><strong>ابعاد:</strong>
+                        1200 در 800 پیکسل </div>
+
+                    <div class="compat-meta">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row">
     <div class="p-field col-4">
         <label>نام<span class="app-required-star" *ngIf="editPersonValidateObj.firstName.isRequired">*</span></label>
         <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_firstname"
@@ -51,80 +91,14 @@
             *ngIf="editPersonValidateObj.fatherName.hasError">{{editPersonValidateObj.fatherName.errorMessage}}</small>
 
     </div>
-</div>
-<div class="row">
-
-
-    <div class="p-field col-4">
-        <label>کد ملی<span class="app-required-star" *ngIf="editPersonValidateObj.nationalID.isRequired">*</span></label>
-        <input type="text" appOnlyNumbers (input)="this.editPersonValidate('allFields')"
-            [(ngModel)]="editPerson_national_id" class="p-inputtext-sm"
-            [class.ng-dirty]="editPersonValidateObj.nationalID.hasError"
-            [class.ng-invalid]="editPersonValidateObj.nationalID.hasError" pInputText />
-        <small class="p-error"
-            *ngIf="editPersonValidateObj.nationalID.hasError">{{editPersonValidateObj.nationalID.errorMessage}}</small>
-    </div>
-    <div class="p-field col-4">
-        <label>شماره شناسنامه<span class="app-required-star" *ngIf="editPersonValidateObj.certificateNumber.isRequired">*</span></label>
-        <input type="text" appOnlyNumbers (input)="this.editPersonValidate('allFields')"
-            [(ngModel)]="editPerson_certificate_number" class="p-inputtext-sm"
-            [class.ng-dirty]="editPersonValidateObj.certificateNumber.hasError"
-            [class.ng-invalid]="editPersonValidateObj.certificateNumber.hasError" pInputText />
-        <small class="p-error"
-            *ngIf="editPersonValidateObj.certificateNumber.hasError">{{editPersonValidateObj.certificateNumber.errorMessage}}</small>
-
-    </div>
-
-    <div class="p-field col-4">
-        <label>صادره از<span class="app-required-star" *ngIf="editPersonValidateObj.fromLocation.isRequired">*</span></label>
-        <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_from_location"
-            class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.fromLocation.hasError"
-            [class.ng-invalid]="editPersonValidateObj.fromLocation.hasError" pInputText />
-        <small class="p-error"
-            *ngIf="editPersonValidateObj.fromLocation.hasError">{{editPersonValidateObj.fromLocation.errorMessage}}</small>
-    </div>
-</div>
-
-<div class="row">
-
-
-    <div class="p-field col-4">
-        <label>تاریخ تولد<span class="app-required-star" *ngIf="editPersonValidateObj.stringBirthDate.isRequired">*</span></label>
-        <input type="text" (input)="this.editPersonValidate('allFields')"
-            [(ngModel)]="editPerson_string_birth_date" class="p-inputtext-sm"
-            [class.ng-dirty]="editPersonValidateObj.stringBirthDate.hasError"
-            [class.ng-invalid]="editPersonValidateObj.stringBirthDate.hasError" pInputText />
-        <small class="p-error"
-            *ngIf="editPersonValidateObj.stringBirthDate.hasError">{{editPersonValidateObj.stringBirthDate.errorMessage}}</small>
-    </div>
-    <div class="p-field col-4">
-        <label>آدرس<span class="app-required-star" *ngIf="editPersonValidateObj.address.isRequired">*</span></label>
-        <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_address"
-            class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.address.hasError"
-            [class.ng-invalid]="editPersonValidateObj.address.hasError" pInputText />
-        <small class="p-error"
-            *ngIf="editPersonValidateObj.address.hasError">{{editPersonValidateObj.address.errorMessage}}</small>
-
-    </div>
-    <div class="p-field col-4">
-        <label>تلفن<span class="app-required-star" *ngIf="editPersonValidateObj.phoneNumber.isRequired">*</span></label>
-        <input type="text" appOnlyNumbers (input)="this.editPersonValidate('allFields')"
-            [(ngModel)]="editPerson_phone_number" class="p-inputtext-sm"
-            [class.ng-dirty]="editPersonValidateObj.phoneNumber.hasError"
-            [class.ng-invalid]="editPersonValidateObj.phoneNumber.hasError" pInputText />
-        <small class="p-error"
-            *ngIf="editPersonValidateObj.phoneNumber.hasError">{{editPersonValidateObj.phoneNumber.errorMessage}}</small>
-    </div>
-</div>
-
-
-<ng-template pTemplate="footer">
+</div> -->
+    <!-- <ng-template pTemplate="footer">
     <div class="d-flex pt-3">
-        <p-button label="لغو" (onClick)="DialogPerson = false" styleClass="p-button-danger p-button-outlined"
+        <p-button label="لغو" (onClick)="uploadDetailsDialog = false" styleClass="p-button-danger p-button-outlined"
             class="ms-auto">
         </p-button>
-        <p-button label="ثبت" [disabled]="displaySubmitBtn" (onClick)="dialogPersonSubmit(dialogStatus)"
+        <p-button label="ثبت" [disabled]="displaySubmitBtn" (onClick)="uploadDetailsDialogSubmit()"
             styleClass="p-button-success"></p-button>
     </div>
-</ng-template>
-</p-dialog>  -->
+</ng-template> -->
+</p-dialog>
