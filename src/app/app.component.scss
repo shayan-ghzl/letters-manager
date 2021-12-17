@@ -7,12 +7,11 @@
 }
 .app-navbar {
     padding: 0 24px;
-    background-color: #fff;
+    background-color: #1d2327;
     box-shadow: 0 0 35px 0 #9aa1ab26;
     min-height: 70px;
     z-index: 99;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     .col-span{
         .hamburger-btn{
@@ -20,6 +19,7 @@
         }
     }
     .toolbar-menu {
+        margin-right: auto;
         > ul {
             display: flex;
             align-items: center;
@@ -41,6 +41,7 @@
     align-items: center;
     text-align: right;
     font-size: 1rem;
+    color: #fff;
     .avatar {
         margin-left: 0.6rem;
         img {

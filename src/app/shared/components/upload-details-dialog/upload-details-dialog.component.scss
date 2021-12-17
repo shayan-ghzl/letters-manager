@@ -4,6 +4,8 @@
     >.row{
         height: 100%;
 align-items: flex-start;
+border-top: 1px solid #dcdcde;
+margin: 0;
     }
 }
 .thumbnail-image{
@@ -29,4 +31,85 @@ padding: 1rem;
     box-shadow: inset 0 4px 4px -4px #0000001a;
     border-right: 1px solid #dcdcde;
     background: #f6f7f7;
+    font-size: 13px;
+    overflow-y: auto;
+    >div:not(:last-child){
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #dcdcde;
+    }
+    .details{
+       
+    }
+    .settings{
+        
+    }
+    .actions{
+        
+    }
 }
+
+
+    .p-field{
+        display: block;
+        float: right;
+        width: 100%;
+        margin: 0 0 10px;
+    label{
+        min-width: 30%;
+        margin-left: 4%;
+  
+        text-align: left;
+        word-wrap: break-word;
+        float: right;
+    min-height: 22px;
+    padding-top: 8px;
+    line-height: 1.33333333;
+    font-weight: 400;
+    color: #646970;
+    }
+    input , textarea{
+        margin: 1px;
+        width: 65%;
+        float: left;
+        padding: 6px 8px;
+        line-height: 1.14285714;
+        min-height: 30px;
+        box-shadow: 0 0 0 transparent;
+        border-radius: 4px;
+        border: 1px solid #8c8f94;
+        background-color: #fff;
+        color: #2c3338;
+    }
+       small{
+        margin: 0 1px;
+        text-align: right;
+        width: 65%;
+        float: left;
+        line-height: 1.5;
+        clear: both;
+        font-size: 12px;
+        font-style: normal;
+        margin-bottom: 10px;
+        display: block;
+        }
+      .field-desc{
+        margin: 0 1px;
+        text-align: right;
+        width: 65%;
+        float: left;
+        color: #646970;
+        line-height: 1.5;
+        clear: both;
+        font-size: 12px;
+        font-style: normal;
+        margin-bottom: 10px;
+
+      }
+
+       
+    }
+
+

@@ -19,7 +19,7 @@ tr.app-add-highlight {
 .table-search {
     width: 270px;
 }
-// table columns sort 
+// table columns sort
 .p-datatable .p-datatable-thead > tr > th.p-element.p-sortable-column {
     color: #3f51b5;
     .p-sortable-column-icon {
@@ -33,6 +33,28 @@ tr.app-add-highlight {
     }
 }
 // primeng change in a component
-app-upload-details-dialog .p-dialog{
-    height: 90vh;
+app-upload-details-dialog {
+    .p-dialog {
+        height: 90vh;
+        .p-dialog-header {
+            padding: 0;
+            .p-dialog-header-icon {
+                cursor: pointer;
+                color: #787c82;
+                background-color: transparent;
+                height: 50px;
+                width: 50px;
+                padding: 0;
+                text-align: center;
+                border: 0;
+                border-radius: 0;
+                border-right: 1px solid #dcdcde;
+                transition: color 0.1s ease-in-out, background 0.1s ease-in-out;
+            }
+        }
+        .p-dialog-content {
+            overflow: hidden;
+            padding: 0;
+        }
+    }
 }
