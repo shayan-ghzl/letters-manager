@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { UploadRoutingModule } from './upload-routing.module';
 import { UploadListComponent } from './upload-list/upload-list.component';
 import { InputTextModule } from 'primeng/inputtext';
-import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -16,9 +16,9 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     UploadRoutingModule,
     InputTextModule,
-    FileUploadModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    ToastModule
   ]
 })
 export class UploadModule { }

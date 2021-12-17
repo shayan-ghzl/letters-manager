@@ -17,10 +17,12 @@ export class LetterService {
   // this is for get letter
   getLetters(parameters: any): Observable<any> {
     let params = new HttpParams();
-    if (parameters.page) {
+    // these params are integer and maybe value will be zero so condition will be false
+    if (typeof parameters.page !== 'undefined') {
       params = params.append('page', parameters.page);
     }
-    if (parameters.size) {
+    // these params are integer and maybe value will be zero so condition will be false
+    if (typeof parameters.size !== 'undefined') {
       params = params.append('size', parameters.size);
     }
     if (parameters.sort) {

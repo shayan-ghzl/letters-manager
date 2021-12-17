@@ -37,68 +37,61 @@
                     <span class="saved">ذخیره‌شد.</span>
                 </span>
                 <div class="details">
-                    <h2 class="screen-reader-text">جزئیات</h2>
-                    <div class="uploaded"><strong>تاریخ بارگذاری:</strong> 21 آذر 1400</div>
-                    <div class="uploaded-by">
+
+                    <!-- <h2 class="screen-reader-text">جزئیات</h2> -->
+                    <div class="uploaded"><strong>تاریخ بارگذاری:</strong> {{image.uploadDate}}</div>
+                    <!-- <div class="uploaded-by">
                         <strong>بارگذاری شده توسط:</strong>
+                        <a href="#">شایان غزالی</a>
+                    </div> -->
 
-                        <a href="https://petroll.ir/wp-admin/user-edit.php?user_id=3">باران حق شناس</a>
-
-                    </div>
-
-                    <div class="filename"><strong>نام پرونده:</strong> sliderrevlotion-news-1.jpg</div>
-                    <div class="file-type"><strong>نوع پرونده:</strong> image/jpeg</div>
-                    <div class="file-size"><strong>اندازه پرونده:</strong> 411 کیلوبایت</div>
+                    <div class="filename"><strong>نام پرونده:</strong> {{image.name}}</div>
+                    <div class="file-type"><strong>نوع پرونده:</strong> {{image.contentType}}</div>
+                    <div class="file-size"><strong>اندازه پرونده:</strong> {{image.size}} کیلوبایت</div>
 
 
+                    <!-- 
                     <div class="dimensions"><strong>ابعاد:</strong>
                         1200 در 800 پیکسل </div>
 
                     <div class="compat-meta">
 
-                    </div>
+                    </div> -->
 
+                </div>
+                <div>
+                    <div class="p-field">
+                        <label>متن جایگزین<span class="app-required-star">*</span></label>
+                        <input type="text" class="p-inputtext-sm app-small-input" [class.ng-dirty]="false" [class.ng-invalid]="false" pInputText />
+                        <small class="p-error">text</small>
+                    </div>
+                    <div class="p-field">
+                        <label>عنوان<span class="app-required-star">*</span></label>
+                        <input type="text" class="p-inputtext-sm app-small-input" [class.ng-dirty]="false" [class.ng-invalid]="false" pInputText />
+                        <small class="p-error">text</small>
+                    </div>
+                    <div class="p-field">
+                        <label>توضیح<span class="app-required-star">*</span></label>
+                        <input type="text" class="p-inputtext-sm app-small-input" [class.ng-dirty]="false" [class.ng-invalid]="false" pInputText />
+                        <small class="p-error">text</small>
+                    </div>
+                    <div class="p-field">
+                        <label>نشانی پرونده<span class="app-required-star">*</span></label>
+                        <input type="text" class="p-inputtext-sm app-small-input" [class.ng-dirty]="false" [class.ng-invalid]="false" pInputText />
+                        <small class="p-error">text</small>
+                    </div>
+                    <!-- <div class="p-field">
+                        <label>نام<span class="app-required-star" *ngIf="true">*</span></label>
+                        <input type="text" [(ngModel)]="" class="p-inputtext-sm app-small-input" [class.ng-dirty]="false" [class.ng-invalid]="false" pInputText />
+                        <small class="p-error" *ngIf="false">text</small>
+                    </div> -->
+
+                </div>
+                <div class="footer bg-primary">
+                    sss
                 </div>
             </div>
         </div>
     </div>
-    <!-- <div class="row">
-    <div class="p-field col-4">
-        <label>نام<span class="app-required-star" *ngIf="editPersonValidateObj.firstName.isRequired">*</span></label>
-        <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_firstname"
-            class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.firstName.hasError"
-            [class.ng-invalid]="editPersonValidateObj.firstName.hasError" pInputText />
-            <span class="app-input-counter">{{editPerson_firstname.length}}</span>
-        <small class="p-error"
-            *ngIf="editPersonValidateObj.firstName.hasError">{{editPersonValidateObj.firstName.errorMessage}}</small>
 
-    </div>
-
-    <div class="p-field col-4">
-        <label>نام خانوادگی<span class="app-required-star" *ngIf="editPersonValidateObj.lastName.isRequired">*</span></label>
-        <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_lastname"
-            class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.lastName.hasError"
-            [class.ng-invalid]="editPersonValidateObj.lastName.hasError" pInputText />
-        <small class="p-error"
-            *ngIf="editPersonValidateObj.lastName.hasError">{{editPersonValidateObj.lastName.errorMessage}}</small>
-    </div>
-    <div class="p-field col-4">
-        <label>نام پدر<span class="app-required-star" *ngIf="editPersonValidateObj.fatherName.isRequired">*</span></label>
-        <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_father_name"
-            class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.fatherName.hasError"
-            [class.ng-invalid]="editPersonValidateObj.fatherName.hasError" pInputText />
-        <small class="p-error"
-            *ngIf="editPersonValidateObj.fatherName.hasError">{{editPersonValidateObj.fatherName.errorMessage}}</small>
-
-    </div>
-</div> -->
-    <!-- <ng-template pTemplate="footer">
-    <div class="d-flex pt-3">
-        <p-button label="لغو" (onClick)="uploadDetailsDialog = false" styleClass="p-button-danger p-button-outlined"
-            class="ms-auto">
-        </p-button>
-        <p-button label="ثبت" [disabled]="displaySubmitBtn" (onClick)="uploadDetailsDialogSubmit()"
-            styleClass="p-button-success"></p-button>
-    </div>
-</ng-template> -->
 </p-dialog>

@@ -17,6 +17,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { RouterModule } from '@angular/router';
 import { DialogPersonComponent } from './components/dialog-person/dialog-person.component';
 import { UploadDetailsDialogComponent } from './components/upload-details-dialog/upload-details-dialog.component';
+import { DragDropUploadDirective } from './directives/drag-drop-upload.directive';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UploadDetailsDialogComponent } from './components/upload-details-dialog
     OnlyNumbersDirective,
     ConfirmDeletePersonComponent,
     DialogPersonComponent,
-    UploadDetailsDialogComponent
+    UploadDetailsDialogComponent,
+    DragDropUploadDirective
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { UploadDetailsDialogComponent } from './components/upload-details-dialog
     OnlyNumbersDirective,
     ConfirmDeletePersonComponent,
     DialogPersonComponent,
-    UploadDetailsDialogComponent
+    UploadDetailsDialogComponent,
+    DragDropUploadDirective
   ],
   providers: [
     ConfirmationService,

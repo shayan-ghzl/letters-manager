@@ -16,7 +16,7 @@ export class UploadDetailsDialogComponent implements OnInit {
   uploadDetailsDialog: boolean = false;
   displayDialogSpinner: boolean = false;
   displaySubmitBtn: boolean = true;
-  dialogTitle = 'نمایش ییوست';
+  dialogTitle = 'جزییات پیوست';
   image!: Image;
 
   constructor(private uploadService: UploadService, private messageService: MessageService) { }
@@ -29,6 +29,7 @@ export class UploadDetailsDialogComponent implements OnInit {
   }
 
   showUploadDetailsDialog(image: Image | null = null): void | boolean {
+    console.log(image);
     if (image) {
       if (image.isRemoved || image.isEdited) {
         return false;

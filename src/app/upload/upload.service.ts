@@ -17,25 +17,21 @@ export class UploadService {
   // this is for get image
   getImages(parameters: ImageParams): Observable<any> {
     let params = new HttpParams();
-    if (parameters.page) {
+        // these params are integer and maybe value will be zero so condition will be false
+    if (typeof parameters.page !== 'undefined') {
       params = params.append('page', parameters.page);
     }
-    if (parameters.size) {
+        // these params are integer and maybe value will be zero so condition will be false
+    if (typeof parameters.size !== 'undefined') {
       params = params.append('size', parameters.size);
     }
     return this.http.get<Image>(this.baseUrl + 'lm/v1/media/image', { params: params });
   }
 
-  uploadImages(files: any[]) {
-    console.log(files);
-    let fileToUpload = <File>files[0];
+  uploadImages(file:any) {
     let formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
-    return this.http.post<any>(this.baseUrl + 'lm/v1/media/image', formData, {
-      headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data',
-        "Access-Control-Allow-Origin": "*"
-      })
-    });
+    formData.append('image', <File>file);
+    formData.append('contentType', 'multipart/form-data');
+    return this.http.post<any>(this.baseUrl + 'lm/v1/media/image', formData);
   }
 }

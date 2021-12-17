@@ -1,18 +1,17 @@
+<p-toast key="uploadListToast" [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'400ms'" [baseZIndex]="1102"
+[breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast> 
 <div class="upload-frame-content">
     <div class="attachments-browser has-load-more">
 
 
-        <div class="uploader-inline">
-            <!-- <button class="close"></button> -->
+        <div class="uploader-inline" appDragDropUpload (appdrop)="onUpload($event)">
             <div class="uploader-inline-content">
                 <div class="upload-ui">
-                    <p-fileUpload  [customUpload]="true" (uploadHandler)="onUpload($event)" name="image[]" accept="image/*" [multiple]="true" [auto]="true">
-                       
-                    </p-fileUpload>
-                    <!-- <input type="file" name="image" (change)="onUpload($event)" multiple/>  -->
+                    
                     <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
                     <p>یا</p>
-                    <button type="button" class="button-hero wp-btn">گزینش پرونده‌ها</button>
+                    <input type="file" name="image" id="input-file" accept="image/*" (change)="onUpload($event.target)" multiple/> 
+                    <label for="input-file" class="button-hero wp-btn">گزینش پرونده‌ها</label>
                 </div>
                 <p class="max-upload-size">حداکثر اندازه پرونده برای بارگذاری: 200 مگابایت. </p>
             </div>
@@ -66,7 +65,7 @@
                         <div class="thumbnail">
                             <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
                             <div class="centered">
-                                <img [src]="'./assets/api/upload/MEDIA/IMAGE/' + image.mediaUUID + '/' + image.name"
+                                <img [src]="'http://localhost:8080/upload/MEDIA/IMAGE/' + image.mediaUUID + '/' + image.name"
                                     [alt]="image.name.split('.')[0]">
                             </div>
                         </div>
@@ -91,7 +90,7 @@
             <div *ngIf="images.length" class="load-more-wrapper">
                 <span class="spinner" [class.hidden]="!showLoading"></span>
                 <p class="load-more-count">نمایش {{images.length}} از {{tableRowsTotal}} موارد رسانه</p>
-                <button *ngIf="images.length != tableRowsTotal" type="button" class="wp-btn wp-btn-primary"
+                <button *ngIf="!isDone" type="button" class="wp-btn wp-btn-primary"
                     (click)="loadMoreImage()">بارگذاری بیشتر</button>
                 <button type="button" class="btn load-more-jump hidden" disabled=""></button>
             </div>
