@@ -65,8 +65,7 @@
                         <div class="thumbnail">
                             <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
                             <div class="centered">
-                                <img [src]="'http://localhost:8080/upload/MEDIA/IMAGE/' + image.mediaUUID + '/' + image.name"
-                                    [alt]="image.name.split('.')[0]">
+                                    <img class="details-image" [src]="image.resourceUrl" [alt]="image.alternateText">
                             </div>
                         </div>
                     </div>

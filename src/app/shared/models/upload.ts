@@ -5,6 +5,8 @@ export interface Image {
     contentType: string;
     size: number;
     uploadDate: string;
+    resourceUrl: string;
+    alternateText: string;
     isRemoved?:boolean;
     isEdited?:boolean;
     isAdded?:boolean;

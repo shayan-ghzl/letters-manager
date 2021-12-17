@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 import { DialogPersonComponent } from './components/dialog-person/dialog-person.component';
 import { UploadDetailsDialogComponent } from './components/upload-details-dialog/upload-details-dialog.component';
 import { DragDropUploadDirective } from './directives/drag-drop-upload.directive';
+import { KbConvertionPipe } from './pipes/kb-convertion.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DragDropUploadDirective } from './directives/drag-drop-upload.directive
     ConfirmDeletePersonComponent,
     DialogPersonComponent,
     UploadDetailsDialogComponent,
-    DragDropUploadDirective
+    DragDropUploadDirective,
+    KbConvertionPipe
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { DragDropUploadDirective } from './directives/drag-drop-upload.directive
     ConfirmDeletePersonComponent,
     DialogPersonComponent,
     UploadDetailsDialogComponent,
-    DragDropUploadDirective
+    DragDropUploadDirective,
+    KbConvertionPipe
   ],
   providers: [
     ConfirmationService,

@@ -29,7 +29,6 @@ export class UploadDetailsDialogComponent implements OnInit {
   }
 
   showUploadDetailsDialog(image: Image | null = null): void | boolean {
-    console.log(image);
     if (image) {
       if (image.isRemoved || image.isEdited) {
         return false;

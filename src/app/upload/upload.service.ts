@@ -32,6 +32,8 @@ export class UploadService {
     let formData = new FormData();
     formData.append('image', <File>file);
     formData.append('contentType', 'multipart/form-data');
+    formData.append('description', '');
+    formData.append('alternateText', '');
     return this.http.post<any>(this.baseUrl + 'lm/v1/media/image', formData);
   }
 }

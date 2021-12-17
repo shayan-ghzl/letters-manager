@@ -27,9 +27,7 @@
 
         <div class="row">
             <div class="col-8 thumbnail-image">
-                <img *ngIf="image" class="details-image"
-                    [src]="'./assets/api/upload/MEDIA/IMAGE/' + image.mediaUUID + '/' + image.name"
-                    [alt]="image.name.split('.')[0]">
+                <img *ngIf="image" class="details-image" [src]="image.resourceUrl" [alt]="image.alternateText">
             </div>
             <div class="col-4 attachment-info">
                 <span class="settings-save-status" role="status">
@@ -39,7 +37,7 @@
                 <div class="details">
 
                     <!-- <h2 class="screen-reader-text">جزئیات</h2> -->
-                    <div class="uploaded"><strong>تاریخ بارگذاری:</strong> {{image.uploadDate}}</div>
+                    <div class="uploaded"><strong>تاریخ بارگذاری:</strong> {{image.uploadDate | date:'fullDate'}}</div>
                     <!-- <div class="uploaded-by">
                         <strong>بارگذاری شده توسط:</strong>
                         <a href="#">شایان غزالی</a>
@@ -47,7 +45,7 @@
 
                     <div class="filename"><strong>نام پرونده:</strong> {{image.name}}</div>
                     <div class="file-type"><strong>نوع پرونده:</strong> {{image.contentType}}</div>
-                    <div class="file-size"><strong>اندازه پرونده:</strong> {{image.size}} کیلوبایت</div>
+                    <div class="file-size"><strong>اندازه پرونده:</strong> {{image.size | appKbConvertion}} کیلوبایت</div>
 
 
                     <!-- 
@@ -66,19 +64,14 @@
                         <small class="p-error">text</small>
                     </div>
                     <div class="p-field">
-                        <label>عنوان<span class="app-required-star">*</span></label>
-                        <input type="text" class="p-inputtext-sm app-small-input" [class.ng-dirty]="false" [class.ng-invalid]="false" pInputText />
-                        <small class="p-error">text</small>
-                    </div>
-                    <div class="p-field">
                         <label>توضیح<span class="app-required-star">*</span></label>
                         <input type="text" class="p-inputtext-sm app-small-input" [class.ng-dirty]="false" [class.ng-invalid]="false" pInputText />
                         <small class="p-error">text</small>
                     </div>
                     <div class="p-field">
-                        <label>نشانی پرونده<span class="app-required-star">*</span></label>
-                        <input type="text" class="p-inputtext-sm app-small-input" [class.ng-dirty]="false" [class.ng-invalid]="false" pInputText />
-                        <small class="p-error">text</small>
+                        <label>نشانی پرونده</label>
+                        <input type="text" class="p-inputtext-sm app-small-input" value="http://localhost:4200/upload" [disabled]="true" pInputText />
+                        <button type="button" class="wp-btn">کپی نشانی در کلیپ بورد</button>
                     </div>
                     <!-- <div class="p-field">
                         <label>نام<span class="app-required-star" *ngIf="true">*</span></label>
