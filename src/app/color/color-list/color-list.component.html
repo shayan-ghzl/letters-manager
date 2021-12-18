@@ -1,0 +1,12 @@
+<h1>افزودن رنگ</h1>
+<button type="button" class="wp-btn" (click)="addColor()">ثبت</button>
+<input type="text" [(ngModel)]="newColorName">
+<div class="color-container" *ngIf="colors.length">
+    <ul class="color-wrapper">
+        <li *ngFor="let color of colors">
+            {{color.name}}
+            <button type="button" class="wp-btn" (click)="confirmDeleteColorComponent.deleteColor(color)">حذف رنگ</button>
+        </li>
+    </ul>
+</div>
+<app-confirm-delete-color (update)="updateFromDeleteColor($event)"></app-confirm-delete-color>

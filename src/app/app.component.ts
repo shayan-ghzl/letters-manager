@@ -41,13 +41,13 @@ export class AppComponent {
         },
         {
           name: 'رنگ',
-          url: '',
+          url: 'color',
           icon: 'icon-dashboard',
           children: []
         },
         {
           name: 'سیستم',
-          url: '',
+          url: 'system',
           icon: 'icon-dashboard',
           children: []
         },

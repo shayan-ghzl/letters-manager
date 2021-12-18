@@ -19,6 +19,8 @@ import { DialogPersonComponent } from './components/dialog-person/dialog-person.
 import { UploadDetailsDialogComponent } from './components/upload-details-dialog/upload-details-dialog.component';
 import { DragDropUploadDirective } from './directives/drag-drop-upload.directive';
 import { KbConvertionPipe } from './pipes/kb-convertion.pipe';
+import { ConfirmDeleteColorComponent } from './components/confirm-delete-color/confirm-delete-color.component';
+import { ConfirmDeleteSystemComponent } from './components/confirm-delete-system/confirm-delete-system.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { KbConvertionPipe } from './pipes/kb-convertion.pipe';
     DialogPersonComponent,
     UploadDetailsDialogComponent,
     DragDropUploadDirective,
-    KbConvertionPipe
+    KbConvertionPipe,
+    ConfirmDeleteColorComponent,
+    ConfirmDeleteSystemComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +53,9 @@ import { KbConvertionPipe } from './pipes/kb-convertion.pipe';
     DialogPersonComponent,
     UploadDetailsDialogComponent,
     DragDropUploadDirective,
-    KbConvertionPipe
+    KbConvertionPipe,
+    ConfirmDeleteColorComponent,
+    ConfirmDeleteSystemComponent
   ],
   providers: [
     ConfirmationService,
