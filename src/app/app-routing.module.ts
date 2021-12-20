@@ -23,14 +23,7 @@ const routes: Routes = [
     path: 'letter',
     loadChildren: () => import('./letter/letter.module').then(mod => mod.LetterModule)
   },
-  {
-    path: 'color',
-    loadChildren: () => import('./color/color.module').then(mod => mod.ColorModule)
-  },
-  {
-    path: 'system',
-    loadChildren: () => import('./system/system.module').then(mod => mod.SystemModule)
-  },
+
 
 ];
 

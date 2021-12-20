@@ -7,6 +7,10 @@ tr.app-edit-highlight {
 tr.app-add-highlight {
     background: #e2ffed !important;
 }
+tr.app-warn-highlight {
+    // background: #e2ecff !important;
+    box-shadow: inset 0 -0.5px 0px 3px #ff7f00;
+}
 
 .custom-table-summary {
     background: #f8f9fa;

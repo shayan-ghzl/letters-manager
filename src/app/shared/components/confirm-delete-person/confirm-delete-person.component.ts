@@ -11,8 +11,8 @@ import { Person } from '../../models/person';
 export class ConfirmDeletePersonComponent implements OnInit {
 
   @Output() update = new EventEmitter<Person>();
-  
-  constructor( private personService: PersonService, private confirmationService: ConfirmationService , private messageService: MessageService) { }
+
+  constructor(private personService: PersonService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit(): void {
   }
@@ -20,7 +20,6 @@ export class ConfirmDeletePersonComponent implements OnInit {
     this.messageService.clear('confirmDeletePersonToast');
   }
   showDeletePersonConf(person: Person, rowIndex: number): void | boolean {
-    console.log(person);
     if (person.isRemoved || person.isEdited) {
       return false;
     }
@@ -34,8 +33,11 @@ export class ConfirmDeletePersonComponent implements OnInit {
             this.messageService.add({ key: 'confirmDeletePersonToast', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف ${rowIndex + 1} با موفقیت حذف شد`, life: 7000 });
           },
           (error) => {
-            console.log(error);
-            this.messageService.add({ key: 'confirmDeletePersonToast', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
+            person.hasWarning = true;
+            setTimeout(() => {
+              person.hasWarning = false;
+            }, 7000);
+            this.messageService.add({ key: 'confirmDeletePersonToast', severity: 'error', summary: 'خطا', detail: error.error.message, life: 7000 });
           },
           () => { },
         );

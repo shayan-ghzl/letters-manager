@@ -1,5 +1,5 @@
 export interface Person {
-    personUUID: string;
+    personUUID: string | null;
     firstName: string;
     lastName: string;
     fatherName: string;
@@ -12,6 +12,7 @@ export interface Person {
     isRemoved?:boolean;
     isEdited?:boolean;
     isAdded?:boolean;
+    hasWarning?:boolean;
 }
 export interface PersonParams {
     page?: number;
@@ -19,4 +20,10 @@ export interface PersonParams {
     sort?: string;
     order?: string;
     keyword?: string;
+}
+export interface PersonSubErrors {
+    field: string;
+    message: string;
+    object: string;
+    rejectedValue: string;
 }

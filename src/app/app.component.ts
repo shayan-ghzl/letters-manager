@@ -39,18 +39,7 @@ export class AppComponent {
           icon: 'icon-dashboard',
           children: []
         },
-        {
-          name: 'رنگ',
-          url: 'color',
-          icon: 'icon-dashboard',
-          children: []
-        },
-        {
-          name: 'سیستم',
-          url: 'system',
-          icon: 'icon-dashboard',
-          children: []
-        },
+       
       ]
     },
   ];

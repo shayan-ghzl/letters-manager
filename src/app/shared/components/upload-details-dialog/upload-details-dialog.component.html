@@ -1,4 +1,4 @@
-<p-toast key="uploadDetailsDialogToast" [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'400ms'"
+<p-toast key="uploadDetailsDialogToast" position="bottom-left" [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'400ms'"
     [baseZIndex]="1102" [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
 
 <p-dialog (onHide)="hideDialog()" [(visible)]="uploadDetailsDialog" [modal]="true" [dismissableMask]="true"
@@ -61,37 +61,34 @@
                 <div class="settings">
                     <div class="p-field">
                         <label>متن جایگزین<span class="app-required-star">*</span></label>
-                        <input type="text" class="app-small-input" [class.ng-dirty]="false" [class.ng-invalid]="false"
-                            pInputText />
-                        <small class="p-error">text</small>
+                        <input type="text" class="wp-control" [class.ng-invalid]="false"/>
+                        <small class="p-error">مقدار وارد شده صحیح نمی باشد.</small>
                         <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر کاملا
                             تزئینی است این را خالی رها نمایید.</p>
                     </div>
                     <div class="p-field">
                         <label>توضیح<span class="app-required-star">*</span></label>
-                        <input type="text" class="app-small-input" [class.ng-dirty]="false" [class.ng-invalid]="false"
-                            pInputText />
-                        <textarea></textarea>
-                        <small class="p-error">text</small>
+                        <textarea class="wp-control" rows="3" [class.ng-invalid]="false"></textarea>
+                        <small class="p-error">مقدار وارد شده صحیح نمی باشد.</small>
                         <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر کاملا
                             تزئینی است این را خالی رها نمایید.</p>
                     </div>
                     <div class="p-field">
                         <label>نشانی پرونده</label>
-                        <input type="text" class="app-small-input" [value]="image.resourceUrl" [disabled]="true" pInputText />
+                        <input type="text" class="wp-control" [value]="image.resourceUrl" [disabled]="true"/>
                         <button type="button" class="wp-btn">کپی نشانی در کلیپ بورد</button>
                     </div>
                     <!-- <div class="p-field">
                         <label>نام<span class="app-required-star" *ngIf="true">*</span></label>
-                        <input type="text" [(ngModel)]="" class="app-small-input" [class.ng-dirty]="false" [class.ng-invalid]="false" pInputText />
+                        <input type="text" [(ngModel)]="" class="wp-control" [class.ng-dirty]="false" [class.ng-invalid]="false"  />
                         <small class="p-error" *ngIf="false">text</small>
                     </div> -->
 
                 </div>
                 <div class="actions">
-                        <a class="view-attachment" target="_blank" [href]="image.resourceUrl">نمایش صفحهٔ پیوست</a>
-                        <span class="links-separator">|</span>
-                        <button type="button" class="button-link delete-attachment">حذف برای همیشه</button>
+                    <a class="view-attachment" target="_blank" [href]="image.resourceUrl">نمایش صفحهٔ پیوست</a>
+                    <span class="links-separator">|</span>
+                    <button type="button" class="button-link delete-attachment">حذف برای همیشه</button>
                 </div>
             </div>
         </div>

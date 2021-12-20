@@ -37,7 +37,7 @@ export class PersonService {
   }
   // this is for edit person 
   putPerson(person: Person): Observable<any> {
-    return this.http.put<any>(this.baseUrl + 'lm/v1/person/' + person.personUUID, person);
+    return this.http.put<any>(this.baseUrl + 'lm/v1/person', person);
   }
   // this is for delete person
   deletePerson(person: Person): Observable<any> {
@@ -48,4 +48,16 @@ export class PersonService {
     return this.http.post<any>(this.baseUrl + 'lm/v1/person',person);
   }
 
+  // .pipe(
+  //   tap( // Log the result or error
+  //     data => this.log(filename, data),
+  //     error => this.logError(filename, error)
+  //   )
+  // );
+  // .pipe(
+  //   map(event => this.getEventMessage(event, file)),
+  //   tap(message => this.showProgress(message)),
+  //   last(), // return last (completed) message to caller
+  //   catchError(this.handleError(file))
+  // );
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { PersonService } from 'src/app/person/person.service';
-import { Person } from '../../models/person';
+import { Person, PersonSubErrors } from '../../models/person';
 
 @Component({
   selector: 'app-dialog-person',
@@ -74,7 +74,7 @@ export class DialogPersonComponent implements OnInit {
       'errorMessage': 'بیش از 12 رقم مجاز نیست',
       isValid: () => {
         let temp = this.editPerson_certificate_number.trim();
-        return ( temp.length <= 12 && temp.match("[0-9]+") != null);
+        return (temp.length <= 12 && temp.match("[0-9]+") != null);
       }
     },
     'fromLocation': {
@@ -178,22 +178,27 @@ export class DialogPersonComponent implements OnInit {
           (data) => {
             this.update.emit({ 'data': data, 'status': status });
             this.messageService.add({ key: 'DialogPersonToast', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف ${this.editPersonRowIndex} ویرایش شد.`, life: 7000 });
+            this.DialogPerson = false;
           },
           (error) => {
-            console.log(error);
-            this.messageService.add({ key: 'DialogPersonToast', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
-            this.DialogPerson = false;
+            error.error.subErrors.forEach((Element: PersonSubErrors) => {
+              let theField = this.read_prop(this.editPersonValidateObj, Element.field);
+              theField.errorMessage = Element.message;
+              theField.hasError = true;
+            });
+            this.messageService.add({ key: 'DialogPersonToast', severity: 'error', summary: 'خطا', detail: error.error.message, life: 7000 });
+            // this.DialogPerson = false;
             this.displayDialogSpinner = false;
           },
           () => {
-            this.DialogPerson = false;
+            // this.DialogPerson = false;
             this.displayDialogSpinner = false;
           },
         );
       } else {
         this.personService.addPerson(
           {
-            personUUID: '',
+            personUUID: null,
             firstName: this.editPerson_firstname,
             lastName: this.editPerson_lastname,
             fatherName: this.editPerson_father_name,
@@ -208,15 +213,20 @@ export class DialogPersonComponent implements OnInit {
           (data) => {
             this.update.emit({ 'data': data, 'status': status });
             this.messageService.add({ key: 'DialogPersonToast', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف جدید افزوده شد.`, life: 7000 });
+            this.DialogPerson = false;
           },
           (error) => {
-            console.log(error);
-            this.messageService.add({ key: 'DialogPersonToast', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
-            this.DialogPerson = false;
+            error.error.subErrors.forEach((Element: PersonSubErrors) => {
+              let theField = this.read_prop(this.editPersonValidateObj, Element.field);
+              theField.errorMessage = Element.message;
+              theField.hasError = true;
+            });
+            this.messageService.add({ key: 'DialogPersonToast', severity: 'error', summary: 'خطا', detail: error.error.message, life: 7000 });
+            // this.DialogPerson = false;
             this.displayDialogSpinner = false;
           },
           () => {
-            this.DialogPerson = false;
+            // this.DialogPerson = false;
             this.displayDialogSpinner = false;
           },
         );
@@ -224,7 +234,9 @@ export class DialogPersonComponent implements OnInit {
     }
 
   }
-
+  read_prop(object: any, prop: string) {
+    return object[prop];
+  }
   editPersonValidate(fieldName: string): boolean {
 
     switch (fieldName) {
