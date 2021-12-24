@@ -36,6 +36,10 @@ export class DialogUploadComponent implements OnInit {
   //   },
 
   // };
+  mediaFrameTabPanel = {
+    "upload" : false,
+    "library" : true,
+  };
   images: Image[] = [];
   tableRowsTotal!: number;
   tableRows: number = 20;
@@ -120,8 +124,8 @@ export class DialogUploadComponent implements OnInit {
       );
     }
   }
-  selectImage(image: Image ){
-
+  selectImage(e:any,image: Image ){
+e.currentTarget.classList.toggle('selected');
   }
   loadMoreImage() {
     this.currentPage = this.currentPage + 1;

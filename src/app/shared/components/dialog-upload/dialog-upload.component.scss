@@ -146,3 +146,29 @@
         }
     }
 }
+.media-frame-tab-panel{
+    height: 100%;
+    .media-frame-content{
+        height: 100%;
+
+    }
+}
+.attachments-browser{
+    height: 100%;
+display: flex;
+position: relative;
+    .media-sidebar {
+        flex: 0 0 25%;
+        max-width: 25%;
+        padding: 0 16px;
+        z-index: 75;
+        background: #f6f7f7;
+        border-right: 1px solid #dcdcde;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .attachments-wrapper{
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
+}
