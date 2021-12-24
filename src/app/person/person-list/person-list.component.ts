@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { SortEvent } from 'primeng/api';
 import { ConfirmDeletePersonComponent } from 'src/app/shared/components/confirm-delete-person/confirm-delete-person.component';
-import { DialogPersonComponent } from 'src/app/shared/components/dialog-person/dialog-person.component';
+// import { DialogPersonComponent } from 'src/app/shared/components/dialog-person/dialog-person.component';
+// import { DialogUploadComponent } from 'src/app/shared/components/dialog-upload/dialog-upload.component';
 import { Person, PersonParams } from 'src/app/shared/models/person';
 import { PersonService } from '../person.service';
 
@@ -10,10 +12,11 @@ import { PersonService } from '../person.service';
   templateUrl: './person-list.component.html',
   styleUrls: ['./person-list.component.scss']
 })
-export class PersonListComponent implements OnInit {
+export class PersonListComponent  {
 
-  @ViewChild(DialogPersonComponent) dialogPersonComponent!: DialogPersonComponent;
+  // @ViewChild(DialogPersonComponent) dialogPersonComponent!: DialogPersonComponent;
   @ViewChild(ConfirmDeletePersonComponent) confirmDeletePersonComponent!: ConfirmDeletePersonComponent;
+  // @ViewChild(DialogUploadComponent) dialogUploadComponent!: DialogUploadComponent;
   persons: Person[] = [];
   selectedPerson!: Person;
   columnSortOrder: number | undefined = 0;
@@ -27,12 +30,8 @@ export class PersonListComponent implements OnInit {
   searchFormTimeout = setTimeout(() => { }, 200);
   keyword!: string;
 
-  constructor(private personService: PersonService) {
+  constructor(private personService: PersonService, private router: Router) {
     this.getPerson({ size: this.tableRows, page: this.currentPage });
-  }
-
-  ngOnInit(): void {
-
   }
 
   getPerson(params: PersonParams) {
@@ -64,23 +63,23 @@ export class PersonListComponent implements OnInit {
     this.getPerson({ size: this.tableRows, page: this.currentPage, keyword: this.keyword, sort: this.tableSort, order: (this.tableOrder == 1) ? 'desc' : 'asc' });
   }
 
-  updateFromPersonDialog(e: any) {
-    if (e.status == 'addPerson') {
-      e.data.isAdded = true;
-      this.persons.push(e.data);
-      setTimeout(() => {
-        e.data.isAdded = false;
-      }, 1000);
-    } else {
-      let theIndex = this.persons.findIndex(p => p.personUUID == e.data.personUUID);
-      this.persons[theIndex].isEdited = true;
-      setTimeout(() => {
-        e.data.isEdited = false;
-        this.persons[theIndex] = e;
-        this.selectedPerson = e;
-      }, 1000);
-    }
-  }
+  // updateFromPersonDialog(e: any) {
+  //   if (e.status == 'addPerson') {
+  //     e.data.isAdded = true;
+  //     this.persons.push(e.data);
+  //     setTimeout(() => {
+  //       e.data.isAdded = false;
+  //     }, 1000);
+  //   } else {
+  //     let theIndex = this.persons.findIndex(p => p.personUUID == e.data.personUUID);
+  //     this.persons[theIndex].isEdited = true;
+  //     setTimeout(() => {
+  //       e.data.isEdited = false;
+  //       this.persons[theIndex] = e;
+  //       this.selectedPerson = e;
+  //     }, 1000);
+  //   }
+  // }
 
   updateFromDeletePerson(e: Person) {
     e.isRemoved = true;
@@ -91,11 +90,21 @@ export class PersonListComponent implements OnInit {
       }
     }, 1000);
   }
+
   searchFormPerson() {
     this.keyword = this.searchForm;
     clearTimeout(this.searchFormTimeout);
     this.searchFormTimeout = setTimeout(() => {
       this.getPerson({ size: this.tableRows, page: this.currentPage, keyword: this.keyword, sort: this.tableSort, order: (this.tableOrder == 1) ? 'desc' : 'asc' });
     }, 200);
+  }
+
+  openPersonEdit(person: Person | null = null) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        person: person
+      }
+    };
+    this.router.navigate(['person/edit'], navigationExtras);
   }
 }

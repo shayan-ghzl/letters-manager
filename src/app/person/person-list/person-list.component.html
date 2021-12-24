@@ -7,7 +7,7 @@
                 <i class="pi pi-search"></i>
                 <input type="text" class="p-inputtext-sm table-search" pInputText [(ngModel)]="searchForm" (input)="searchFormPerson()" placeholder="جستجو" />
             </span>
-            <button pButton type="button" label="افزودن" icon="pi pi-plus" (click)="dialogPersonComponent.showPersonDialog()"
+            <button pButton type="button" label="افزودن" icon="pi pi-plus" (click)="openPersonEdit()"
                 class="p-button-sm p-button-success ms-auto"></button>
         </div>
     </ng-template>
@@ -42,7 +42,8 @@
             <td>{{person.address}}</td>
             <td>{{person.phoneNumber}}</td>
             <td>
-                <span class="app-operation-item" (click)="dialogPersonComponent.showPersonDialog(person , currentPage*tableRows+rowIndex+1)">ویرایش</span>
+                <span class="app-operation-item" (click)="openPersonEdit(person)">ویرایش</span>
+                <!-- <span class="app-operation-item" (click)="dialogPersonComponent.showPersonDialog(person , currentPage*tableRows+rowIndex+1)">ویرایش</span> -->
                 <span class="app-operation-item" (click)="confirmDeletePersonComponent.showDeletePersonConf(person , currentPage*tableRows+rowIndex+1)">حذف</span>
             </td>
         </tr>
@@ -54,5 +55,5 @@
 </div>
 
 
-<app-dialog-person (update)="updateFromPersonDialog($event)"></app-dialog-person>
+<!-- <app-dialog-person (update)="updateFromPersonDialog($event)"></app-dialog-person> -->
 <app-confirm-delete-person (update)="updateFromDeletePerson($event)"></app-confirm-delete-person>

@@ -19,6 +19,7 @@ import { DialogPersonComponent } from './components/dialog-person/dialog-person.
 import { UploadDetailsDialogComponent } from './components/upload-details-dialog/upload-details-dialog.component';
 import { DragDropUploadDirective } from './directives/drag-drop-upload.directive';
 import { KbConvertionPipe } from './pipes/kb-convertion.pipe';
+import { DialogUploadComponent } from './components/dialog-upload/dialog-upload.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { KbConvertionPipe } from './pipes/kb-convertion.pipe';
     UploadDetailsDialogComponent,
     DragDropUploadDirective,
     KbConvertionPipe,
+    DialogUploadComponent,
 
   ],
   imports: [
@@ -52,6 +54,7 @@ import { KbConvertionPipe } from './pipes/kb-convertion.pipe';
     UploadDetailsDialogComponent,
     DragDropUploadDirective,
     KbConvertionPipe,
+    DialogUploadComponent,
 
   ],
   providers: [

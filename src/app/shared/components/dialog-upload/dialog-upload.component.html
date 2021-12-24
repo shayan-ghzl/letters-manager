@@ -1,0 +1,120 @@
+<p-toast key="DialogUploadToast" position="bottom-left" [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'400ms'" [baseZIndex]="1102"
+[breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast> 
+<p-dialog (onHide)="hideDialog()" [(visible)]="DialogUpload" [modal]="true" [transitionOptions]="'0ms'" [dismissableMask]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+[style]="{width: '90vw'}">
+<ng-template pTemplate="header">
+    <h4>{{dialogTitle}}</h4>
+</ng-template>
+<div class="progress-spinner" [class.d-none]="!displayDialogSpinner">
+    <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="attachments-wrapper">
+
+    <ul *ngIf="images.length; else noImage" class="attachments" tabindex="-1">
+        <!-- <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
+            class="attachment selected">
+            <div class="attachment-preview">
+                <div class="thumbnail"> -->
+        <!-- // <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
+        <!-- <div class="centered">
+                        <img src="./assets/images/sample-upload.jpg"
+                            alt="">
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="check" tabindex="-1">
+                <span class="upload-modal-icon"></span>
+            </button>
+        </li> -->
+        <!-- <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
+            class="attachment">
+            <div class="attachment-preview">
+                <div class="thumbnail">
+                    <div class="upload-progress-bar"><div style="width: 50%"></div></div> -->
+        <!--// <div class="centered">
+                       // <img src="./assets/images/sample-upload.jpg" alt="">
+                       // </div> -->
+        <!-- </div>
+            </div>
+            <button type="button" class="check" tabindex="-1">
+                <span class="upload-modal-icon"></span>
+            </button>
+        </li> -->
+        <li *ngFor="let image of images" (click)="selectImage(image)" tabindex="0" role="checkbox" aria-checked="false" class="attachment">
+            <div class="attachment-preview">
+                <div class="thumbnail">
+                    <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
+                    <div class="centered">
+                            <img class="details-image" [src]="image.resourceUrl" [alt]="image.alternateText">
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="check" tabindex="-1">
+                <span class="upload-modal-icon"></span>
+            </button>
+        </li>
+
+    </ul>
+    <ng-template #noImage>
+        <div class="message-container">
+            <ul class="message-wrapper">
+                <li class="message-item">
+                    <h2 class="empty-text">
+                        موردی برای نمایش وجود ندارد.
+                    </h2>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    <div *ngIf="images.length" class="load-more-wrapper">
+        <span class="spinner" [class.hidden]="!showLoading"></span>
+        <p class="load-more-count">نمایش {{images.length}} از {{tableRowsTotal}} موارد رسانه</p>
+        <button *ngIf="!isDone" type="button" class="wp-btn wp-btn-primary"
+            (click)="loadMoreImage()">بارگذاری بیشتر</button>
+        <button type="button" class="btn load-more-jump hidden" disabled=""></button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ng-template pTemplate="footer">
+    <!-- <div class="d-flex pt-3">
+        <p-button label="لغو" (onClick)="DialogPerson = false" styleClass="p-button-danger p-button-outlined"
+            class="ms-auto">
+        </p-button>
+        <p-button label="ثبت" [disabled]="displaySubmitBtn" (onClick)="dialogPersonSubmit(dialogStatus)"
+            styleClass="p-button-success"></p-button>
+    </div> -->
+</ng-template>
+</p-dialog> 

@@ -1,11 +1,12 @@
-<p-toast key="DialogPersonToast" position="bottom-left" [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'400ms'" [baseZIndex]="1102"
-[breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast> 
-<p-dialog (onHide)="hideDialog()" [(visible)]="DialogPerson" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
-[style]="{width: '50vw'}">
-<ng-template pTemplate="header">
-    <h4>{{dialogTitle}}</h4>
-</ng-template>
-<div class="progress-spinner" [class.d-none]="!displayDialogSpinner">
+<p-toast key="DialogPersonToast" position="bottom-left" [showTransitionOptions]="'400ms'"
+    [hideTransitionOptions]="'400ms'" [baseZIndex]="1102"
+    [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
+<!-- <p-dialog (onHide)="hideDialog()" [(visible)]="DialogPerson" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+[style]="{width: '50vw'}"> -->
+<!-- <ng-template pTemplate="header"> -->
+<h4>{{dialogTitle}}</h4>
+<!-- </ng-template> -->
+<!-- <div class="progress-spinner" [class.d-none]="!displayDialogSpinner">
     <div class="lds-spinner">
         <div></div>
         <div></div>
@@ -20,21 +21,22 @@
         <div></div>
         <div></div>
     </div>
-</div>
+</div> -->
 <div class="row">
     <div class="p-field col-4">
         <label>نام<span class="app-required-star" *ngIf="editPersonValidateObj.firstName.isRequired">*</span></label>
         <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_firstname"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.firstName.hasError"
             [class.ng-invalid]="editPersonValidateObj.firstName.hasError" pInputText />
-            <span class="app-input-counter">{{editPerson_firstname.length}}</span>
+        <span class="app-input-counter">{{editPerson_firstname.length}}</span>
         <small class="p-error"
             *ngIf="editPersonValidateObj.firstName.hasError">{{editPersonValidateObj.firstName.errorMessage}}</small>
 
     </div>
 
     <div class="p-field col-4">
-        <label>نام خانوادگی<span class="app-required-star" *ngIf="editPersonValidateObj.lastName.isRequired">*</span></label>
+        <label>نام خانوادگی<span class="app-required-star"
+                *ngIf="editPersonValidateObj.lastName.isRequired">*</span></label>
         <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_lastname"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.lastName.hasError"
             [class.ng-invalid]="editPersonValidateObj.lastName.hasError" pInputText />
@@ -42,7 +44,8 @@
             *ngIf="editPersonValidateObj.lastName.hasError">{{editPersonValidateObj.lastName.errorMessage}}</small>
     </div>
     <div class="p-field col-4">
-        <label>نام پدر<span class="app-required-star" *ngIf="editPersonValidateObj.fatherName.isRequired">*</span></label>
+        <label>نام پدر<span class="app-required-star"
+                *ngIf="editPersonValidateObj.fatherName.isRequired">*</span></label>
         <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_father_name"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.fatherName.hasError"
             [class.ng-invalid]="editPersonValidateObj.fatherName.hasError" pInputText />
@@ -55,7 +58,8 @@
 
 
     <div class="p-field col-4">
-        <label>کد ملی<span class="app-required-star" *ngIf="editPersonValidateObj.nationalID.isRequired">*</span></label>
+        <label>کد ملی<span class="app-required-star"
+                *ngIf="editPersonValidateObj.nationalID.isRequired">*</span></label>
         <input type="text" appOnlyNumbers (input)="this.editPersonValidate('allFields')"
             [(ngModel)]="editPerson_national_id" class="p-inputtext-sm"
             [class.ng-dirty]="editPersonValidateObj.nationalID.hasError"
@@ -64,7 +68,8 @@
             *ngIf="editPersonValidateObj.nationalID.hasError">{{editPersonValidateObj.nationalID.errorMessage}}</small>
     </div>
     <div class="p-field col-4">
-        <label>شماره شناسنامه<span class="app-required-star" *ngIf="editPersonValidateObj.certificateNumber.isRequired">*</span></label>
+        <label>شماره شناسنامه<span class="app-required-star"
+                *ngIf="editPersonValidateObj.certificateNumber.isRequired">*</span></label>
         <input type="text" appOnlyNumbers (input)="this.editPersonValidate('allFields')"
             [(ngModel)]="editPerson_certificate_number" class="p-inputtext-sm"
             [class.ng-dirty]="editPersonValidateObj.certificateNumber.hasError"
@@ -75,7 +80,8 @@
     </div>
 
     <div class="p-field col-4">
-        <label>صادره از<span class="app-required-star" *ngIf="editPersonValidateObj.fromLocation.isRequired">*</span></label>
+        <label>صادره از<span class="app-required-star"
+                *ngIf="editPersonValidateObj.fromLocation.isRequired">*</span></label>
         <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_from_location"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.fromLocation.hasError"
             [class.ng-invalid]="editPersonValidateObj.fromLocation.hasError" pInputText />
@@ -88,10 +94,10 @@
 
 
     <div class="p-field col-4">
-        <label>تاریخ تولد<span class="app-required-star" *ngIf="editPersonValidateObj.stringBirthDate.isRequired">*</span></label>
-        <input type="text" (input)="this.editPersonValidate('allFields')"
-            [(ngModel)]="editPerson_string_birth_date" class="p-inputtext-sm"
-            [class.ng-dirty]="editPersonValidateObj.stringBirthDate.hasError"
+        <label>تاریخ تولد<span class="app-required-star"
+                *ngIf="editPersonValidateObj.stringBirthDate.isRequired">*</span></label>
+        <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_string_birth_date"
+            class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.stringBirthDate.hasError"
             [class.ng-invalid]="editPersonValidateObj.stringBirthDate.hasError" pInputText />
         <small class="p-error"
             *ngIf="editPersonValidateObj.stringBirthDate.hasError">{{editPersonValidateObj.stringBirthDate.errorMessage}}</small>
@@ -116,16 +122,51 @@
     </div>
 </div>
 <div class="row">
-    <button type="button" class="wp-btn" (click)="openImagePicker($event)">افزودن تصویر</button>
+    <div class="inside">
+       
+        <div id="product_images_container">
+            <ul class="product_images ui-sortable">
+                <li class="image" data-attachment_id="577">
+                    <img width="150" height="150"
+                        src="https://petroll.ir/wp-content/uploads/2019/03/parrot-4-150x150.jpg"
+                        class="attachment-thumbnail size-thumbnail" alt="" loading="lazy"
+                        srcset="https://petroll.ir/wp-content/uploads/2019/03/parrot-4-150x150.jpg 150w, https://petroll.ir/wp-content/uploads/2019/03/parrot-4-300x300.jpg 300w, https://petroll.ir/wp-content/uploads/2019/03/parrot-4-100x100.jpg 100w, https://petroll.ir/wp-content/uploads/2019/03/parrot-4-480x480.jpg 480w, https://petroll.ir/wp-content/uploads/2019/03/parrot-4-280x280.jpg 280w"
+                        sizes="(max-width: 150px) 100vw, 150px">
+                    <ul class="actions">
+                        <li><a href="#" class="delete tips">حذف</a></li>
+                    </ul>
+                </li>
+                <li class="image" data-attachment_id="574">
+                    <img width="150" height="150"
+                        src="https://petroll.ir/wp-content/uploads/2019/03/parrot-1-150x150.jpg"
+                        class="attachment-thumbnail size-thumbnail" alt="" loading="lazy"
+                        srcset="https://petroll.ir/wp-content/uploads/2019/03/parrot-1-150x150.jpg 150w, https://petroll.ir/wp-content/uploads/2019/03/parrot-1-300x300.jpg 300w, https://petroll.ir/wp-content/uploads/2019/03/parrot-1-100x100.jpg 100w, https://petroll.ir/wp-content/uploads/2019/03/parrot-1-480x480.jpg 480w, https://petroll.ir/wp-content/uploads/2019/03/parrot-1-280x280.jpg 280w"
+                        sizes="(max-width: 150px) 100vw, 150px">
+                    <ul class="actions">
+                        <li><a href="#" class="delete tips">حذف</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- <input type="hidden" id="product_image_gallery" name="product_image_gallery" value="577,574"> -->
+
+        </div>
+        <!-- <p class="add_product_images hide-if-no-js">
+            <a href="#" data-choose="افزودن تصویر به گالری تصاویر محصول" data-update="افزودن به گالری"
+                data-delete="پاک کردن تصویر" data-text="حذف">افزودن گالری تصاویر محصول</a>
+        </p> -->
+        <button type="button" class="wp-btn" (click)="openImagePicker($event)">افزودن تصویر</button>
+    </div>
 </div>
 
-<ng-template pTemplate="footer">
-    <div class="d-flex pt-3">
-        <p-button label="لغو" (onClick)="DialogPerson = false" styleClass="p-button-danger p-button-outlined"
+<!-- <ng-template pTemplate="footer"> -->
+<!-- <div class="d-flex pt-3"> -->
+<!-- <p-button label="لغو" (onClick)="DialogPerson = false" styleClass="p-button-danger p-button-outlined"
             class="ms-auto">
-        </p-button>
-        <p-button label="ثبت" [disabled]="displaySubmitBtn" (onClick)="dialogPersonSubmit(dialogStatus)"
-            styleClass="p-button-success"></p-button>
-    </div>
-</ng-template>
-</p-dialog> 
+        </p-button> -->
+<p-button label="ثبت" [disabled]="displaySubmitBtn" (onClick)="dialogPersonSubmit(dialogStatus)"
+    styleClass="p-button-success"></p-button>
+<!-- </div> -->
+<!-- </ng-template>
+</p-dialog>  -->
+<app-dialog-upload></app-dialog-upload>

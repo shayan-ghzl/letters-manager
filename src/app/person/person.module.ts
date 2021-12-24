@@ -8,10 +8,14 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PaginatorModule } from 'primeng/paginator';
 import { SharedModule } from '../shared/shared.module';
+import { PersonEditComponent } from './person-edit/person-edit.component';
+import { ToastModule } from 'primeng/toast';
+
 
 @NgModule({
   declarations: [
     PersonListComponent,
+    PersonEditComponent,
   ],
   imports: [
     CommonModule,
@@ -21,6 +25,7 @@ import { SharedModule } from '../shared/shared.module';
     InputTextModule,
     PaginatorModule,
     SharedModule,
+    ToastModule,
     
   ],
   providers: [

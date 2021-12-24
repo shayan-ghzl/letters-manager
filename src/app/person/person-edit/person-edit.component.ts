@@ -1,18 +1,20 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { PersonService } from 'src/app/person/person.service';
-import { Person, PersonSubErrors } from '../../models/person';
+import { DialogUploadComponent } from 'src/app/shared/components/dialog-upload/dialog-upload.component';
+import { Person, PersonSubErrors } from 'src/app/shared/models/person';
+import { PersonService } from '../person.service';
 
 @Component({
-  selector: 'app-dialog-person',
-  templateUrl: './dialog-person.component.html',
-  styleUrls: ['./dialog-person.component.scss']
+  selector: 'app-person-edit',
+  templateUrl: './person-edit.component.html',
+  styleUrls: ['./person-edit.component.scss']
 })
-export class DialogPersonComponent implements OnInit {
+export class PersonEditComponent implements OnInit {
 
-  @Output() update = new EventEmitter<any>();
+  @ViewChild(DialogUploadComponent) dialogUploadComponent!: DialogUploadComponent;
 
-  DialogPerson: boolean = false;
+  // DialogPerson: boolean = false;
   dialogTitle = '';
   displayDialogSpinner: boolean = false;
   displaySubmitBtn: boolean = true;
@@ -29,7 +31,7 @@ export class DialogPersonComponent implements OnInit {
   editPerson_phone_number: string = '';
 
   editPerson!: Person;
-  editPersonRowIndex!: number;
+  // editPersonRowIndex!: number;
 
   editPersonValidateObj = {
     'firstName': {
@@ -114,22 +116,36 @@ export class DialogPersonComponent implements OnInit {
     },
   };
 
-  constructor(private personService: PersonService, private messageService: MessageService) { }
+  constructor(private route: ActivatedRoute, private router: Router,private personService: PersonService, private messageService: MessageService) { 
+    this.route.queryParams.subscribe(
+      (data) => {
+        let parameter = this.router.getCurrentNavigation()?.extras.state;
+        if (parameter){
+          console.log(parameter.person);
+          this.showPersonDialog(parameter.person);
+        }else{
+          console.log("error");
+        }
+      },
+      (error) => { console.log(error); },
+      () => { },
+    );
+  }
 
   ngOnInit(): void {
   }
   clear() {
     this.messageService.clear('DialogPersonToast');
   }
-  showPersonDialog(person: Person | null = null, rowIndex: number = 1): void | boolean {
+  showPersonDialog(person: Person | null = null): void | boolean {
     if (person) {
       if (person.isRemoved || person.isEdited) {
         return false;
       }
       this.dialogStatus = 'editPerson';
       this.editPerson = person;
-      this.editPersonRowIndex = rowIndex;
-      this.dialogTitle = `ویرایش ردیف ${rowIndex}`;
+      // this.editPersonRowIndex = rowIndex;
+      this.dialogTitle = 'ویرایش';
       this.editPerson_firstname = person.firstName;
       this.editPerson_lastname = person.lastName;
       this.editPerson_father_name = person.fatherName;
@@ -153,7 +169,7 @@ export class DialogPersonComponent implements OnInit {
       this.editPerson_phone_number = '';
       this.editPersonValidate('allFields');
     }
-    this.DialogPerson = true;
+    // this.DialogPerson = true;
   }
   dialogPersonSubmit(status = 'editPerson') {
 
@@ -176,9 +192,9 @@ export class DialogPersonComponent implements OnInit {
           }
         ).subscribe(
           (data) => {
-            this.update.emit({ 'data': data, 'status': status });
-            this.messageService.add({ key: 'DialogPersonToast', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف ${this.editPersonRowIndex} ویرایش شد.`, life: 7000 });
-            this.DialogPerson = false;
+            // this.update.emit({ 'data': data, 'status': status });
+            this.messageService.add({ key: 'DialogPersonToast', severity: 'success', summary: 'موفقیت آمیز', detail: 'ویرایش شد', life: 7000 });
+            // this.DialogPerson = false;
           },
           (error) => {
             error.error.subErrors.forEach((Element: PersonSubErrors) => {
@@ -211,9 +227,9 @@ export class DialogPersonComponent implements OnInit {
           }
         ).subscribe(
           (data) => {
-            this.update.emit({ 'data': data, 'status': status });
+            // this.update.emit({ 'data': data, 'status': status });
             this.messageService.add({ key: 'DialogPersonToast', severity: 'success', summary: 'موفقیت آمیز', detail: `ردیف جدید افزوده شد.`, life: 7000 });
-            this.DialogPerson = false;
+            // this.DialogPerson = false;
           },
           (error) => {
             error.error.subErrors.forEach((Element: PersonSubErrors) => {
@@ -361,13 +377,13 @@ export class DialogPersonComponent implements OnInit {
     }
 
   }
-  hideDialog() {
-    for (const [key, value] of Object.entries(this.editPersonValidateObj)) {
-      value.hasError = false;
-    }
-  }
+  // hideDialog() {
+  //   for (const [key, value] of Object.entries(this.editPersonValidateObj)) {
+  //     value.hasError = false;
+  //   }
+  // }
   openImagePicker(e:any){
-
+    this.dialogUploadComponent.showPersonDialog();
   }
 
 }
