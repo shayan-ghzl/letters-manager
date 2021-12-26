@@ -28,10 +28,12 @@
         <div class="media-frame-router">
             <div role="tablist" aria-orientation="horizontal" class="media-router">
                 <button type="button" role="tab" class="media-menu-item" tabindex="-1"
-                    (click)="mediaFrameTabPanel.library=false;mediaFrameTabPanel.upload=true" [class.active]="mediaFrameTabPanel.upload">
+                    (click)="mediaFrameTabPanel.library=false;mediaFrameTabPanel.upload=true"
+                    [class.active]="mediaFrameTabPanel.upload">
                     بارگذاری پرونده‌ها
                 </button>
-                <button type="button" role="tab" class="media-menu-item" (click)="mediaFrameTabPanel.upload=false;mediaFrameTabPanel.library=true"
+                <button type="button" role="tab" class="media-menu-item"
+                    (click)="mediaFrameTabPanel.upload=false;mediaFrameTabPanel.library=true"
                     [class.active]="mediaFrameTabPanel.library">
                     کتابخانه پرونده‌های چندرسانه‌ای
                 </button>
@@ -39,8 +41,21 @@
         </div>
         <div class="media-frame-content" role="tabpanel" aria-labelledby="menu-item-browse" tabindex="0">
             <div class="attachments-browser">
-                <div class="uploader-inline" [class.d-none]="!mediaFrameTabPanel.upload">
+                <div class="uploader-inline-container" [class.d-none]="!mediaFrameTabPanel.upload">
 
+                    <div class="uploader-inline" appDragDropUpload (appdrop)="onUpload($event)">
+                    <div class="uploader-inline-content">
+                        <div class="upload-ui">
+
+                            <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
+                            <p>یا</p>
+                            <input type="file" name="image" id="input-file" accept="image/*"
+                                (change)="onUpload($event.target)" multiple />
+                            <label for="input-file" class="button-hero wp-btn">گزینش پرونده‌ها</label>
+                        </div>
+                        <p class="max-upload-size">حداکثر اندازه پرونده برای بارگذاری: 200 مگابایت. </p>
+                    </div>
+                    </div>
                 </div>
                 <div class="attachments-wrapper" [class.d-none]="!mediaFrameTabPanel.library">
                     <ul *ngIf="images.length; else noImage" class="attachments" tabindex="-1">
@@ -73,8 +88,9 @@
                             <span class="upload-modal-icon"></span>
                         </button>
                     </li> -->
-                        <li *ngFor="let image of images" (click)="selectImage($event,image)" tabindex="0" role="checkbox"
-                            aria-checked="false" class="attachment">
+                        <li *ngFor="let image of images" (click)="selectImage($event,image)"
+                            [class.selected]="image.isSelected" tabindex="0" role="checkbox" aria-checked="false"
+                            class="attachment">
                             <div class="attachment-preview">
                                 <div class="thumbnail">
                                     <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
@@ -110,8 +126,51 @@
                     </div>
                 </div>
                 <div class="media-sidebar" [class.d-none]="!mediaFrameTabPanel.library">
-                    <div class="upload-details">
-
+                    <div class="attachment-info" *ngIf="showImageDetails">
+                        <span class="settings-save-status" role="status">
+                            <span class="spinner"></span>
+                            <span class="saved">ذخیره‌شد.</span>
+                        </span>
+                        <div class="image-preview" [style]="'background-image:url(' + imageDetails.resourceUrl + ')'"></div>
+                        <div class="details">
+                            <div class="uploaded"><strong>تاریخ بارگذاری:</strong> {{imageDetails.uploadDate |
+                                date:'fullDate'}}</div>
+                            <div class="filename"><strong>نام پرونده:</strong> {{imageDetails.name}}</div>
+                            <div class="file-type"><strong>نوع پرونده:</strong> {{imageDetails.contentType}}</div>
+                            <div class="file-size"><strong>اندازه پرونده:</strong> {{imageDetails.size |
+                                appKbConvertion}} کیلوبایت
+                            </div>
+                        </div>
+                        <div class="settings">
+                            <div class="p-field">
+                                <label>متن جایگزین<span class="app-required-star">*</span></label>
+                                <input type="text" class="wp-control" [class.ng-invalid]="false" />
+                                <small class="p-error">مقدار وارد شده صحیح نمی باشد.</small>
+                                <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر
+                                    کاملا
+                                    تزئینی است این را خالی رها نمایید.</p>
+                            </div>
+                            <div class="p-field">
+                                <label>توضیح<span class="app-required-star">*</span></label>
+                                <textarea class="wp-control" rows="3" [class.ng-invalid]="false"></textarea>
+                                <small class="p-error">مقدار وارد شده صحیح نمی باشد.</small>
+                                <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر
+                                    کاملا
+                                    تزئینی است این را خالی رها نمایید.</p>
+                            </div>
+                            <div class="p-field">
+                                <label>نشانی پرونده</label>
+                                <input type="text" class="wp-control" [value]="imageDetails.resourceUrl"
+                                    [disabled]="true" />
+                                <button type="button" class="wp-btn">کپی نشانی در کلیپ بورد</button>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <a class="view-attachment" target="_blank" [href]="imageDetails.resourceUrl">نمایش صفحهٔ
+                                پیوست</a>
+                            <span class="links-separator">|</span>
+                            <button type="button" class="button-link delete-attachment">حذف برای همیشه</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -126,5 +185,7 @@
         <p-button label="ثبت" [disabled]="displaySubmitBtn" (onClick)="dialogPersonSubmit(dialogStatus)"
             styleClass="p-button-success"></p-button>
     </div> -->
+        <button type="button" class="wp-btn wp-btn-primary" [disabled]="addImageBtnDisabled"
+            (click)="addImage()">افزودن</button>
     </ng-template>
 </p-dialog>

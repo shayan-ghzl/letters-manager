@@ -10,6 +10,7 @@ export interface Image {
     isRemoved?:boolean;
     isEdited?:boolean;
     isAdded?:boolean;
+    isSelected?:boolean;
 }
 export interface ImageParams {
     page?: number;

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { UploadService } from 'src/app/upload/upload.service';
 import { Image, ImageParams } from '../../models/upload';
 
@@ -37,8 +38,8 @@ export class DialogUploadComponent implements OnInit {
 
   // };
   mediaFrameTabPanel = {
-    "upload" : false,
-    "library" : true,
+    "upload": false,
+    "library": true,
   };
   images: Image[] = [];
   tableRowsTotal!: number;
@@ -46,12 +47,15 @@ export class DialogUploadComponent implements OnInit {
   currentPage: number = 0;
   isDone = false;
   showLoading: boolean = false;
+  selectedImages: Image[] = [];
+  addImageBtnDisabled = true;
+  showImageDetails = false;
+  imageDetails!: Image;
 
 
 
 
-
-  constructor(private uploadService: UploadService) { }
+  constructor(private uploadService: UploadService, private messageService: MessageService) { }
 
   ngOnInit(): void {
   }
@@ -105,6 +109,11 @@ export class DialogUploadComponent implements OnInit {
     // for (const [key, value] of Object.entries(this.editImageValidateObj)) {
     //   value.hasError = false;
     // }
+    this.showImageDetails = false;
+    this.selectedImages.forEach((Element) => {
+        Element.isSelected = false;
+    });
+    this.selectedImages = [];
   }
   getImages(params: ImageParams) {
     if (!this.isDone) {
@@ -124,11 +133,65 @@ export class DialogUploadComponent implements OnInit {
       );
     }
   }
-  selectImage(e:any,image: Image ){
-e.currentTarget.classList.toggle('selected');
+  selectImage(e: any, image: Image) {
+    if (e.ctrlKey) {
+      if (image.isSelected) {
+        image.isSelected = false;
+        var index = this.selectedImages.indexOf(image);
+        if (index !== -1) {
+          this.selectedImages.splice(index, 1);
+        }
+      } else {
+        image.isSelected = true;
+        this.selectedImages.push(image);
+      }
+    } else {
+      this.selectedImages.forEach((Element) => {
+        if (Element != image) {
+          Element.isSelected = false;
+        }
+      });
+      if (image.isSelected) {
+        image.isSelected = false;
+        this.selectedImages = [];
+      } else {
+        image.isSelected = true;
+        this.selectedImages = [image];
+      }
+    }
+    if (this.selectedImages.length) {
+      this.addImageBtnDisabled = false;
+      this.imageDetails = this.selectedImages[this.selectedImages.length-1];
+      this.showImageDetails = true;
+    } else {
+      this.addImageBtnDisabled = true;
+      this.showImageDetails = false;
+    }
   }
   loadMoreImage() {
     this.currentPage = this.currentPage + 1;
     this.getImages({ size: this.tableRows, page: this.currentPage });
+  }
+  addImage() {
+    if (!this.addImageBtnDisabled) {
+
+    }
+  }
+  onUpload(fileObject: any) {
+    for (let file of fileObject.files) {
+      var filesize = +((file.size / 1024) / 1024).toFixed(4); // MB
+      if (typeof file.name != "undefined" && filesize <= 10) {
+        this.mediaFrameTabPanel.upload = false;
+        this.mediaFrameTabPanel.library = true;
+        this.uploadService.uploadImages(file).subscribe((response) => {
+          this.images.unshift(response);
+          this.tableRowsTotal++;
+        }, (error) => {
+          this.messageService.add({ key: 'DialogUploadToast', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
+        });
+      }else{
+        this.messageService.add({ key: 'DialogUploadToast', severity: 'error', summary: 'خطا', detail: 'حجم فایل بیشتر از حد مجاز است.', life: 7000 });
+      }
+    }
   }
 }
