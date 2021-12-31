@@ -121,40 +121,52 @@
             *ngIf="editPersonValidateObj.phoneNumber.hasError">{{editPersonValidateObj.phoneNumber.errorMessage}}</small>
     </div>
 </div>
-<div class="row">
-    <div class="inside">
-       
-        <div id="product_images_container">
-            <ul class="product_images ui-sortable">
-                <li class="image" data-attachment_id="577">
-                    <img width="150" height="150"
-                        src="https://petroll.ir/wp-content/uploads/2019/03/parrot-4-150x150.jpg"
-                        class="attachment-thumbnail size-thumbnail" alt="" loading="lazy"
-                        srcset="https://petroll.ir/wp-content/uploads/2019/03/parrot-4-150x150.jpg 150w, https://petroll.ir/wp-content/uploads/2019/03/parrot-4-300x300.jpg 300w, https://petroll.ir/wp-content/uploads/2019/03/parrot-4-100x100.jpg 100w, https://petroll.ir/wp-content/uploads/2019/03/parrot-4-480x480.jpg 480w, https://petroll.ir/wp-content/uploads/2019/03/parrot-4-280x280.jpg 280w"
-                        sizes="(max-width: 150px) 100vw, 150px">
-                    <ul class="actions">
-                        <li><a href="#" class="delete tips">حذف</a></li>
-                    </ul>
-                </li>
-                <li class="image" data-attachment_id="574">
+<div class="row-span">
+    <div class="person-panel-postbox">
+
+        <!-- <div id="person-image-container">
+            <ul class="person-image-wrapper">
+                <li class="image">
                     <img width="150" height="150"
                         src="https://petroll.ir/wp-content/uploads/2019/03/parrot-1-150x150.jpg"
-                        class="attachment-thumbnail size-thumbnail" alt="" loading="lazy"
-                        srcset="https://petroll.ir/wp-content/uploads/2019/03/parrot-1-150x150.jpg 150w, https://petroll.ir/wp-content/uploads/2019/03/parrot-1-300x300.jpg 300w, https://petroll.ir/wp-content/uploads/2019/03/parrot-1-100x100.jpg 100w, https://petroll.ir/wp-content/uploads/2019/03/parrot-1-480x480.jpg 480w, https://petroll.ir/wp-content/uploads/2019/03/parrot-1-280x280.jpg 280w"
-                        sizes="(max-width: 150px) 100vw, 150px">
+                        class="attachment-thumbnail">
                     <ul class="actions">
-                        <li><a href="#" class="delete tips">حذف</a></li>
+                        <li>
+                            <button type="button" class="delete">
+                                <img width="17" src="../../../assets/images/svg-icon/image-remove.svg" alt="delete icon">
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+                <li class="image">
+                    <img width="150" height="150"
+                        src="https://petroll.ir/wp-content/uploads/2019/03/parrot-1-150x150.jpg"
+                        class="attachment-thumbnail">
+                    <ul class="actions">
+                        <li>
+                            <button type="button" class="delete">
+                                <img width="17" src="../../../assets/images/svg-icon/image-remove.svg" alt="delete icon">
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+                <li class="image">
+                    <img width="150" height="150"
+                        src="https://petroll.ir/wp-content/uploads/2019/03/parrot-1-150x150.jpg"
+                        class="attachment-thumbnail">
+                    <ul class="actions">
+                        <li>
+                            <button type="button" class="delete">
+                                <img width="17" src="../../../assets/images/svg-icon/image-remove.svg" alt="delete icon">
+                            </button>
+                        </li>
                     </ul>
                 </li>
             </ul>
-
-            <!-- <input type="hidden" id="product_image_gallery" name="product_image_gallery" value="577,574"> -->
-
+        </div> -->
+        <div class="person-image-empty-box">
+            تصویری وجود ندارد.
         </div>
-        <!-- <p class="add_product_images hide-if-no-js">
-            <a href="#" data-choose="افزودن تصویر به گالری تصاویر محصول" data-update="افزودن به گالری"
-                data-delete="پاک کردن تصویر" data-text="حذف">افزودن گالری تصاویر محصول</a>
-        </p> -->
         <button type="button" class="wp-btn" (click)="openImagePicker($event)">افزودن تصویر</button>
     </div>
 </div>

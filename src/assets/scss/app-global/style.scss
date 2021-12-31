@@ -1,66 +1,8 @@
-.wp-btn {
-    font-size: 0.8rem;
-    line-height: 2.1;
-    min-height: 30px;
-    padding: 0 0.7rem;
-    color: #2271b1;
-    border: 1px solid #2271b1;
-    border-radius: 3px;
-    background: #f6f7f7;
-    -webkit-appearance: none;
-    white-space: nowrap;
-    text-decoration: none;
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    user-select: none;
-    cursor: pointer;
-    &:hover {
-        background: #f0f0f1;
-        border-color: #0a4b78;
-        color: #0a4b78;
-    }
-    &:disabled{
-        opacity: 0.7;
-        pointer-events: none;
-    }
-    
-}
-.wp-control {
-    margin: 1px;
-    padding: 6px 8px;
-    line-height: 1.14285714;
-    min-height: 30px;
-    border-radius: 4px;
-    border: 1px solid #8c8f94;
-    background-color: #fff;
-    color: #2c3338;
-    font-size: 14px;
-    box-shadow: 0 0 0 transparent;
-    &:focus {
-        border-color: #2271b1;
-        box-shadow: 0 0 0 1px #2271b1;
-        outline: 2px solid transparent;
-    }
-    &.ng-invalid {
-        border-color: #f44336;
-        &:focus {
-            box-shadow: 0 0 0 0.2rem #ffdcdc;
-          
-        }
-    }
-}
-.wp-btn-primary {
-    background: #2271b1;
-    border-color: #2271b1;
-    color: #fff;
-    &:hover {
-        background: #135e96;
-        border-color: #135e96;
-        color: #fff;
-    }
+@import "./wp-style.scss";
+.row-span {
+    margin-top: 1.5rem;
+    display: flex;
+    // flex-wrap: wrap;
 }
 .app-small-input {
     font-size: 0.8rem;

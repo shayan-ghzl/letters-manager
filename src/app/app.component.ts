@@ -24,7 +24,14 @@ export class AppComponent {
           name: 'اشخاص',
           url: 'person',
           icon: 'icon-dashboard',
-          children: []
+          children: [
+            {
+              name: 'دسته بندی',
+              url: 'upload/category',
+              icon: '',
+              children: []
+            },
+          ]
         },
         {
           name: 'قولنامه ها',
@@ -39,7 +46,7 @@ export class AppComponent {
           icon: 'icon-dashboard',
           children: []
         },
-       
+
       ]
     },
   ];

@@ -1,0 +1,43 @@
+.col-right {
+    float: right;
+    width: 35%;
+}
+.col-left {
+    float: left;
+    width: 65%;
+}
+small{
+    font-size: 0.81rem;
+    margin: 2px 0 5px;
+    padding: 0;
+    color: #646970;
+    display: block;
+    line-height: 1.5;
+}
+label{
+    font-size: 0.81rem;
+    display: block;
+    padding: 2px 0;
+    color: #1d2327;
+    font-weight: 400;
+    text-shadow: none;
+    vertical-align: baseline;
+   cursor: pointer;
+}
+div.submit{
+    margin: 2px 0 5px;
+    color: #646970;
+    padding: 1.5em 0;
+}
+input,small,textarea{
+    width: 95%;
+}
+select{
+    max-width: 95%;
+}
+
+
+
+
+
+

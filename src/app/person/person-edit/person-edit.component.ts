@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { DialogUploadComponent } from 'src/app/shared/components/dialog-upload/dialog-upload.component';
@@ -120,11 +120,22 @@ export class PersonEditComponent implements OnInit {
     this.route.queryParams.subscribe(
       (data) => {
         let parameter = this.router.getCurrentNavigation()?.extras.state;
-        if (parameter){
-          console.log(parameter.person);
+        let personIdQueryParam = this.router.getCurrentNavigation()?.extractedUrl.queryParams.p;
+        if (parameter ){
           this.showPersonDialog(parameter.person);
+        }else if(personIdQueryParam){
+            this.personService.getPersonById(personIdQueryParam).subscribe(
+              (data) => {
+                this.showPersonDialog(data);
+              },
+              (error) => {
+                this.showPersonDialog();
+               },
+              () => { },
+            );
+          
         }else{
-          console.log("error");
+            this.router.navigate(['person']);
         }
       },
       (error) => { console.log(error); },

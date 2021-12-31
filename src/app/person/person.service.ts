@@ -12,15 +12,15 @@ export class PersonService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
-  
+
   // this is for get person
   getPersons(parameters: any): Observable<any> {
     let params = new HttpParams();
-        // these params are integer and maybe value will be zero so condition will be false
+    // these params are integer and maybe value will be zero so condition will be false
     if (typeof parameters.page !== 'undefined') {
       params = params.append('page', parameters.page);
     }
-        // these params are integer and maybe value will be zero so condition will be false
+    // these params are integer and maybe value will be zero so condition will be false
     if (typeof parameters.size !== 'undefined') {
       params = params.append('size', parameters.size);
     }
@@ -45,9 +45,12 @@ export class PersonService {
   }
   // this is for add person
   addPerson(person: Person): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'lm/v1/person',person);
+    return this.http.post<any>(this.baseUrl + 'lm/v1/person', person);
   }
 
+  getPersonById(id:string): Observable<any> {
+    return this.http.get<Person>(this.baseUrl + 'lm/v1/person/' + id);
+  }
   // .pipe(
   //   tap( // Log the result or error
   //     data => this.log(filename, data),

@@ -6,11 +6,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 import { ToastModule } from 'primeng/toast';
+import { UploadCategoryComponent } from './upload-category/upload-category.component';
 
 
 @NgModule({
   declarations: [
-    UploadListComponent
+    UploadListComponent,
+    UploadCategoryComponent
   ],
   imports: [
     CommonModule,

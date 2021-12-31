@@ -103,7 +103,8 @@ export class PersonListComponent  {
     let navigationExtras: NavigationExtras = {
       state: {
         person: person
-      }
+      },
+      queryParams: { p:person?.personUUID  }
     };
     this.router.navigate(['person/edit'], navigationExtras);
   }
