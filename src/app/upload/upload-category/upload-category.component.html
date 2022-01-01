@@ -3,10 +3,10 @@
         <div class="col-wrap">
             <h2>افزودن دسته تازه</h2>
 
-            <div>
+            <div class="form-field">
                 <label>نام</label>
                 <input type="text" class="wp-control" size="40" aria-required="true">
-                <small>در سایت با این نام نمایش داده می‌شود.</small>
+                <!-- <small>در سایت با این نام نمایش داده می‌شود.</small> -->
             </div>
             <!-- <div>
                 <label>نامک</label>
@@ -15,21 +15,21 @@
                     حروف،‌
                     ارقام و خط تیره استفاده کنید. نمایش فقط با حروف کوچک خواهد بود.</small>
             </div> -->
-            <div>
+            <div class="form-field">
                 <label>دستهٔ مادر</label>
                 <select class="wp-select">
                     <option value="-1">هیچ‌کدام</option>
                     <option class="level-0" value="1">کارت ملی</option>
                 </select>
-                <small>دسته‌ها برخلاف برچسب‌ها می‌توانند سلسله مراتب داشته باشند. به طور مثال شما می‌توانید یک دسته
+                <small>دسته‌ها می‌توانند سلسله مراتب داشته باشند. به طور مثال شما می‌توانید یک دسته
                     به نام موسیقی داشته باشید و برای آن دسته، زیر دسته‌هایی مانند موسیقی ایرانی و یا موسیقی غربی
                     تعریف کنید.</small>
             </div>
-            <div>
+            <div class="form-field">
                 <label>توضیح</label>
                 <textarea class="wp-textarea" rows="5" cols="40"></textarea>
-                <small>توضیحات به صورت پیش فرض مهم نیستند، با این حال برخی از پوسته‌ها ممکن است آنها را نمایش دهند.
-                </small>
+                <!-- <small>توضیحات به صورت پیش فرض مهم نیستند، با این حال برخی از پوسته‌ها ممکن است آنها را نمایش دهند.
+                </small> -->
             </div>
 
             <div class="submit">
@@ -44,7 +44,7 @@
 
         <div class="col-wrap">
 
-            <div class="tablenav top">
+            <div class="tablenav">
 
                 <div class="bulkactions">
                     <select class="wp-select">
@@ -53,7 +53,7 @@
                     </select>
                     <button type="button" class="wp-btn">اجرا</button>
                 </div>
-                <div class="tablenav-pages one-page"><span class="displaying-num">1 مورد</span>
+                <!-- <div class="tablenav-pages one-page"><span class="displaying-num">1 مورد</span>
                     <span class="pagination-links">
                         <span class="tablenav-pages-navspan button disabled" aria-hidden="true">«</span>
                         <span class="tablenav-pages-navspan button disabled" aria-hidden="true">‹</span>
@@ -64,12 +64,12 @@
                         <span class="tablenav-pages-navspan button disabled" aria-hidden="true">›</span>
                         <span class="tablenav-pages-navspan button disabled" aria-hidden="true">»</span>
                     </span>
-                </div>
+                </div> -->
             </div>
             <table class="wp-table">
                 <thead>
                     <tr>
-                        <td id="cb" class="manage-column column-cb check-column">
+                        <td class="check-column">
                             <input class="wp-checkbox" type="checkbox">
                         </td>
                         <th scope="col" id="name" class="manage-column column-name column-primary sortable desc"><a
@@ -96,13 +96,9 @@
                             </strong>
 
                             <div class="row-actions">
-                                <span class="edit">
-                                    <a href="#">ویرایش</a> | </span>
-                                <span class="inline"><button type="button"
-                                        class="button-link editinline">ویرایش&nbsp;سریع</button> | </span>
-                                <span class="view">
-                                    <a href="#">نمایش</a>
-                                </span>
+                                <span class="edit">ویرایش | </span>
+                                <span class="delete">پاک کردن | </span>
+                                <span class="view">نمایش</span>
                             </div>
                         </td>
                         <td class="column-description">
@@ -121,7 +117,7 @@
 
 
 
-            <div class="term-notes">
+            <!-- <div class="term-notes">
                 <p class="description">
                     حذف یک دسته باعث حذف نوشته‌های آن دسته نمی‌شود. درعوض، نوشته‌هایی که فقط به دسته حذف شده اختصاص داده
                     شده بودند بر روی دسته پیش‌فرض <strong>کارت ملی</strong> تنظیم شده‌اند. دسته پیش‌فرض را نمی‌توان
@@ -129,7 +125,7 @@
                 <p class="description">
                     می‌توان دسته‌های دل‌خواه را با بکارگیری <a href="http://localhost/wp-admin/import.php">برگردان دسته
                         به برچسب </a> به برچسب برگرداند. </p>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

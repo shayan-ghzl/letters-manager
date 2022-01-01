@@ -1,10 +1,25 @@
 .col-right {
     float: right;
     width: 35%;
+    input,small,textarea{
+        width: 95%;
+    }
+    select{
+        max-width: 95%;
+    }
+    
 }
 .col-left {
     float: left;
     width: 65%;
+}
+.form-field{
+    margin: 0.8rem 0;
+}
+.bulkactions select{
+    float: right;
+    margin-left: 6px;
+    max-width: 12.5rem;
 }
 small{
     font-size: 0.81rem;
@@ -28,12 +43,9 @@ div.submit{
     margin: 2px 0 5px;
     color: #646970;
     padding: 1.5em 0;
-}
-input,small,textarea{
-    width: 95%;
-}
-select{
-    max-width: 95%;
+    .spinner{
+        margin-right: 1rem;
+    }
 }
 
 
