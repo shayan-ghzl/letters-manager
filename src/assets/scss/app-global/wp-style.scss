@@ -27,6 +27,7 @@
         pointer-events: none;
     }
 }
+
 .wp-select {
     font-size: 0.85rem;
     line-height: 2;
@@ -80,8 +81,8 @@
 }
 .wp-control {
     margin: 1px;
-    padding: 6px 8px;
-    line-height: 1.14285714;
+    padding: 0 8px;
+    line-height: 2;
     min-height: 30px;
     border-radius: 4px;
     border: 1px solid #8c8f94;
@@ -144,7 +145,7 @@
         -moz-osx-font-smoothing: grayscale;
     }
 }
-.tablenav{
+.tablenav {
     clear: both;
     margin: 6px 0 4px;
     vertical-align: middle;
@@ -162,17 +163,17 @@
     line-height: 1.5em;
     font-size: 14px;
     color: #2c3338;
-    .check-column{
+    .check-column {
         width: 31px;
         vertical-align: top;
         padding: 11px 3px 0 0;
-        .wp-checkbox{
+        .wp-checkbox {
             margin-right: 8px;
         }
     }
-    thead{
-        .wp-checkbox{
-            padding-top: 4px;
+    thead {
+        .check-column {
+            padding-top: 0;
             vertical-align: middle;
         }
     }
@@ -219,9 +220,61 @@
         border-bottom: 0;
     }
 
-
-
-
+    .row-actions {
+        color: #dcdcde;
+        font-size: 0.81rem;
+        line-height: 19.5px;
+        padding: 2px 0 0;
+        word-wrap: break-word;
+        button {
+            display: inline-block;
+            color: #2271b1;
+        }
+        .delete button {
+            color: #b32d2e;
+        }
+    }
+    .editbar-open{
+        th,td{
+            border-bottom: 0;
+        }
+    }
+}
+.inline-edit {
+    legend {
+        margin: 0;
+        padding: 0;
+        line-height: 2.5;
+        font-weight: 600;
+        font-size: 0.785rem;
+    }
+    .input-text-wrap{
+        display: block;
+        margin-right: 70px;
+        input , textarea{
+            width: 100%;
+        }
+    }
+    .inline-edit-col label {
+        display: block;
+        margin: 3px 0;
+        line-height: 2.5;
+        .title {
+            display: block;
+            float: right;
+            width: 70px;
+            line-height: 2.5;
+        }
+    }
+    .inline-edit-save {
+        display: flex;
+    }
+    .spinner {
+        margin-left: 1rem;
+    }
+    .cancel {
+        margin-left: auto;
+    }
 }
 p.description {
     margin: 2px 0 5px;
