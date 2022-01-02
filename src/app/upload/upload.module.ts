@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 import { ToastModule } from 'primeng/toast';
 import { UploadCategoryComponent } from './upload-category/upload-category.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { UploadCategoryComponent } from './upload-category/upload-category.compo
     InputTextModule,
     HttpClientModule,
     SharedModule,
-    ToastModule
+    ToastModule,
+    FormsModule
   ]
 })
 export class UploadModule { }

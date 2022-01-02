@@ -72,108 +72,27 @@
                         <td class="check-column">
                             <input class="wp-checkbox" type="checkbox">
                         </td>
-                        <th scope="col" id="name" class="manage-column column-name column-primary sortable desc"><a
-                                href="http://localhost/wp-admin/edit-tags.php?taxonomy=category&amp;orderby=name&amp;order=asc"><span>نام</span>
-                            </a></th>
-                        <th scope="col" id="description" class="manage-column column-description sortable desc"><a
-                                href="http://localhost/wp-admin/edit-tags.php?taxonomy=category&amp;orderby=description&amp;order=asc"><span>توضیح</span>
-                            </a></th>
+                        <th scope="col" class="column-name column-primary sortable desc">
+                            <a href="">
+                                <span>نام</span>
+                            </a>
+                        </th>
+                        <th scope="col" class="column-description sortable desc">
+                            <a href="">
+                                <span>توضیح</span>
+                            </a>
+                        </th>
 
-                        <th scope="col" id="posts" class="manage-column column-posts num sortable desc"><a
-                                href="http://localhost/wp-admin/edit-tags.php?taxonomy=category&amp;orderby=count&amp;order=asc"><span>تعداد</span>
-                            </a></th>
+                        <th scope="col" class="column-posts sortable desc">
+                            <a href="">
+                                <span>تعداد</span>
+                            </a>
+                        </th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr class="editbar-open">
-                        <th scope="row" class="check-column">
-                            <input type="checkbox" class="wp-checkbox">
-                        </th>
-                        <td class="column-name column-primary">
-                            <strong>
-                                <a class="row-title" href="#">کارت ملی</a>
-                            </strong>
-
-                            <div class="row-actions">
-                                <span class="edit"><button type="button" class="app-normall-btn">ویرایش</button> |
-                                </span>
-                                <span class="delete"><button type="button" class="app-normall-btn">پاک کردن</button> |
-                                </span>
-                                <span class="view"><button type="button" class="app-normall-btn">نمایش</button></span>
-                            </div>
-
-                        </td>
-                        <td class="column-description">
-                            <span>—</span>
-                        </td>
-
-                        <td class="column-posts">
-                            <a href="#">1</a>
-                        </td>
-                    </tr>
-                    <tr>
-             
-
-                        <td colspan="4" class="inline-edit">
-
-                            <fieldset>
-                                <legend class="inline-edit-legend">ویرایش</legend>
-             
-                                <div class="inline-edit-col">
-                                    <label>
-                                        <span class="title">نام</span>
-                                        <span class="input-text-wrap">
-                                            <input type="text" class="wp-control">
-                                        </span>
-                                    </label>
-
-                                    <label>
-                                        <span class="title">توضیح</span>
-                                        <span class="input-text-wrap">
-                                            <textarea rows="5" cols="40" class="wp-textarea"></textarea>
-                                        </span>
-                                    </label>
-                                </div>
-                            </fieldset>
-
-
-                            <div class="inline-edit-save">
-                                <button type="button" class="cancel wp-btn">لغو</button>
-                                <span class="spinner"></span>
-                                <button type="button" class="save wp-btn wp-btn-primary">بروزرسانی
-                                    دسته</button>
-
-                            </div>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="check-column">
-                            <input type="checkbox" class="wp-checkbox">
-                        </th>
-                        <td class="column-name column-primary">
-                            <strong>
-                                <a class="row-title" href="#">کارت ملی</a>
-                            </strong>
-
-                            <div class="row-actions">
-                                <span class="edit"><button type="button" class="app-normall-btn">ویرایش</button> |
-                                </span>
-                                <span class="delete"><button type="button" class="app-normall-btn">پاک کردن</button> |
-                                </span>
-                                <span class="view"><button type="button" class="app-normall-btn">نمایش</button></span>
-                            </div>
-
-                        </td>
-                        <td class="column-description">
-                            <span>—</span>
-                        </td>
-
-                        <td class="column-posts">
-                            <a href="#">1</a>
-                        </td>
-                    </tr>
+                   <app-media-category-table [categories]="categories"></app-media-category-table>
                 </tbody>
 
 

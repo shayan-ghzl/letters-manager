@@ -20,6 +20,8 @@ import { UploadDetailsDialogComponent } from './components/upload-details-dialog
 import { DragDropUploadDirective } from './directives/drag-drop-upload.directive';
 import { KbConvertionPipe } from './pipes/kb-convertion.pipe';
 import { DialogUploadComponent } from './components/dialog-upload/dialog-upload.component';
+import { MediaCategoryTableComponent } from './components/media-category-table/media-category-table.component';
+import { AddDashBeforeNameDirective } from './directives/add-dash-before-name.directive';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { DialogUploadComponent } from './components/dialog-upload/dialog-upload.
     DragDropUploadDirective,
     KbConvertionPipe,
     DialogUploadComponent,
+    MediaCategoryTableComponent,
+    AddDashBeforeNameDirective,
 
   ],
   imports: [
@@ -55,6 +59,8 @@ import { DialogUploadComponent } from './components/dialog-upload/dialog-upload.
     DragDropUploadDirective,
     KbConvertionPipe,
     DialogUploadComponent,
+    MediaCategoryTableComponent,
+    AddDashBeforeNameDirective,
 
   ],
   providers: [
