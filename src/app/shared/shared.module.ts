@@ -22,6 +22,7 @@ import { KbConvertionPipe } from './pipes/kb-convertion.pipe';
 import { DialogUploadComponent } from './components/dialog-upload/dialog-upload.component';
 import { MediaCategoryTableComponent } from './components/media-category-table/media-category-table.component';
 import { AddDashBeforeNameDirective } from './directives/add-dash-before-name.directive';
+import { MediaCategorySelectOptionComponent } from './components/media-category-select-option/media-category-select-option.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { AddDashBeforeNameDirective } from './directives/add-dash-before-name.di
     DialogUploadComponent,
     MediaCategoryTableComponent,
     AddDashBeforeNameDirective,
+    MediaCategorySelectOptionComponent,
 
   ],
   imports: [
@@ -61,6 +63,7 @@ import { AddDashBeforeNameDirective } from './directives/add-dash-before-name.di
     DialogUploadComponent,
     MediaCategoryTableComponent,
     AddDashBeforeNameDirective,
+    MediaCategorySelectOptionComponent
 
   ],
   providers: [

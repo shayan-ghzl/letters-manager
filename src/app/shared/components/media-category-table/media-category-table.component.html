@@ -60,5 +60,5 @@
 
         </td>
     </tr>
-    <app-media-category-table [categories]="category.children"></app-media-category-table>
+    <ng-content [app-media-category-table]="category.children"></ng-content>
 </ng-container>

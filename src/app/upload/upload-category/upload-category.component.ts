@@ -13,9 +13,10 @@ export class UploadCategoryComponent implements OnInit {
   currentPage: number = 0;
   tableRowsTotal!: number;
   categories: MediaCategory[] = [];
+  allCategories: MediaCategory[] = [];
 
-  constructor(private uploadService:UploadService) { 
-    this.getCategories({  });
+  constructor(private uploadService: UploadService) {
+    this.getAllCategories();
   }
 
   ngOnInit(): void {
@@ -25,12 +26,36 @@ export class UploadCategoryComponent implements OnInit {
     this.uploadService.getCategories(params).subscribe(
       (data) => {
         this.tableRowsTotal = data.totalElements;
-        data.content.forEach((Element:MediaCategory) => {
+        data.content.forEach((Element: MediaCategory) => {
           Element.isSelected = false;
           Element.isEdited = false;
         });
         this.categories = data.content;
         console.log(this.categories);
+      },
+      (error) => { console.log(error); },
+      () => { },
+    );
+  }
+  getAllCategories() {
+    this.uploadService.getCategories({ page: this.currentPage, size: 20 }).subscribe(
+      (data) => {
+        this.tableRowsTotal = data.totalElements;
+        data.content.forEach((Element: MediaCategory) => {
+          Element.isSelected = false;
+          Element.isEdited = false;
+        });
+        this.allCategories = [...this.allCategories, ...data.content];
+        if(this.currentPage == 0){
+          this.categories = data.content;
+        }
+        if (this.tableRowsTotal > this.allCategories.length) {
+          this.currentPage++;
+          this.getAllCategories();
+        } else {
+          this.currentPage = 0;
+          console.log(this.allCategories);
+        }
       },
       (error) => { console.log(error); },
       () => { },

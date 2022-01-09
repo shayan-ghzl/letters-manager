@@ -2,12 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MediaCategory } from '../../models/upload';
 
 @Component({
-  selector: 'app-media-category-table',
+  selector: '[app-media-category-table]',
   templateUrl: './media-category-table.component.html',
   styleUrls: ['./media-category-table.component.scss']
 })
 export class MediaCategoryTableComponent implements OnInit {
-@Input('categories') categories:MediaCategory[] = [];
+@Input('app-media-category-table') categories:MediaCategory[] = [];
   constructor() { }
 
   ngOnInit(): void {
