@@ -17,10 +17,7 @@
             </div> -->
             <div class="form-field">
                 <label>دستهٔ مادر</label>
-                <select class="wp-select">
-                    <option value="-1">هیچ‌کدام</option>
-                    <option *ngFor="let allCategory of allCategories" class="level-0" value="1">{{allCategory.name}}</option>
-
+                <select class="wp-select" [app-media-category-select-option]="allCategories">
                 </select>
                 <small>دسته‌ها می‌توانند سلسله مراتب داشته باشند. به طور مثال شما می‌توانید یک دسته
                     به نام موسیقی داشته باشید و برای آن دسته، زیر دسته‌هایی مانند موسیقی ایرانی و یا موسیقی غربی
