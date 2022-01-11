@@ -8,7 +8,8 @@ import { MediaCategory } from '../../models/upload';
 })
 export class MediaCategoryTableComponent implements OnInit {
 @Input('app-media-category-table') categories:MediaCategory[] = [];
-  constructor() { }
+  constructor() { 
+  }
 
   ngOnInit(): void {
   }

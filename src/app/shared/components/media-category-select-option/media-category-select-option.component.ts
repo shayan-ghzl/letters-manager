@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-media-category-select-option',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./media-category-select-option.component.scss']
 })
 export class MediaCategorySelectOptionComponent implements OnInit {
+
+  @Input('app-media-category-select-option') allCategories = [];
 
   constructor() { }
 

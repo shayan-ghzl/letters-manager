@@ -1,64 +1,70 @@
-<ng-container *ngFor="let category of categories">
-    <tr [class.editbar-open]="category.isEdited">
-        <th scope="row" class="check-column">
-            <!-- TODO:: ng model undefined -->
-            <input type="checkbox" [(ngModel)]="category.isSelected" class="wp-checkbox">
-        </th>
-        <td class="column-name column-primary">
-            <strong>
-                <a class="row-title" href="#" [appAddDashBeforeName]="category.childrenCount">{{category.name}}</a>
-            </strong>
-
-            <div class="row-actions">
-                <span class="edit"><button type="button" class="app-normall-btn" (click)="category.isEdited = true">ویرایش</button> |
-                </span>
-                <span class="delete"><button type="button" class="app-normall-btn">پاک کردن</button> |
-                </span>
-                <span class="view"><button type="button" class="app-normall-btn">نمایش</button></span>
-            </div>
-
-        </td>
-        <td class="column-description">
-            <span>{{category.description ? category.description : '-'}}</span>
-        </td>
-
-        <td class="column-posts">
-            <a href="#">{{category.childrenCount}}</a>
-        </td>
-    </tr>
-    <tr>
-        <td *ngIf="category.isEdited" colspan="4" class="inline-edit">
-
-            <fieldset>
-                <legend class="inline-edit-legend">ویرایش</legend>
-
-                <div class="inline-edit-col">
-                    <label>
-                        <span class="title">نام</span>
-                        <span class="input-text-wrap">
-                            <input type="text" [(ngModel)]="category.name" class="wp-control">
-                        </span>
-                    </label>
-
-                    <label>
-                        <span class="title">توضیح</span>
-                        <span class="input-text-wrap">
-                            <textarea rows="5" cols="40" class="wp-textarea">{{category.description}}</textarea>
-                        </span>
-                    </label>
-                </div>
-            </fieldset>
-
-
-            <div class="inline-edit-save">
-                <button type="button" class="cancel wp-btn" (click)="category.isEdited = false">لغو</button>
-                <span class="spinner"></span>
-                <button type="button" class="save wp-btn wp-btn-primary">بروزرسانی
-                    دسته</button>
-
-            </div>
-
-        </td>
-    </tr>
-    <ng-content [app-media-category-table]="category.children"></ng-content>
+<ng-container *ngTemplateOutlet="tree;context:{node:categories}">
 </ng-container>
+<ng-template #tree let-node="node">
+    <ng-container *ngFor="let category of node">
+        <tr [class.editbar-open]="category.isEdited">
+            <th scope="row" class="check-column">
+                <!-- TODO:: ng model undefined -->
+                <input type="checkbox" [(ngModel)]="category.isSelected" class="wp-checkbox">
+            </th>
+            <td class="column-name column-primary">
+                <strong>
+                    <a class="row-title" href="#" [appAddDashBeforeName]="category.childrenCount">{{category.name}}</a>
+                </strong>
+
+                <div class="row-actions">
+                    <span class="edit"><button type="button" class="app-normall-btn"
+                            (click)="category.isEdited = true">ویرایش</button> |
+                    </span>
+                    <span class="delete"><button type="button" class="app-normall-btn">پاک کردن</button> |
+                    </span>
+                    <span class="view"><button type="button" class="app-normall-btn">نمایش</button></span>
+                </div>
+
+            </td>
+            <td class="column-description">
+                <span>{{category.description ? category.description : '-'}}</span>
+            </td>
+
+            <td class="column-posts">
+                <a href="#">{{category.childrenCount}}</a>
+            </td>
+        </tr>
+        <tr>
+            <td *ngIf="category.isEdited" colspan="4" class="inline-edit">
+
+                <fieldset>
+                    <legend class="inline-edit-legend">ویرایش</legend>
+
+                    <div class="inline-edit-col">
+                        <label>
+                            <span class="title">نام</span>
+                            <span class="input-text-wrap">
+                                <input type="text" [(ngModel)]="category.name" class="wp-control">
+                            </span>
+                        </label>
+
+                        <label>
+                            <span class="title">توضیح</span>
+                            <span class="input-text-wrap">
+                                <textarea rows="5" cols="40" class="wp-textarea">{{category.description}}</textarea>
+                            </span>
+                        </label>
+                    </div>
+                </fieldset>
+
+
+                <div class="inline-edit-save">
+                    <button type="button" class="cancel wp-btn" (click)="category.isEdited = false">لغو</button>
+                    <span class="spinner"></span>
+                    <button type="button" class="save wp-btn wp-btn-primary">بروزرسانی
+                        دسته</button>
+
+                </div>
+
+            </td>
+        </tr>
+        <ng-container *ngTemplateOutlet="tree;context:{node:category.children}">
+        </ng-container>
+    </ng-container>
+</ng-template>
