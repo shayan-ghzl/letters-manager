@@ -1,0 +1,15 @@
+<!-- <option value="-1">هیچ‌کدام</option>
+
+<option class="level-0" value="1">{{allCategory.name}}</option>
+<app-media-category-select-option ></app-media-category-select-option> -->
+
+<option value="-1">هیچ‌کدام</option>
+<ng-container *ngTemplateOutlet="tree;context:{node:allCategories}">
+</ng-container>
+<ng-template #tree let-node="node">
+  <ng-container *ngFor="let item of node">
+    <option class="level-0" value="1">{{item.name}}</option>
+    <ng-container *ngTemplateOutlet="tree;context:{node:item.children}">
+    </ng-container>
+  </ng-container>
+</ng-template>
