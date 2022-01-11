@@ -45,7 +45,8 @@ export class UploadCategoryComponent implements OnInit {
           Element.isSelected = false;
           Element.isEdited = false;
         });
-        this.allCategories = [...this.allCategories, ...data.content];
+        this.allCategories.push(data.content);
+        // this.allCategories = [...this.allCategories, ...data.content];
         if(this.currentPage == 0){
           this.categories = data.content;
         }
