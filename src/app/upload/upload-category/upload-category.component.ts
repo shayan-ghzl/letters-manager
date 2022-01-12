@@ -15,6 +15,7 @@ export class UploadCategoryComponent implements OnInit {
   tableRowsTotal!: number;
   // categories: MediaCategory[] = [];
   allCategories: MediaCategory[] = [];
+  rootCheckbox:boolean = false;
 
   constructor(private uploadService: UploadService) {
     this.getAllCategories();
@@ -28,10 +29,13 @@ export class UploadCategoryComponent implements OnInit {
     this.uploadService.getCategories({ page: this.currentPage, size: 10 }).subscribe(
       (data) => {
         this.tableRowsTotal = data.totalElements;
-        console.log(this.flat2(data.content));
-        data.content.forEach((Element: MediaCategory) => {
-          this.allCategories = [...this.allCategories, ...this.flat(Element)];
+        let temp = this.flat(data.content);
+        temp.map((x) => {
+          x.isSelected = false;
+          x.isEdited = false;
         });
+        this.allCategories = [...this.allCategories, ...temp];
+
         if (this.tableRowsTotal > 10) {
           this.currentPage++;
           this.getAllCategories();
@@ -52,36 +56,20 @@ export class UploadCategoryComponent implements OnInit {
     });
   }
 
-
+  toggleAllCheckboxs() {
+    this.allCategories.map((x: MediaCategory) => {
+      x.isSelected = this.rootCheckbox;
+    });
+  }
 
   // this method is for conver tree like object to list
-  flat2(array: MediaCategory[]) {
+  flat(array: MediaCategory[]) {
     let result: MediaCategory[] = [];
     array.forEach((Element: MediaCategory) => {
       result.push(Element);
-      if (Array.isArray(Element.children)) {
-        result = result.concat(this.flat2(Element.children));
-      }
+      result = result.concat(this.flat(Element.children));
     });
     return result;
   }
 
-
-  // these two method are for conver tree like object to list
-  flatten(children: MediaCategory[]): MediaCategory[] {
-    return Array.prototype.concat.apply(
-      children,
-      children.map(x => this.flatten(x.children))
-    );
-  }
-
-  flat(treeStructure: MediaCategory) {
-    let temp = this.flatten(treeStructure.children);
-    temp.unshift(treeStructure);
-    temp.map((x: MediaCategory) => {
-      x.isSelected = false;
-      x.isEdited = false;
-    });
-    return temp;
-  }
 }

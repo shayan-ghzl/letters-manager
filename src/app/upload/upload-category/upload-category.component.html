@@ -70,7 +70,7 @@
                 <thead>
                     <tr>
                         <td class="check-column">
-                            <input class="wp-checkbox" type="checkbox">
+                            <input class="wp-checkbox" type="checkbox" [(ngModel)]="rootCheckbox" (change)="toggleAllCheckboxs()">
                         </td>
                         <th scope="col" class="column-name column-primary sortable desc">
                             <a href="">
@@ -97,7 +97,7 @@
                         <tr [class.editbar-open]="category.isEdited">
                             <th scope="row" class="check-column">
                                 <!-- TODO:: ng model undefined -->
-                                <input type="checkbox" [(ngModel)]="category.isSelected" class="wp-checkbox">
+                                <input type="checkbox" [(ngModel)]="category.isSelected" class="wp-checkbox" (change)="">
                             </th>
                             <td class="column-name column-primary">
                                 <strong>
