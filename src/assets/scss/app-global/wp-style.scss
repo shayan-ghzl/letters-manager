@@ -205,19 +205,24 @@
     tbody tr:nth-child(odd) {
         background-color: #f6f7f7;
     }
-    .sortable span::after {
-        display: inline-block;
-        margin-right: 0.255em;
-        vertical-align: middle;
-        content: "";
-        border-bottom: 0.3em solid;
-        border-left: 0.3em solid transparent;
-        border-top: 0;
-        border-right: 0.3em solid transparent;
-    }
-    .sortable.desc span::after {
-        border-top: 0.3em solid;
-        border-bottom: 0;
+    .sortable {
+        cursor: pointer;
+        color: #2271b1;
+        user-select: none;
+        span::after {
+            display: inline-block;
+            margin-right: 0.255em;
+            vertical-align: middle;
+            content: "";
+            border-bottom: 0.3em solid;
+            border-left: 0.3em solid transparent;
+            border-top: 0;
+            border-right: 0.3em solid transparent;
+        }
+        &.desc span::after {
+            border-top: 0.3em solid;
+            border-bottom: 0;
+        }
     }
 
     .row-actions {
@@ -234,8 +239,9 @@
             color: #b32d2e;
         }
     }
-    .editbar-open{
-        th,td{
+    .editbar-open {
+        th,
+        td {
             border-bottom: 0;
         }
     }
@@ -248,13 +254,14 @@
         font-weight: 600;
         font-size: 0.785rem;
     }
-    .input-text-wrap{
+    .input-text-wrap {
         display: block;
         margin-right: 70px;
-        input , textarea {
+        input,
+        textarea {
             width: 100%;
         }
-        .wp-select{
+        .wp-select {
             width: 100%;
             max-width: 100%;
         }

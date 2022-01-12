@@ -34,4 +34,11 @@ export interface MediaCategory {
     isEdited?: boolean;
     isAdded?: boolean;
     isSelected?: boolean;
+    level?: number;
+}
+export interface tableColumn {
+    name: string;
+    class: string;
+    order: boolean;
+    isSortable: boolean;
 }

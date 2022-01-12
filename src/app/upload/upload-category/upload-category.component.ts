@@ -1,6 +1,6 @@
 import { templateJitUrl } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { MediaCategory, MediaCategoryParams } from 'src/app/shared/models/upload';
+import { MediaCategory, MediaCategoryParams, tableColumn } from 'src/app/shared/models/upload';
 import { UploadService } from '../upload.service';
 
 @Component({
@@ -15,7 +15,31 @@ export class UploadCategoryComponent implements OnInit {
   tableRowsTotal!: number;
   // categories: MediaCategory[] = [];
   allCategories: MediaCategory[] = [];
-  rootCheckbox:boolean = false;
+  rootCheckbox: boolean = false;
+  flattenCategoryLevel = -1;
+  theadColObject: tableColumn[] = [
+    {
+      name: 'نام',
+      class: 'column-name column-primary',
+      order: false,
+      isSortable: true,
+    },
+    {
+      name: 'توضیح',
+      class: 'column-description',
+      order: false,//means it is desc
+      isSortable: true,
+    },
+    {
+      name: 'تعداد',
+      class: 'column-posts',
+      order: false,
+      isSortable: true,
+    },
+  ];
+
+
+
 
   constructor(private uploadService: UploadService) {
     this.getAllCategories();
@@ -30,6 +54,7 @@ export class UploadCategoryComponent implements OnInit {
       (data) => {
         this.tableRowsTotal = data.totalElements;
         let temp = this.flat(data.content);
+        console.log(temp);
         temp.map((x) => {
           x.isSelected = false;
           x.isEdited = false;
@@ -47,6 +72,9 @@ export class UploadCategoryComponent implements OnInit {
       () => { },
     );
   }
+  // getDividedCategories(pageNumber:number){
+
+  // }
   closeEditRow(category: MediaCategory) {
     category.isEdited = !category.isEdited;
     this.allCategories.map((x: MediaCategory) => {
@@ -61,14 +89,22 @@ export class UploadCategoryComponent implements OnInit {
       x.isSelected = this.rootCheckbox;
     });
   }
+  toggleCategorySelect() {
 
+  }
+  dashLevelCount(n: number = 0): Array<number> {
+    return Array(n);
+  }
   // this method is for conver tree like object to list
   flat(array: MediaCategory[]) {
     let result: MediaCategory[] = [];
+    this.flattenCategoryLevel++;
     array.forEach((Element: MediaCategory) => {
+      Element.level = this.flattenCategoryLevel;
       result.push(Element);
       result = result.concat(this.flat(Element.children));
     });
+    this.flattenCategoryLevel--;
     return result;
   }
 

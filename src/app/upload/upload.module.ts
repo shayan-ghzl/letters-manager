@@ -8,7 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ToastModule } from 'primeng/toast';
 import { UploadCategoryComponent } from './upload-category/upload-category.component';
 import { FormsModule } from '@angular/forms';
-
+import {PaginatorModule} from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     SharedModule,
     ToastModule,
-    FormsModule
+    FormsModule,
+    PaginatorModule
   ]
 })
 export class UploadModule { }
