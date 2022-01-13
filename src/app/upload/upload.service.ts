@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Image, ImageParams, MediaCategory } from '../shared/models/upload';
+import { AddMediaCategory, Image, ImageParams, MediaCategory } from '../shared/models/upload';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +17,18 @@ export class UploadService {
   // this is for get image
   getImages(parameters: ImageParams): Observable<any> {
     let params = new HttpParams();
-        // these params are integer and maybe value will be zero so condition will be false
+    // these params are integer and maybe value will be zero so condition will be false
     if (typeof parameters.page !== 'undefined') {
       params = params.append('page', parameters.page);
     }
-        // these params are integer and maybe value will be zero so condition will be false
+    // these params are integer and maybe value will be zero so condition will be false
     if (typeof parameters.size !== 'undefined') {
       params = params.append('size', parameters.size);
     }
     return this.http.get<Image>(this.baseUrl + 'lm/v1/media/image', { params: params });
   }
 
-  uploadImages(file:any) {
+  uploadImages(file: any) {
     let formData = new FormData();
     formData.append('image', <File>file);
     formData.append('contentType', 'multipart/form-data');
@@ -55,5 +55,10 @@ export class UploadService {
       params = params.append('order', parameters.order);
     }
     return this.http.get<MediaCategory>(this.baseUrl + 'lm/v1/category/media', { params: params });
+  }
+
+
+  addCategory(category: AddMediaCategory) {
+    return this.http.post<MediaCategory>(this.baseUrl + 'lm/v1/category/media', category);
   }
 }

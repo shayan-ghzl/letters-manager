@@ -149,6 +149,15 @@
     clear: both;
     margin: 6px 0 4px;
     vertical-align: middle;
+    display: flex;
+    align-items: center;
+    .search-box{
+        margin-right: auto;
+        .wp-control{
+            margin-left: 6px;
+        }
+    }
+
 }
 .wp-table {
     background: #fff;

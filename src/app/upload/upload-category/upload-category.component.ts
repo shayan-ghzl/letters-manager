@@ -17,6 +17,11 @@ export class UploadCategoryComponent implements OnInit {
   allCategories: MediaCategory[] = [];
   rootCheckbox: boolean = false;
   flattenCategoryLevel = -1;
+  tableSearch: string = '';
+  newCategoryName: string = '';
+  newCategoryDesc: string = '';
+  newCategoryParent: string = '';
+  addNewCatSpinner: boolean = false;
   theadColObject: tableColumn[] = [
     {
       name: 'نام',
@@ -95,6 +100,21 @@ export class UploadCategoryComponent implements OnInit {
   dashLevelCount(n: number = 0): Array<number> {
     return Array(n);
   }
+  tableSearchOpration() {
+    this.allCategories = this.allCategories.filter((res) => {
+      return res.name.toLocaleLowerCase().match(this.tableSearch.toLocaleLowerCase());
+    });
+  }
+  addNewCategory() {
+    // this.addNewCatSpinner = true;
+    // let parentId = this.allCategories[+this.newCategoryParent].categoryUUID;
+    // this.uploadService.addCategory({ "categoryUUID": null, "name": this.newCategoryName, "description": this.newCategoryDesc, "parentId": parentId }).subscribe(
+    //   (data) => { },
+    //   (error) => { },
+    //   () => { this.addNewCatSpinner = false; }
+    // );
+  }
+
   // this method is for conver tree like object to list
   flat(array: MediaCategory[]) {
     let result: MediaCategory[] = [];

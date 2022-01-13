@@ -21,7 +21,7 @@ export interface MediaCategoryParams {
     size?: number;
     sort?: string;
     order?: string;
-  
+
 }
 export interface MediaCategory {
     categoryUUID: string;
@@ -35,6 +35,13 @@ export interface MediaCategory {
     isAdded?: boolean;
     isSelected?: boolean;
     level?: number;
+}
+export interface AddMediaCategory {
+    categoryUUID: string | null;
+    name: string;
+    description: string;
+    parentId: string;
+
 }
 export interface tableColumn {
     name: string;
