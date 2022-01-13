@@ -151,13 +151,12 @@
     vertical-align: middle;
     display: flex;
     align-items: center;
-    .search-box{
+    .search-box {
         margin-right: auto;
-        .wp-control{
+        .wp-control {
             margin-left: 6px;
         }
     }
-
 }
 .wp-table {
     background: #fff;
@@ -211,8 +210,24 @@
         }
     }
 
-    tbody tr:nth-child(odd) {
-        background-color: #f6f7f7;
+    tbody {
+  
+        .line-clamp{
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            white-space: normal;
+        }
+        .row-title{
+            display: flex;
+            align-items: center;
+            color: #2271b1;
+        }
+        tr:nth-child(odd) {
+            background-color: #f6f7f7;
+        }
     }
     .sortable {
         cursor: pointer;

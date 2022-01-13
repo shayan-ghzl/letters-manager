@@ -66,7 +66,8 @@
                     </span>
                 </div> -->
                 <div class="search-box">
-                    <input type="search" class="wp-control" [(ngModel)]="tableSearch" (ngModelChange)="tableSearchOpration()">
+                    <input type="search" class="wp-control" [(ngModel)]="tableSearch"
+                        (ngModelChange)="tableSearchOpration()">
                     <button type="button" class="wp-btn">جستجوی دسته‌ها</button>
                 </div>
             </div>
@@ -96,8 +97,11 @@
                             </th>
                             <td class="column-name column-primary">
                                 <strong>
-                                    <a class="row-title" href="#"><span class="dash-level"
-                                            *ngFor="let n of dashLevelCount(category.level)"></span>{{category.name}}</a>
+                                    <div class="row-title line-clamp" [title]="category.name">
+                                        <span class="dash-level"
+                                            *ngFor="let n of dashLevelCount(category.level)"></span>
+                                        {{category.name}}
+                                    </div>
                                 </strong>
 
                                 <div class="row-actions">
@@ -114,7 +118,7 @@
 
                             </td>
                             <td class="column-description">
-                                <span>{{category.description ? category.description : '-'}}</span>
+                                <span class="line-clamp" [title]="category.description">{{category.description ? category.description : '-'}}</span>
                             </td>
 
                             <td class="column-posts">
@@ -132,6 +136,7 @@
                                             <span class="title">نام</span>
                                             <span class="input-text-wrap">
                                                 <input type="text" [(ngModel)]="category.name" class="wp-control">
+                                                <!-- <small class="p-error">مقدار وارد شده صحیح نمی باشد.</small> -->
                                             </span>
                                         </label>
 
@@ -147,8 +152,7 @@
                                             <span class="input-text-wrap">
                                                 <select class="wp-select">
                                                     <option value="-1">هیچ کدام</option>
-                                                    <option *ngFor="let category of allCategories;let i=index"
-                                                        [value]="i">{{category.name}}</option>
+                                                    <option *ngFor="let categoryOpt of allCategories;let i=index" [value]="i" [selected]="(category.parentId == categoryOpt.categoryUUID) ? true : false">{{categoryOpt.name}}</option>
                                                 </select>
                                             </span>
                                         </label>

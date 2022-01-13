@@ -20,7 +20,7 @@ export class UploadCategoryComponent implements OnInit {
   tableSearch: string = '';
   newCategoryName: string = '';
   newCategoryDesc: string = '';
-  newCategoryParent: string = '';
+  newCategoryParent: string = '-1';
   addNewCatSpinner: boolean = false;
   theadColObject: tableColumn[] = [
     {
@@ -106,13 +106,18 @@ export class UploadCategoryComponent implements OnInit {
     });
   }
   addNewCategory() {
-    // this.addNewCatSpinner = true;
-    // let parentId = this.allCategories[+this.newCategoryParent].categoryUUID;
-    // this.uploadService.addCategory({ "categoryUUID": null, "name": this.newCategoryName, "description": this.newCategoryDesc, "parentId": parentId }).subscribe(
-    //   (data) => { },
-    //   (error) => { },
-    //   () => { this.addNewCatSpinner = false; }
-    // );
+    this.addNewCatSpinner = true;
+    let parentId;
+    if (this.newCategoryParent == '-1') {
+      parentId = null;
+    } else {
+      parentId = this.allCategories[+this.newCategoryParent].categoryUUID;
+    }
+    this.uploadService.addCategory({ "categoryUUID": null, "name": this.newCategoryName, "description": this.newCategoryDesc, "parentId": parentId }).subscribe(
+      (data) => { console.log(data); },
+      (error) => { console.log(error); },
+      () => { this.addNewCatSpinner = false; }
+    );
   }
 
   // this method is for conver tree like object to list

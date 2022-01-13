@@ -24,14 +24,13 @@ export class AppComponent {
           name: 'اشخاص',
           url: 'person',
           icon: 'icon-dashboard',
-          children: [
-            {
-              name: 'دسته بندی',
-              url: 'upload/category',
-              icon: '',
-              children: []
-            },
-          ]
+          children: []
+        },
+        {
+          name: 'دسته بندی',
+          url: 'upload/category',
+          icon: '',
+          children: []
         },
         {
           name: 'قولنامه ها',

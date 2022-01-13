@@ -25,6 +25,7 @@ export interface MediaCategoryParams {
 }
 export interface MediaCategory {
     categoryUUID: string;
+    parentId: string | null;
     name: string;
     description: string;
     children: MediaCategory[],
@@ -40,7 +41,7 @@ export interface AddMediaCategory {
     categoryUUID: string | null;
     name: string;
     description: string;
-    parentId: string;
+    parentId: string | null;
 
 }
 export interface tableColumn {
