@@ -58,6 +58,7 @@ import { MediaCategoryTableComponent } from './components/media-category-table/m
     KbConvertionPipe,
     DialogUploadComponent,
     MediaCategoryTableComponent,
+    ConfirmDialogModule
 
   ],
   providers: [

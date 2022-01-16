@@ -61,4 +61,11 @@ export class UploadService {
   addCategory(category: AddMediaCategory) {
     return this.http.post<MediaCategory>(this.baseUrl + 'lm/v1/category/media', category);
   }
+
+  editCategory(category: AddMediaCategory): Observable<any> {
+    return this.http.put<any>(this.baseUrl + 'lm/v1/category/media', category);
+  }
+  deleteCategory(category:MediaCategory): Observable<any>{
+      return this.http.delete<any>(this.baseUrl + 'lm/v1/category/media/' + category.categoryUUID);
+  }
 }

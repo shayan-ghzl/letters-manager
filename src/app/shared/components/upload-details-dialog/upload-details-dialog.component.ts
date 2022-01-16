@@ -18,7 +18,8 @@ export class UploadDetailsDialogComponent implements OnInit {
   displaySubmitBtn: boolean = true;
   dialogTitle = 'جزییات پیوست';
   image!: Image;
-
+  imageAlt = '';
+  saveSpinner = false;
   constructor(private uploadService: UploadService, private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -27,6 +28,9 @@ export class UploadDetailsDialogComponent implements OnInit {
   clear() {
     this.messageService.clear('uploadDetailsDialogToast');
   }
+  updateUploadDetails(){
+
+  }
 
   showUploadDetailsDialog(image: Image | null = null): void | boolean {
     if (image) {
@@ -34,7 +38,7 @@ export class UploadDetailsDialogComponent implements OnInit {
         return false;
       }
       this.image = image;
-
+      this.imageAlt = image.alternateText;
       this.uploadDetailsDialog = true;
     }
   }

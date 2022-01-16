@@ -33,6 +33,7 @@ export interface MediaCategory {
     childrenCount: number;
     isRemoved?: boolean;
     isEdited?: boolean;
+    isEditOpen?: boolean;
     isAdded?: boolean;
     isSelected?: boolean;
     level?: number;
@@ -44,9 +45,26 @@ export interface AddMediaCategory {
     parentId: string | null;
 
 }
-export interface tableColumn {
+export interface TableColumn {
     name: string;
     class: string;
     order: boolean;
     isSortable: boolean;
 }
+export interface Pagination {
+    querySet: MediaCategory[];
+    page: number;
+    rows: number;
+    window: number;
+    maxLeft:() => number;
+    maxRight:() => number;
+  }
+  export interface PageItem {
+    page: number;
+    isActive: boolean;
+  }
+  export interface PaginationPack {
+    pageItems: PageItem[];
+    hasNext: boolean;
+    hasPrev: boolean;
+  }

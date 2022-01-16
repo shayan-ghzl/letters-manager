@@ -1,10 +1,11 @@
-<p-toast key="uploadDetailsDialogToast" position="bottom-left" [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'400ms'"
-    [baseZIndex]="1102" [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
+<p-toast key="uploadDetailsDialogToast" position="bottom-left" [showTransitionOptions]="'400ms'"
+    [hideTransitionOptions]="'400ms'" [baseZIndex]="1102"
+    [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
 
 <p-dialog (onHide)="hideDialog()" [(visible)]="uploadDetailsDialog" [modal]="true" [dismissableMask]="true"
     [transitionOptions]="'0ms'" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '90vw'}">
     <ng-template pTemplate="header">
-        <h4>{{dialogTitle}}</h4>
+        <h4 class="app-dialog-title">{{dialogTitle}}</h4>
     </ng-template>
     <div class="progress-spinner" [class.d-none]="!displayDialogSpinner">
         <div class="lds-spinner">
@@ -30,7 +31,7 @@
                 <img *ngIf="image" class="details-image" [src]="image.resourceUrl" [alt]="image.alternateText">
             </div>
             <div class="col-4 attachment-info">
-                <span class="settings-save-status" role="status">
+                <span class="settings-save-status" *ngIf="saveSpinner" role="status">
                     <span class="spinner"></span>
                     <span class="saved">ذخیره‌شد.</span>
                 </span>
@@ -56,40 +57,40 @@
                     <div class="compat-meta">
 
                     </div> -->
-
+                    <div class="actions">
+                        <a class="view-attachment app-normall-link" target="_blank" [href]="image.resourceUrl">نمایش صفحهٔ پیوست</a>
+                        <!-- <span class="links-separator">|</span> -->
+                        <button type="button" class="app-normall-btn delete-attachment">حذف برای همیشه</button>
+                    </div>
                 </div>
                 <div class="settings">
                     <div class="p-field">
                         <label>متن جایگزین<span class="app-required-star">*</span></label>
-                        <input type="text" class="wp-control" [class.ng-invalid]="false"/>
+                        <input type="text" class="wp-control" [class.ng-invalid]="false" [(ngModel)]="imageAlt"/>
                         <small class="p-error">مقدار وارد شده صحیح نمی باشد.</small>
-                        <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر کاملا
+                        <p class="field-desc">هدف از تصویر را شرح دهید. اگر تصویر کاملا
                             تزئینی است این را خالی رها نمایید.</p>
                     </div>
                     <div class="p-field">
                         <label>توضیح<span class="app-required-star">*</span></label>
-                        <textarea class="wp-control" rows="3" [class.ng-invalid]="false"></textarea>
+                        <textarea class="wp-control" rows="3" [class.ng-invalid]="false">{{image.description}}</textarea>
                         <small class="p-error">مقدار وارد شده صحیح نمی باشد.</small>
-                        <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر کاملا
-                            تزئینی است این را خالی رها نمایید.</p>
+                        <!-- <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر کاملا
+                            تزئینی است این را خالی رها نمایید.</p> -->
                     </div>
-                    <div class="p-field">
+                    <!-- <div class="p-field">
                         <label>نشانی پرونده</label>
-                        <input type="text" class="wp-control" [value]="image.resourceUrl" [disabled]="true"/>
+                        <input type="text" class="wp-control" [value]="image.resourceUrl" [disabled]="true" />
                         <button type="button" class="wp-btn">کپی نشانی در کلیپ بورد</button>
-                    </div>
+                    </div> -->
                     <!-- <div class="p-field">
                         <label>نام<span class="app-required-star" *ngIf="true">*</span></label>
                         <input type="text" [(ngModel)]="" class="wp-control" [class.ng-dirty]="false" [class.ng-invalid]="false"  />
                         <small class="p-error" *ngIf="false">text</small>
                     </div> -->
+                </div>
 
-                </div>
-                <div class="actions">
-                    <a class="view-attachment" target="_blank" [href]="image.resourceUrl">نمایش صفحهٔ پیوست</a>
-                    <span class="links-separator">|</span>
-                    <button type="button" class="button-link delete-attachment">حذف برای همیشه</button>
-                </div>
+                <button type="button" class="wp-btn wp-btn-primary app-update-upload-btn" (click)="updateUploadDetails()">ذخیره</button>
             </div>
         </div>
     </div>

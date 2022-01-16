@@ -1,7 +1,7 @@
 @import "../assets/scss/layout/vertical-menu.scss";
 @import "../assets/scss/layout/media.scss";
 #app-body {
-    background-color: #f0f0f1;
+   
     min-height: 100vh;
 
 }
@@ -12,6 +12,7 @@
     min-height: 70px;
     z-index: 99;
     display: flex;
+    display: none !important;
     align-items: center;
     .col-span{
         .hamburger-btn{

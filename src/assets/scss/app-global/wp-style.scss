@@ -73,6 +73,7 @@
     padding: 2px 6px;
     line-height: 1.42857143;
     resize: vertical;
+    vertical-align: top;
     &:focus {
         border-color: #2271b1;
         box-shadow: 0 0 0 1px #2271b1;
@@ -211,8 +212,7 @@
     }
 
     tbody {
-  
-        .line-clamp{
+        .line-clamp {
             text-overflow: ellipsis;
             overflow: hidden;
             display: -webkit-box !important;
@@ -220,7 +220,7 @@
             -webkit-box-orient: vertical;
             white-space: normal;
         }
-        .row-title{
+        .row-title {
             display: flex;
             align-items: center;
             color: #2271b1;
@@ -258,9 +258,17 @@
         button {
             display: inline-block;
             color: #2271b1;
+            border-bottom: 1px dotted transparent;
+            &:hover {
+                border-color: #2271b1;
+            }
         }
         .delete button {
             color: #b32d2e;
+            border-bottom: 1px dotted transparent;
+            &:hover {
+                border-color: #b32d2e;
+            }
         }
     }
     .editbar-open {
