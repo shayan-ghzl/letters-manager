@@ -17,10 +17,10 @@
             <h4>افزودن دسته جدید</h4>
 
             <div class="form-field">
-                <label>نام</label>
-                <input type="text" class="wp-control" size="40" aria-required="true" [(ngModel)]="newCategoryName">
-                <small class="wp-error">مقدار وارد شده صحیح نمی باشد.</small>
-                <!-- <small>در سایت با این نام نمایش داده می‌شود.</small> -->
+                <label>نام<span class="app-required-star" *ngIf="addValidateObj.name.isRequired">*</span></label>
+                <input (input)="addCategoryValidate('allFields')" [class.ng-dirty]="addValidateObj.name.hasError" type="text" class="wp-control" size="40" aria-required="true" [(ngModel)]="newCategoryName">
+                <small class="wp-error"
+                *ngIf="addValidateObj.name.hasError">{{addValidateObj.name.errorMessage}}</small>
             </div>
             <!-- <div>
                 <label>نامک</label>
@@ -33,22 +33,22 @@
                 <label>دستهٔ مادر</label>
                 <select class="wp-select" [(ngModel)]="newCategoryParent">
                     <option value="-1">هیچ کدام</option>
-                    <option *ngFor="let category of allCategoriesFlatten;let i=index" [value]="i">{{category.name}}</option>
+                    <option *ngFor="let category of allCategoriesFlatten;let i=index" [value]="i">{{category.name}}
+                    </option>
                 </select>
                 <small>دسته‌ها می‌توانند سلسله مراتب داشته باشند. به طور مثال شما می‌توانید یک دسته
                     به نام موسیقی داشته باشید و برای آن دسته، زیر دسته‌هایی مانند موسیقی ایرانی و یا موسیقی غربی
                     تعریف کنید.</small>
             </div>
             <div class="form-field">
-                <label>توضیح</label>
-                <textarea class="wp-textarea" rows="5" cols="40" [(ngModel)]="newCategoryDesc"></textarea>
-                <small class="wp-error">مقدار وارد شده صحیح نمی باشد.</small>
-                <!-- <small>توضیحات به صورت پیش فرض مهم نیستند، با این حال برخی از پوسته‌ها ممکن است آنها را نمایش دهند.
-                </small> -->
+                <label>توضیح<span class="app-required-star" *ngIf="addValidateObj.description.isRequired">*</span></label>
+                <textarea (input)="addCategoryValidate('allFields')" [class.ng-dirty]="addValidateObj.description.hasError" class="wp-textarea" rows="5" cols="40" [(ngModel)]="newCategoryDesc"></textarea>
+                <small class="wp-error"
+                *ngIf="addValidateObj.description.hasError">{{addValidateObj.description.errorMessage}}</small>
             </div>
 
             <div class="submit">
-                <button type="button" class="wp-btn wp-btn-primary" (click)="addNewCategory()">افزودن دسته تازه</button>
+                <button type="button" [disabled]="displayAddSubmitBtn" class="wp-btn wp-btn-primary" (click)="addNewCategory()">افزودن دسته تازه</button>
                 <span class="spinner" *ngIf="addNewCatSpinner"></span>
             </div>
 
@@ -104,7 +104,9 @@
                 <!-- <tbody [app-media-category-table]="categories"> -->
                 <tbody>
                     <ng-container *ngFor="let category of allCategoryShow">
-                        <tr [class.app-remove-highlight]="category.isRemoved" [class.app-edit-highlight]="category.isEdited" [class.app-add-highlight]="category.isAdded" [class.editbar-open]="category.isEditOpen">
+                        <tr [class.app-remove-highlight]="category.isRemoved"
+                            [class.app-edit-highlight]="category.isEdited" [class.app-add-highlight]="category.isAdded"
+                            [class.editbar-open]="category.isEditOpen">
                             <th scope="row" class="check-column">
                                 <!-- TODO:: ng model undefined -->
                                 <input type="checkbox" [(ngModel)]="category.isSelected" class="wp-checkbox"
@@ -123,7 +125,8 @@
                                     <span class="edit"><button type="button" class="app-normall-btn"
                                             (click)="closeEditRow(category)">ویرایش</button> |
                                     </span>
-                                    <span class="delete"><button type="button" class="app-normall-btn" (click)="showDeleteCategoryConf(category)">پاک کردن</button>
+                                    <span class="delete"><button type="button" class="app-normall-btn"
+                                            (click)="showDeleteCategoryConf(category)">پاک کردن</button>
                                         |
                                     </span>
                                     <span class="view"><button type="button" class="app-normall-btn"
@@ -149,19 +152,23 @@
 
                                     <div class="inline-edit-col">
                                         <label>
-                                            <span class="title">نام</span>
+                                            <span class="title">نام<span class="app-required-star"
+                                                    *ngIf="editValidateObj.editName.isRequired">*</span></span>
                                             <span class="input-text-wrap">
-                                                <input type="text" [(ngModel)]="editCategoryName" class="wp-control">
-                                                <small class="wp-error">مقدار وارد شده صحیح نمی باشد.</small>
+                                                <input (input)="editCategoryValidate('allFields')" [class.ng-dirty]="editValidateObj.editName.hasError" type="text" [(ngModel)]="editCategoryName" class="wp-control">
+                                                <small class="wp-error"
+                                                    *ngIf="editValidateObj.editName.hasError">{{editValidateObj.editName.errorMessage}}</small>
                                             </span>
                                         </label>
 
                                         <label>
-                                            <span class="title">توضیح</span>
+                                            <span class="title">توضیح<span class="app-required-star"
+                                                    *ngIf="editValidateObj.editDescription.isRequired">*</span></span>
                                             <span class="input-text-wrap">
-                                                <textarea rows="5" cols="40" class="wp-textarea"
+                                                <textarea (input)="editCategoryValidate('allFields')" [class.ng-dirty]="editValidateObj.editDescription.hasError" rows="5" cols="40" class="wp-textarea"
                                                     [(ngModel)]="editCategoryDesc">{{category.description}}</textarea>
-                                                <small class="wp-error">مقدار وارد شده صحیح نمی باشد.</small>
+                                                <small class="wp-error"
+                                                    *ngIf="editValidateObj.editDescription.hasError">{{editValidateObj.editDescription.errorMessage}}</small>
                                             </span>
                                         </label>
                                         <label>
@@ -169,7 +176,8 @@
                                             <span class="input-text-wrap">
                                                 <select class="wp-select" [(ngModel)]="editCategoryParent">
                                                     <option value="-1">هیچ کدام</option>
-                                                    <ng-container *ngFor="let categoryOpt of allCategoriesFlatten;let i=index">
+                                                    <ng-container
+                                                        *ngFor="let categoryOpt of allCategoriesFlatten;let i=index">
                                                         <option *ngIf="categoryOpt != category"
                                                             [selected]="(category.parentId == categoryOpt.categoryUUID) ? true : false"
                                                             [value]="i">{{categoryOpt.name}}</option>
@@ -186,7 +194,7 @@
                                     <button type="button" class="cancel wp-btn"
                                         (click)="category.isEditOpen = false">لغو</button>
                                     <span class="spinner" *ngIf="addEditCatSpinner"></span>
-                                    <button type="button" class="save wp-btn wp-btn-primary"
+                                    <button type="button" [disabled]="displayEditSubmitBtn" class="save wp-btn wp-btn-primary"
                                         (click)="updateCategory(category)">بروزرسانی
                                         دسته</button>
 
@@ -200,15 +208,39 @@
 
 
             </table>
-            
-           
+
+
             <div class="pagination-container" *ngIf="tableLastPage > 1">
-                <button type="button" class="wp-btn" *ngIf="paginationItems.hasPrev" (click)="state.page=1;buildTable()"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><path d="M163.435,124.189l-1.669,1.692-1.066-1.072,2.735-2.773,1.14-1.155-1.14-1.155-2.735-2.772,1.066-1.072,1.669,1.692,3.265,3.307Z" transform="translate(-156.7 -115.881)" fill="#2271b1" /><path d="M163.435,124.189l-1.669,1.692-1.066-1.072,2.735-2.773,1.14-1.155-1.14-1.155-2.735-2.772,1.066-1.072,1.669,1.692,3.265,3.307Z" transform="translate(-160.7 -115.881)" fill="#2271b1" /></svg></button>
-                <button type="button" class="wp-btn" *ngIf="paginationItems.hasPrev" (click)="state.page=state.page-1;buildTable()">قبلی</button>
-                <button *ngFor="let pageItem of paginationItems.pageItems" type="button" class="wp-btn" [disabled]="pageItem.isActive" [class.wp-btn-primary]="pageItem.isActive" (click)="state.page=pageItem.page;buildTable()">{{pageItem.page}}</button>
-                <button type="button" class="wp-btn" *ngIf="paginationItems.hasNext" (click)="state.page=state.page+1;buildTable()">بعدی</button>
-                <button type="button" class="wp-btn" *ngIf="paginationItems.hasNext" (click)="state.page=tableLastPage;buildTable()"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><g transform="translate(0 0)"><path d="M163.965,124.189l1.669,1.692,1.066-1.072-2.735-2.773-1.14-1.155,1.14-1.155,2.735-2.772-1.066-1.072-1.669,1.692L160.7,120.88Z" transform="translate(-160.7 -115.881)" fill="#2271b1" /><path d="M163.965,124.189l1.669,1.692,1.066-1.072-2.735-2.773-1.14-1.155,1.14-1.155,2.735-2.772-1.066-1.072-1.669,1.692L160.7,120.88Z" transform="translate(-156.7 -115.881)" fill="#2271b1" /></g></svg></button>
-              </div>
+                <button type="button" class="wp-btn" *ngIf="paginationItems.hasPrev"
+                    (click)="state.page=1;buildTable()"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                        viewBox="0 0 10 10">
+                        <path
+                            d="M163.435,124.189l-1.669,1.692-1.066-1.072,2.735-2.773,1.14-1.155-1.14-1.155-2.735-2.772,1.066-1.072,1.669,1.692,3.265,3.307Z"
+                            transform="translate(-156.7 -115.881)" fill="#2271b1" />
+                        <path
+                            d="M163.435,124.189l-1.669,1.692-1.066-1.072,2.735-2.773,1.14-1.155-1.14-1.155-2.735-2.772,1.066-1.072,1.669,1.692,3.265,3.307Z"
+                            transform="translate(-160.7 -115.881)" fill="#2271b1" />
+                    </svg></button>
+                <button type="button" class="wp-btn" *ngIf="paginationItems.hasPrev"
+                    (click)="state.page=state.page-1;buildTable()">قبلی</button>
+                <button *ngFor="let pageItem of paginationItems.pageItems" type="button" class="wp-btn"
+                    [disabled]="pageItem.isActive" [class.wp-btn-primary]="pageItem.isActive"
+                    (click)="state.page=pageItem.page;buildTable()">{{pageItem.page}}</button>
+                <button type="button" class="wp-btn" *ngIf="paginationItems.hasNext"
+                    (click)="state.page=state.page+1;buildTable()">بعدی</button>
+                <button type="button" class="wp-btn" *ngIf="paginationItems.hasNext"
+                    (click)="state.page=tableLastPage;buildTable()"><svg xmlns="http://www.w3.org/2000/svg" width="10"
+                        height="10" viewBox="0 0 10 10">
+                        <g transform="translate(0 0)">
+                            <path
+                                d="M163.965,124.189l1.669,1.692,1.066-1.072-2.735-2.773-1.14-1.155,1.14-1.155,2.735-2.772-1.066-1.072-1.669,1.692L160.7,120.88Z"
+                                transform="translate(-160.7 -115.881)" fill="#2271b1" />
+                            <path
+                                d="M163.965,124.189l1.669,1.692,1.066-1.072-2.735-2.773-1.14-1.155,1.14-1.155,2.735-2.772-1.066-1.072-1.669,1.692L160.7,120.88Z"
+                                transform="translate(-156.7 -115.881)" fill="#2271b1" />
+                        </g>
+                    </svg></button>
+            </div>
 
             <!-- <div class="term-notes">
                 <p class="description">

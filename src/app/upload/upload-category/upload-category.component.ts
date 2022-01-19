@@ -13,13 +13,6 @@ import { UploadService } from '../upload.service';
 export class UploadCategoryComponent implements OnInit {
 
   @ViewChild(DialogUploadComponent) dialogUploadComponent!: DialogUploadComponent;
-  // tableRows: number = 8;
-  // currentPage: number = 0;
-  // tableRowsTotal!: number;
-  // categories: MediaCategory[] = [];
-  // allCategories: MediaCategory[] = [];
-  // allCategoriesPaginated: MediaCategoryPagination[] = [];
-  // allCategoriesTemp: MediaCategory[] = [];
   allCategories: MediaCategory[] = [];
   allCategoriesFlatten: MediaCategory[] = [];
   allCategoryShow: MediaCategory[] = [];
@@ -54,6 +47,49 @@ export class UploadCategoryComponent implements OnInit {
       isSortable: true,
     },
   ];
+  displayAddSubmitBtn = true;
+  displayEditSubmitBtn = true;
+  addValidateObj = {
+    'name': {
+      'isRequired': true,
+      'hasError': false,
+      'errorMessage': 'بین 2 تا 70 حرف مجاز است',
+      isValid: () => {
+        let temp = this.newCategoryName.trim().length;
+        return (2 <= temp && temp <= 70);
+      }
+    },
+    'description': {
+      'isRequired': false,
+      'hasError': false,
+      'errorMessage': 'باید حداکثر 70 حرف باشد.',
+      isValid: () => {
+        let temp = this.newCategoryDesc.trim().length;
+        return (0 <= temp && temp <= 70);
+      }
+    },
+  };
+  editValidateObj = {
+    'editName': {
+      'isRequired': true,
+      'hasError': false,
+      'errorMessage': 'بین 2 تا 70 حرف مجاز است',
+      isValid: () => {
+        let temp = this.editCategoryName.trim().length;
+        return (2 <= temp && temp <= 70);
+      }
+    },
+    'editDescription': {
+      'isRequired': false,
+      'hasError': false,
+      'errorMessage': 'باید حداکثر 70 حرف باشد.',
+      isValid: () => {
+        let temp = this.editCategoryDesc.trim().length;
+        return (0 <= temp && temp <= 70);
+      }
+    },
+   
+  };
 
   paginationItems: PaginationPack = {
     pageItems: [],
@@ -92,12 +128,13 @@ export class UploadCategoryComponent implements OnInit {
           this.currentPage++;
           this.getAllCategories();
         } else {
+          this.currentPage = 0;
           this.allCategoriesFlatten = this.flat(this.allCategories);
           this.state.querySet = this.allCategoriesFlatten;
           this.buildTable();
         }
       },
-      (error) => { }
+      (error) => { console.log(error); }
     );
   }
 
@@ -105,16 +142,19 @@ export class UploadCategoryComponent implements OnInit {
     this.editCategoryName = category.name;
     this.editCategoryDesc = category.description;
     this.editCategoryParent = this.allCategoriesFlatten.findIndex(Element => category.parentId == Element.categoryUUID) + '';
-    category.isEditOpen = !category.isEditOpen;
     this.state.querySet.map((x: MediaCategory) => {
       if (x != category) {
         x.isEditOpen = false;
       }
     });
+    for (const [key, value] of Object.entries(this.editValidateObj)) {
+        value.hasError = false;
+    }
+    category.isEditOpen = !category.isEditOpen;
   }
 
   toggleAllCheckboxs() {
-    this.allCategories.map((x: MediaCategory) => {
+    this.allCategoryShow.map((x: MediaCategory) => {
       x.isSelected = this.rootCheckbox;
     });
   }
@@ -130,42 +170,23 @@ export class UploadCategoryComponent implements OnInit {
     });
     this.state.querySet = temp;
     this.buildTable();
-    
+
   }
   addNewCategory() {
     this.addNewCatSpinner = true;
-    let parentId: string | null, parent: MediaCategory | null;
+    this.displayAddSubmitBtn = true;
+    let parentId: string | null;
     if (this.newCategoryParent == '-1') {
       parentId = null;
-      parent = null;
     } else {
-      parent = this.allCategoriesFlatten[+this.newCategoryParent];
-      parentId = parent.categoryUUID;
+      parentId = this.allCategoriesFlatten[+this.newCategoryParent].categoryUUID;
     }
     this.uploadService.addCategory({ "categoryUUID": null, "name": this.newCategoryName, "description": this.newCategoryDesc, "parentId": parentId }).subscribe(
       (data) => {
         this.messageService.add({ key: 'MediaCategoryToast', severity: 'success', summary: 'موفقیت آمیز', detail: `${data.name} با موفقیت حذف شد`, life: 7000 });
-        data.isAdded = true;
-        setTimeout(() => {
-          data.isAdded = false;
-        }, 7000);
-        if (!parent) {
-          data.level = 0;
-          // data.isSelected = false;
-          // data.isEditOpen = false;
-          this.allCategoriesFlatten.unshift(data);
-        } else {
-          data.level = parent.level! + 1;
-          // data.isSelected = false;
-          // data.isEditOpen = false;
-          // if ((+this.newCategoryParent + 1 ) % this.tableRows == 0) {
-          //   this.currentPage++;
-          // }
-          this.arrayInsertAt(+this.newCategoryParent + 1, [data]);
-        }
         this.addNewCatSpinner = false;
-        this.state.page = Math.ceil(+this.newCategoryParent / this.state.rows);
-        this.buildTable();
+        this.allCategories = [];
+        this.getAllCategories();
       },
       (error) => {
         console.log(error);
@@ -174,56 +195,28 @@ export class UploadCategoryComponent implements OnInit {
       }
     );
   }
-  arrayInsertAt(index: number, elements: MediaCategory[]) {
-     this.allCategoriesFlatten.splice(index, 0, ...elements);
-  }
+
   updateCategory(category: MediaCategory) {
-    // this.addEditCatSpinner = true;
-    // let parentId: string | null, parent: MediaCategory | null;
-    // if (this.editCategoryParent == '-1') {
-    //   parentId = null;
-    //   parent = null;
-    // } else {
-    //   parent = this.allCategoriesTemp[+this.editCategoryParent];
-    //   parentId = parent.categoryUUID;
-    // }
-    // this.uploadService.editCategory({ "categoryUUID": category.categoryUUID, "name": this.editCategoryName, "description": this.editCategoryDesc, "parentId": parentId }).subscribe(
-    //   (data) => {
-    //     if (category.parentId != data.parentId) {
-    //       let index = this.allCategoriesTemp.findIndex(Element => Element.categoryUUID == category.categoryUUID);
-    //       if (index > -1) {
-    //         this.allCategoriesTemp.splice(index, 1);
-    //       }
-    //       if (!parent) {
-    //         data.level = 0;
-    //         // data.isSelected = false;
-    //         // data.isEditOpen = false;
-    //         this.currentPage = 0;
-    //         this.allCategoriesTemp.unshift(data);
-    //       } else {
-    //         data.level = parent.level! + 1;
-    //         // data.isSelected = false;
-    //         // data.isEditOpen = false;
-    //         this.currentPage = (+this.editCategoryParent) / this.tableRows;
-    //         if ((+this.editCategoryParent + 1) % this.tableRows == 0) {
-    //           this.currentPage++;
-    //         }
-    //         this.arrayInsertAt(+this.editCategoryParent + 1, [data]);
-    //       }
-    //     }
-    //     data.isEdited = true;
-    //     setTimeout(() => {
-    //       data.isEdited = false;
-    //     }, 7000);
-    //     // this.allCategoriesTemp = this.allCategories;
-    //     this.addEditCatSpinner = false;
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //     this.messageService.add({ key: 'MediaCategoryToast', severity: 'error', summary: 'خطا', detail: error.error.message, life: 7000 });
-    //     this.addEditCatSpinner = false;
-    //   }
-    // );
+    this.addEditCatSpinner = true;
+    let parentId: string | null;
+    if (this.editCategoryParent == '-1') {
+      parentId = null;
+    } else {
+      parentId = this.allCategoriesFlatten[+this.editCategoryParent].categoryUUID;
+    }
+    this.uploadService.editCategory({ "categoryUUID": category.categoryUUID, "name": this.editCategoryName, "description": this.editCategoryDesc, "parentId": parentId }).subscribe(
+      (data) => {
+        this.messageService.add({ key: 'MediaCategoryToast', severity: 'success', summary: 'موفقیت آمیز', detail: `${data.name} با موفقیت ویرایش شد`, life: 7000 });
+        this.addEditCatSpinner = false;
+        this.allCategories = [];
+        this.getAllCategories();
+      },
+      (error) => {
+        console.log(error);
+        this.messageService.add({ key: 'MediaCategoryToast', severity: 'error', summary: 'خطا', detail: error.error.message, life: 7000 });
+        this.addEditCatSpinner = false;
+      }
+    );
   }
   // this method is for conver tree like object to list
   flat(array: MediaCategory[]) {
@@ -255,16 +248,9 @@ export class UploadCategoryComponent implements OnInit {
       accept: () => {
         this.uploadService.deleteCategory(category).subscribe(
           (data) => {
-            category.isRemoved = true;
-            setTimeout(() => {
-              let index = this.allCategoriesFlatten.findIndex(Element => Element.categoryUUID == category.categoryUUID);
-              if (index > -1) {
-                this.allCategoriesFlatten.splice(index, 1);
-                this.buildTable();
-              }
-              category.isRemoved = false;
-            }, 7000);
             this.messageService.add({ key: 'MediaCategoryToast', severity: 'success', summary: 'موفقیت آمیز', detail: `${category.name} با موفقیت حذف شد`, life: 7000 });
+            this.allCategories = [];
+            this.getAllCategories();
           },
           (error) => {
             console.log(error);
@@ -274,6 +260,101 @@ export class UploadCategoryComponent implements OnInit {
         );
       }
     });
+  }
+  addCategoryValidate(fieldName: string): boolean {
+
+    switch (fieldName) {
+      case 'name':
+        if (this.addValidateObj.name.isValid()) {
+          this.addValidateObj.name.hasError = false;
+
+          return true;
+        } else {
+          this.addValidateObj.name.hasError = true;
+          this.displayAddSubmitBtn = true;
+          return false;
+        }
+        break;
+      case 'description':
+        if (this.addValidateObj.description.isValid()) {
+          this.addValidateObj.description.hasError = false;
+
+          return true;
+        } else {
+          this.addValidateObj.description.hasError = true;
+          this.displayAddSubmitBtn = true;
+          return false;
+        }
+        break;
+      default:
+        let isFormValid: number = 0;
+        for (const [key, value] of Object.entries(this.addValidateObj)) {
+          if (value.isValid()) {
+            value.hasError = false;
+            isFormValid++;
+          } else {
+            value.hasError = true;
+            isFormValid--;
+          }
+        }
+        if (Object.entries(this.addValidateObj).length == isFormValid) {
+          this.displayAddSubmitBtn = false;
+          return true;
+        } else {
+          this.displayAddSubmitBtn = true;
+          return false;
+        }
+        break;
+    }
+
+  }
+  editCategoryValidate(fieldName: string): boolean {
+
+    switch (fieldName) {
+     
+      case 'editName':
+        if (this.editValidateObj.editName.isValid()) {
+          this.editValidateObj.editName.hasError = false;
+
+          return true;
+        } else {
+          this.editValidateObj.editName.hasError = true;
+          this.displayEditSubmitBtn = true;
+          return false;
+        }
+        break;
+      case 'editDescription':
+        if (this.editValidateObj.editDescription.isValid()) {
+          this.editValidateObj.editDescription.hasError = false;
+
+          return true;
+        } else {
+          this.editValidateObj.editDescription.hasError = true;
+          this.displayEditSubmitBtn = true;
+          return false;
+        }
+        break;
+      default:
+        let isFormValid: number = 0;
+        for (const [key, value] of Object.entries(this.editValidateObj)) {
+          if (value.isValid()) {
+            value.hasError = false;
+            isFormValid++;
+          } else {
+            value.hasError = true;
+            isFormValid--;
+          }
+        }
+        if (Object.entries(this.editValidateObj).length == isFormValid) {
+          this.displayEditSubmitBtn = false;
+          return true;
+        } else {
+          this.displayEditSubmitBtn = true;
+          return false;
+        }
+        break;
+    }
+
   }
 
   // pagination functions 
@@ -289,6 +370,10 @@ export class UploadCategoryComponent implements OnInit {
 
   buildTable() {
     let data = this.pagination(this.state.querySet, this.state.page, this.state.rows);
+    this.rootCheckbox = false;
+    this.allCategoryShow.map((x: MediaCategory) => {
+      x.isSelected = this.rootCheckbox;
+    });
     this.allCategoryShow = data.querySet;
     this.pageButtons(data.pages);
   }
