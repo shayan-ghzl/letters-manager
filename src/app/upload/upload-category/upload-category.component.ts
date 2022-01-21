@@ -88,9 +88,15 @@ export class UploadCategoryComponent implements OnInit {
         return (0 <= temp && temp <= 70);
       }
     },
-   
-  };
 
+  };
+  bulkActionMenu = [
+    {
+      'name': 'پاک کردن',
+      'opration': 'remove'
+    }
+  ];
+  currentBulkAction = '-1';
   paginationItems: PaginationPack = {
     pageItems: [],
     hasNext: false,
@@ -117,6 +123,7 @@ export class UploadCategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   currentPage: number = 0;
@@ -134,8 +141,9 @@ export class UploadCategoryComponent implements OnInit {
           this.buildTable();
         }
       },
-      (error) => { console.log(error); }
+      (error) => { console.log(error); },
     );
+
   }
 
   closeEditRow(category: MediaCategory) {
@@ -148,7 +156,7 @@ export class UploadCategoryComponent implements OnInit {
       }
     });
     for (const [key, value] of Object.entries(this.editValidateObj)) {
-        value.hasError = false;
+      value.hasError = false;
     }
     category.isEditOpen = !category.isEditOpen;
   }
@@ -311,7 +319,7 @@ export class UploadCategoryComponent implements OnInit {
   editCategoryValidate(fieldName: string): boolean {
 
     switch (fieldName) {
-     
+
       case 'editName':
         if (this.editValidateObj.editName.isValid()) {
           this.editValidateObj.editName.hasError = false;
@@ -411,5 +419,84 @@ export class UploadCategoryComponent implements OnInit {
     }
 
   }
+  bulkActionRun() {
+    let opration = this.bulkActionMenu[+this.currentBulkAction].opration;
+    if (opration == 'remove') {
+      this.allCategoryShow.map((x: MediaCategory) => {
+        if (x.isSelected) {
+          this.uploadService.deleteCategory(x).subscribe(
+            (data) => {
+              this.messageService.add({ key: 'MediaCategoryToast', severity: 'success', summary: 'موفقیت آمیز', detail: `${x.name} با موفقیت حذف شد`, life: 7000 });
+            },
+            (error) => {
+              console.log(error);
+              this.messageService.add({ key: 'MediaCategoryToast', severity: 'error', summary: 'خطا', detail: error.error.message, life: 7000 });
+            }
+          )
+        };
+      });
+    setTimeout(() => {
+      this.allCategories = [];
+      this.getAllCategories();
+    }, 500);
+    }
+  }
 
+  sortTable(column: TableColumn, index: number) {
+    for (const [key, value] of Object.entries(this.theadColObject)) {
+      if(value != column){
+        value.order = false;
+      }
+    }
+    column.order = !column.order;
+    if (index == 0) {
+      if (column.order == false) {
+        this.allCategoriesFlatten.sort(function (a, b) {
+          if (a.name < b.name) { return 1; }
+          if (a.name > b.name) { return -1; }
+          return 0;
+        });
+
+      } else {
+        this.allCategoriesFlatten.sort(function (a, b) {
+          if (a.name < b.name) { return -1; }
+          if (a.name > b.name) { return 1; }
+          return 0;
+        });
+      }
+    } else if (index == 1) {
+      if (column.order == false) {
+        this.allCategoriesFlatten.sort(function (a, b) {
+          if (a.description < b.description) { return 1; }
+          if (a.description > b.description) { return -1; }
+          return 0;
+        });
+
+      } else {
+        this.allCategoriesFlatten.sort(function (a, b) {
+          if (a.description < b.description) { return -1; }
+          if (a.description > b.description) { return 1; }
+          return 0;
+        });
+      }
+    } else if (index == 2) {
+      if (column.order == false) {
+        this.allCategoriesFlatten.sort(function (a, b) {
+          if (a.childrenCount < b.childrenCount) { return 1; }
+          if (a.childrenCount > b.childrenCount) { return -1; }
+          return 0;
+        });
+
+      } else {
+        this.allCategoriesFlatten.sort(function (a, b) {
+          if (a.childrenCount < b.childrenCount) { return -1; }
+          if (a.childrenCount > b.childrenCount) { return 1; }
+          return 0;
+        });
+      }
+    }
+
+    this.state.querySet = this.allCategoriesFlatten;
+    this.buildTable();
+  }
 }

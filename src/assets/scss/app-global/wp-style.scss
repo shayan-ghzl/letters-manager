@@ -209,6 +209,9 @@
                 padding: 8px;
             }
         }
+        &:not(.desc){
+            color: red !important;
+        }
     }
 
     tbody {

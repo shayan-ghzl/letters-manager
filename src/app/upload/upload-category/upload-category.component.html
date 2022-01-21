@@ -62,11 +62,11 @@
             <div class="tablenav">
 
                 <div class="bulkactions">
-                    <select class="wp-select">
+                    <select class="wp-select" [(ngModel)]="currentBulkAction">
                         <option value="-1">کارهای دسته‌جمعی</option>
-                        <option value="delete">پاک کردن</option>
+                        <option *ngFor="let action of bulkActionMenu;let index = index" [value]="index">{{action.name}}</option>
                     </select>
-                    <button type="button" class="wp-btn">اجرا</button>
+                    <button type="button" class="wp-btn" (click)="bulkActionRun()">اجرا</button>
                 </div>
                 <!-- <div class="tablenav-pages one-page"><span class="displaying-num">1 مورد</span>
                     <span class="pagination-links">
@@ -93,9 +93,9 @@
                             <input class="wp-checkbox" type="checkbox" [(ngModel)]="rootCheckbox"
                                 (ngModelChange)="toggleAllCheckboxs()">
                         </td>
-                        <th scope="col" *ngFor="let column of theadColObject" [class]="column.class"
+                        <th scope="col" *ngFor="let column of theadColObject;let index = index" [class]="column.class"
                             [class.sortable]="column.isSortable" [class.desc]="!column.order"
-                            (click)="column.order = !column.order">
+                            (click)="sortTable(column , index)">
                             <span>{{column.name}}</span>
                         </th>
                     </tr>
@@ -174,7 +174,7 @@
                                         <label>
                                             <span class="title">دستهٔ مادر</span>
                                             <span class="input-text-wrap">
-                                                <select class="wp-select" [(ngModel)]="editCategoryParent">
+                                                <select class="wp-select" [(ngModel)]="editCategoryParent" (change)="displayEditSubmitBtn = !editCategoryValidate('allField')">
                                                     <option value="-1">هیچ کدام</option>
                                                     <ng-container
                                                         *ngFor="let categoryOpt of allCategoriesFlatten;let i=index">
