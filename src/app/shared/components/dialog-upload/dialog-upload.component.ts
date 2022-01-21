@@ -12,8 +12,8 @@ export class DialogUploadComponent implements OnInit {
 
   @Output() update = new EventEmitter<any>();
   DialogUpload: boolean = false;
-  dialogTitle = '';
-  displayDialogSpinner: boolean = false;
+  dialogTitle = 'پیوست ها';
+  saveSpinner = false;
   // editImage_alt: string = '';
   // editImage_desc: string = '';
   // editImageValidateObj = {
@@ -48,10 +48,31 @@ export class DialogUploadComponent implements OnInit {
   isDone = false;
   showLoading: boolean = false;
   selectedImages: Image[] = [];
-  addImageBtnDisabled = true;
+  submitBtnDisabled = true;
   showImageDetails = false;
   imageDetails!: Image;
-
+  imageAlt = '';
+  imageDesc = '';
+  validateObj = {
+    'alt': {
+      'isRequired': false,
+      'hasError': false,
+      'errorMessage': 'بین 2 تا 70 حرف مجاز است',
+      isValid: () => {
+        let temp = this.imageAlt.trim().length;
+        return (0 <= temp && temp <= 70);
+      }
+    },
+    'description': {
+      'isRequired': false,
+      'hasError': false,
+      'errorMessage': 'باید حداکثر 70 حرف باشد.',
+      isValid: () => {
+        let temp = this.imageDesc.trim().length;
+        return (0 <= temp && temp <= 70);
+      }
+    },
+  };
 
 
 
@@ -68,6 +89,31 @@ export class DialogUploadComponent implements OnInit {
     this.DialogUpload = true;
     this.getImages({ size: this.tableRows, page: this.currentPage });
   }
+
+  updateUploadDetails() {
+    if (!this.submitBtnDisabled) {
+      this.saveSpinner = true;
+      this.uploadService.editImage({
+        "mediaUUID": this.imageDetails.mediaUUID,
+        "description": this.imageDesc,
+        "categoriesId": this.imageDetails.categories,
+        "alternateText": this.imageAlt
+      }).subscribe(
+        (response: Image) => {
+          response.isSelected = true;
+          this.images[this.images.findIndex(Element => Element.mediaUUID == response.mediaUUID)] = response;
+          this.selectedImages[this.selectedImages.findIndex(Element => Element.mediaUUID == response.mediaUUID)] = response;
+          this.saveSpinner = false;
+          this.submitBtnDisabled = true;
+        },
+        (error) => {
+          this.saveSpinner = false;
+          this.submitBtnDisabled = true;
+        },
+      );
+    }
+  }
+
   // editImageValidate(fieldName: string): boolean|void {
 
   //   switch (fieldName) {
@@ -111,7 +157,7 @@ export class DialogUploadComponent implements OnInit {
     // }
     this.showImageDetails = false;
     this.selectedImages.forEach((Element) => {
-        Element.isSelected = false;
+      Element.isSelected = false;
     });
     this.selectedImages = [];
   }
@@ -133,7 +179,13 @@ export class DialogUploadComponent implements OnInit {
       );
     }
   }
+
   selectImage(e: any, image: Image) {
+    this.imageAlt = image.alternateText;
+    this.imageDesc = image.description;
+    for (const [key, value] of Object.entries(this.validateObj)) {
+        value.hasError = false;
+    }
     if (e.ctrlKey) {
       if (image.isSelected) {
         image.isSelected = false;
@@ -160,22 +212,69 @@ export class DialogUploadComponent implements OnInit {
       }
     }
     if (this.selectedImages.length) {
-      this.addImageBtnDisabled = false;
-      this.imageDetails = this.selectedImages[this.selectedImages.length-1];
+      this.submitBtnDisabled = false;
+      this.imageDetails = this.selectedImages[this.selectedImages.length - 1];
       this.showImageDetails = true;
     } else {
-      this.addImageBtnDisabled = true;
+      this.submitBtnDisabled = true;
       this.showImageDetails = false;
     }
   }
+
   loadMoreImage() {
     this.currentPage = this.currentPage + 1;
     this.getImages({ size: this.tableRows, page: this.currentPage });
   }
+
   addImage() {
-    if (!this.addImageBtnDisabled) {
+    if (!this.submitBtnDisabled) {
 
     }
+  }
+
+  imageFieldValidation(fieldName: string): boolean {
+    switch (fieldName) {
+      case 'alt':
+        if (this.validateObj.alt.isValid()) {
+          this.validateObj.alt.hasError = false;
+          return true;
+        } else {
+          this.validateObj.alt.hasError = true;
+          this.submitBtnDisabled = true;
+          return false;
+        }
+        break;
+      case 'description':
+        if (this.validateObj.description.isValid()) {
+          this.validateObj.description.hasError = false;
+          return true;
+        } else {
+          this.validateObj.description.hasError = true;
+          this.submitBtnDisabled = true;
+          return false;
+        }
+        break;
+      default:
+        let isFormValid: number = 0;
+        for (const [key, value] of Object.entries(this.validateObj)) {
+          if (value.isValid()) {
+            value.hasError = false;
+            isFormValid++;
+          } else {
+            value.hasError = true;
+            isFormValid--;
+          }
+        }
+        if (Object.entries(this.validateObj).length == isFormValid) {
+          this.submitBtnDisabled = false;
+          return true;
+        } else {
+          this.submitBtnDisabled = true;
+          return false;
+        }
+        break;
+    }
+
   }
   onUpload(fileObject: any) {
     for (let file of fileObject.files) {
@@ -189,7 +288,7 @@ export class DialogUploadComponent implements OnInit {
         }, (error) => {
           this.messageService.add({ key: 'DialogUploadToast', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
         });
-      }else{
+      } else {
         this.messageService.add({ key: 'DialogUploadToast', severity: 'error', summary: 'خطا', detail: 'حجم فایل بیشتر از حد مجاز است.', life: 7000 });
       }
     }

@@ -38,7 +38,7 @@ tr.app-warn-highlight {
 }
 // primeng change in a component
 app-upload-details-dialog {
-    .p-dialog {
+    .p-dialog:not(.p-confirm-dialog) {
         height: 90vh;
         .p-dialog-header {
             padding: 0;
@@ -67,6 +67,7 @@ app-dialog-upload {
     .p-dialog {
         height: 90vh;
         .p-dialog-content {
+            height: 100%;
             overflow: hidden;
             padding: 0;
         }

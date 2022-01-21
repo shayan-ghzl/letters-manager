@@ -6,22 +6,7 @@
     <ng-template pTemplate="header">
         <h4>{{dialogTitle}}</h4>
     </ng-template>
-    <div class="progress-spinner" [class.d-none]="!displayDialogSpinner">
-        <div class="lds-spinner">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+
 
 
     <div class="media-frame-tab-panel">
@@ -44,17 +29,17 @@
                 <div class="uploader-inline-container" [class.d-none]="!mediaFrameTabPanel.upload">
 
                     <div class="uploader-inline" appDragDropUpload (appdrop)="onUpload($event)">
-                    <div class="uploader-inline-content">
-                        <div class="upload-ui">
+                        <div class="uploader-inline-content">
+                            <div class="upload-ui">
 
-                            <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
-                            <p>یا</p>
-                            <input type="file" name="image" id="input-file" accept="image/*"
-                                (change)="onUpload($event.target)" multiple />
-                            <label for="input-file" class="button-hero wp-btn">گزینش پرونده‌ها</label>
+                                <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
+                                <p>یا</p>
+                                <input type="file" name="image" id="input-file" accept="image/*"
+                                    (change)="onUpload($event.target)" multiple />
+                                <label for="input-file" class="button-hero wp-btn">گزینش پرونده‌ها</label>
+                            </div>
+                            <p class="max-upload-size">حداکثر اندازه پرونده برای بارگذاری: 200 مگابایت. </p>
                         </div>
-                        <p class="max-upload-size">حداکثر اندازه پرونده برای بارگذاری: 200 مگابایت. </p>
-                    </div>
                     </div>
                 </div>
                 <div class="attachments-wrapper" [class.d-none]="!mediaFrameTabPanel.library">
@@ -127,11 +112,12 @@
                 </div>
                 <div class="media-sidebar" [class.d-none]="!mediaFrameTabPanel.library">
                     <div class="attachment-info" *ngIf="showImageDetails">
-                        <span class="settings-save-status" role="status">
+                        <!-- <span class="app-save-status" role="status">
                             <span class="spinner"></span>
                             <span class="saved">ذخیره‌شد.</span>
-                        </span>
-                        <div class="image-preview" [style]="'background-image:url(' + imageDetails.resourceUrl + ')'"></div>
+                        </span> -->
+                        <div class="image-preview" [style]="'background-image:url(' + imageDetails.resourceUrl + ')'">
+                        </div>
                         <div class="details">
                             <div class="uploaded"><strong>تاریخ بارگذاری:</strong> {{imageDetails.uploadDate |
                                 date:'fullDate'}}</div>
@@ -142,35 +128,64 @@
                             </div>
                         </div>
                         <div class="settings">
+                            <span class="app-save-status" *ngIf="saveSpinner" role="status">
+                                <span class="spinner"></span>
+                                <span class="saved">ذخیره‌شد.</span>
+                            </span>
                             <div class="p-field">
-                                <label>متن جایگزین<span class="app-required-star">*</span></label>
-                                <input type="text" class="wp-control" [class.ng-invalid]="false" />
-                                <small class="p-error">مقدار وارد شده صحیح نمی باشد.</small>
-                                <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر
-                                    کاملا
+                                <label>متن جایگزین<span class="app-required-star"
+                                        *ngIf="validateObj.alt.isRequired">*</span></label>
+                                <input type="text" class="wp-control" [class.ng-invalid]="false"
+                                    [class.ng-dirty]="validateObj.alt.hasError" [(ngModel)]="imageAlt"
+                                    (input)="imageFieldValidation('allField')" (blur)="updateUploadDetails()" />
+                                <small class="wp-error"
+                                    *ngIf="validateObj.alt.hasError">{{validateObj.alt.errorMessage}}</small>
+                                <p class="field-desc">هدف از تصویر را شرح دهید. اگر تصویر کاملا
                                     تزئینی است این را خالی رها نمایید.</p>
                             </div>
+
+
                             <div class="p-field">
-                                <label>توضیح<span class="app-required-star">*</span></label>
-                                <textarea class="wp-control" rows="3" [class.ng-invalid]="false"></textarea>
-                                <small class="p-error">مقدار وارد شده صحیح نمی باشد.</small>
-                                <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر
-                                    کاملا
-                                    تزئینی است این را خالی رها نمایید.</p>
+                                <label>توضیح<span class="app-required-star"
+                                        *ngIf="validateObj.description.isRequired">*</span></label>
+                                <textarea class="wp-control" rows="3" [class.ng-invalid]="false"
+                                    [class.ng-dirty]="validateObj.description.hasError" [(ngModel)]="imageDesc"
+                                    (input)="imageFieldValidation('allField')" (blur)="updateUploadDetails()"></textarea>
+                                <small class="wp-error"
+                                    *ngIf="validateObj.description.hasError">{{validateObj.description.errorMessage}}</small>
+                                <!-- <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر کاملا
+                                    تزئینی است این را خالی رها نمایید.</p> -->
                             </div>
-                            <div class="p-field">
+                            <!-- <div class="p-field">
                                 <label>نشانی پرونده</label>
                                 <input type="text" class="wp-control" [value]="imageDetails.resourceUrl"
                                     [disabled]="true" />
                                 <button type="button" class="wp-btn">کپی نشانی در کلیپ بورد</button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="actions">
-                            <a class="view-attachment" target="_blank" [href]="imageDetails.resourceUrl">نمایش صفحهٔ
+                            <a class="view-attachment app-normall-link" target="_blank" [href]="imageDetails.resourceUrl">نمایش صفحهٔ
                                 پیوست</a>
-                            <span class="links-separator">|</span>
-                            <button type="button" class="button-link delete-attachment">حذف برای همیشه</button>
+                            <!-- <button type="button" class="app-normall-btn delete-attachment">حذف برای همیشه</button> -->
                         </div>
+                 
+                
+                        <!-- <div class="progress-spinner" *ngIf="saveSpinner">
+                            <div class="lds-spinner">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -185,7 +200,7 @@
         <p-button label="ثبت" [disabled]="displaySubmitBtn" (onClick)="dialogPersonSubmit(dialogStatus)"
             styleClass="p-button-success"></p-button>
     </div> -->
-        <button type="button" class="wp-btn wp-btn-primary" [disabled]="addImageBtnDisabled"
+        <button type="button" class="wp-btn wp-btn-primary" [disabled]="submitBtnDisabled"
             (click)="addImage()">افزودن</button>
     </ng-template>
 </p-dialog>

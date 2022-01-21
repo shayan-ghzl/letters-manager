@@ -7,34 +7,16 @@
     <ng-template pTemplate="header">
         <h4 class="app-dialog-title">{{dialogTitle}}</h4>
     </ng-template>
-    <div class="progress-spinner" [class.d-none]="!displayDialogSpinner">
-        <div class="lds-spinner">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+
 
     <div *ngIf="image" class="dialog-content">
 
         <div class="row">
             <div class="col-8 thumbnail-image">
-                <img *ngIf="image" class="details-image" [src]="image.resourceUrl" [alt]="image.alternateText">
+                <img class="details-image" [src]="image.resourceUrl" [alt]="image.alternateText">
             </div>
             <div class="col-4 attachment-info">
-                <span class="settings-save-status" *ngIf="saveSpinner" role="status">
-                    <span class="spinner"></span>
-                    <span class="saved">ذخیره‌شد.</span>
-                </span>
+
                 <div class="details">
 
                     <!-- <h2 class="screen-reader-text">جزئیات</h2> -->
@@ -48,7 +30,7 @@
                     <div class="file-type"><strong>نوع پرونده:</strong> {{image.contentType}}</div>
                     <div class="file-size"><strong>اندازه پرونده:</strong> {{image.size | appKbConvertion}} کیلوبایت
                     </div>
-
+ 
 
                     <!-- 
                     <div class="dimensions"><strong>ابعاد:</strong>
@@ -60,21 +42,33 @@
                     <div class="actions">
                         <a class="view-attachment app-normall-link" target="_blank" [href]="image.resourceUrl">نمایش صفحهٔ پیوست</a>
                         <!-- <span class="links-separator">|</span> -->
-                        <button type="button" class="app-normall-btn delete-attachment">حذف برای همیشه</button>
+                        <button type="button" (click)="showDeleteImageConf(image)" class="app-normall-btn delete-attachment">حذف برای همیشه</button>
                     </div>
                 </div>
                 <div class="settings">
                     <div class="p-field">
-                        <label>متن جایگزین<span class="app-required-star">*</span></label>
-                        <input type="text" class="wp-control" [class.ng-invalid]="false" [(ngModel)]="imageAlt"/>
-                        <small class="p-error">مقدار وارد شده صحیح نمی باشد.</small>
+                        <label>متن جایگزین<span class="app-required-star"
+                            *ngIf="validateObj.alt.isRequired">*</span></label>
+                        <input type="text" class="wp-control" [class.ng-invalid]="false" [class.ng-dirty]="validateObj.alt.hasError" [(ngModel)]="imageAlt" (input)="imageFieldValidation('allField')"/>
+                        <small class="wp-error"
+                        *ngIf="validateObj.alt.hasError">{{validateObj.alt.errorMessage}}</small>
                         <p class="field-desc">هدف از تصویر را شرح دهید. اگر تصویر کاملا
                             تزئینی است این را خالی رها نمایید.</p>
                     </div>
+
+
                     <div class="p-field">
-                        <label>توضیح<span class="app-required-star">*</span></label>
-                        <textarea class="wp-control" rows="3" [class.ng-invalid]="false">{{image.description}}</textarea>
-                        <small class="p-error">مقدار وارد شده صحیح نمی باشد.</small>
+                        <label>توضیح<span class="app-required-star"
+                            *ngIf="validateObj.description.isRequired">*</span></label>
+                        <textarea class="wp-control" rows="3" [class.ng-invalid]="false" [class.ng-dirty]="validateObj.description.hasError" [(ngModel)]="imageDesc" (input)="imageFieldValidation('allField')"></textarea>
+                        <small class="wp-error"
+                        *ngIf="validateObj.description.hasError">{{validateObj.description.errorMessage}}</small>
+                        <!-- <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر کاملا
+                            تزئینی است این را خالی رها نمایید.</p> -->
+                    </div>
+                    <div class="p-field">
+                        <label>دسته بندی</label>
+                        <small *ngFor="let category of image.categories">{{category | json}}</small>
                         <!-- <p class="field-desc">هدف از تصویر(در یک برگهٔ جدید باز می‌شود) را شرح دهید. اگر تصویر کاملا
                             تزئینی است این را خالی رها نمایید.</p> -->
                     </div>
@@ -89,10 +83,40 @@
                         <small class="p-error" *ngIf="false">text</small>
                     </div> -->
                 </div>
-
-                <button type="button" class="wp-btn wp-btn-primary app-update-upload-btn" (click)="updateUploadDetails()">ذخیره</button>
+                <!-- <span class="app-save-status" *ngIf="saveSpinner" role="status">
+                    <span class="spinner"></span>
+                    <span class="saved">ذخیره‌شد.</span>
+                </span> -->
+                <div class="progress-spinner" *ngIf="saveSpinner">
+                    <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <button type="button" [disabled]="submitBtnDisabled" class="wp-btn wp-btn-primary app-update-upload-btn" (click)="updateUploadDetails()">ذخیره</button>
             </div>
         </div>
     </div>
 
 </p-dialog>
+
+    
+<p-confirmDialog #confirmDialog [rtl]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+    [style]="{width: '35vw'}">
+    <ng-template pTemplate="footer">
+        <p-button label="لغو" class="ms-auto" styleClass="p-button-danger p-button-outlined" icon="pi pi-times"
+            (click)="confirmDialog.reject()"></p-button>
+        <p-button label="حذف" styleClass="p-button-success" icon="pi pi-check" (click)="confirmDialog.accept()">
+        </p-button>
+    </ng-template>
+</p-confirmDialog>

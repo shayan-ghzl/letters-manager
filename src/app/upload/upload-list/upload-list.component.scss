@@ -43,6 +43,9 @@
     background: #fff;
     color: #50575e;
     font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     label {
         margin-left: 1em;
     }

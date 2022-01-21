@@ -37,6 +37,16 @@ export class UploadService {
     return this.http.post<any>(this.baseUrl + 'lm/v1/media/image', formData);
   }
 
+  editImage(image: any): Observable<any> {
+    return this.http.put<any>(this.baseUrl + 'lm/v1/media/image', image);
+  }
+  deleteImage(imageId: string): Observable<any> {
+    return this.http.delete<any>(this.baseUrl + 'lm/v1/media/image' + imageId);
+  }
+
+
+
+
 
   getCategories(parameters: any): Observable<any> {
     let params = new HttpParams();

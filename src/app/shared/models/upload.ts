@@ -6,6 +6,9 @@ export interface Image {
     size: number;
     uploadDate: string;
     resourceUrl: string;
+    customers: string[];
+    letters: string[];
+    categories: MediaCategory[];
     alternateText: string;
     isRemoved?: boolean;
     isEdited?: boolean;

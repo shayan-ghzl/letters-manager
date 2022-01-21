@@ -18,7 +18,7 @@ export class UploadListComponent implements OnInit {
   currentPage: number = 0;
   isDone = false;
   showLoading: boolean = false;
-
+  editedMediaIndex = 0;
 
 
 
@@ -50,10 +50,13 @@ export class UploadListComponent implements OnInit {
     this.currentPage = this.currentPage + 1;
     this.getImages({ size: this.tableRows, page: this.currentPage });
   }
-  openUploadDetailsDialog(image: Image) {
+  openUploadDetailsDialog(image: Image, index: number) {
+    this.editedMediaIndex = index;
     this.uploadDetailsDialogComponent.showUploadDetailsDialog(image);
   }
-
+  imageUpdated(image: Image) {
+    this.images[this.editedMediaIndex] = image;
+   }
 
   onUpload(fileObject: any) {
     for (let file of fileObject.files) {
@@ -65,7 +68,7 @@ export class UploadListComponent implements OnInit {
         }, (error) => {
           this.messageService.add({ key: 'uploadListToast', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
         });
-      }else{
+      } else {
         this.messageService.add({ key: 'uploadListToast', severity: 'error', summary: 'خطا', detail: 'حجم فایل بیشتر از حد مجاز است.', life: 7000 });
       }
     }

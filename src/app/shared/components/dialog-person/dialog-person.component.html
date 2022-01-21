@@ -28,7 +28,7 @@
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.firstName.hasError"
             [class.ng-invalid]="editPersonValidateObj.firstName.hasError" pInputText />
             <span class="app-input-counter">{{editPerson_firstname.length}}</span>
-        <small class="p-error"
+        <small class="wp-error"
             *ngIf="editPersonValidateObj.firstName.hasError">{{editPersonValidateObj.firstName.errorMessage}}</small>
 
     </div>
@@ -38,7 +38,7 @@
         <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_lastname"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.lastName.hasError"
             [class.ng-invalid]="editPersonValidateObj.lastName.hasError" pInputText />
-        <small class="p-error"
+        <small class="wp-error"
             *ngIf="editPersonValidateObj.lastName.hasError">{{editPersonValidateObj.lastName.errorMessage}}</small>
     </div>
     <div class="p-field col-4">
@@ -46,7 +46,7 @@
         <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_father_name"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.fatherName.hasError"
             [class.ng-invalid]="editPersonValidateObj.fatherName.hasError" pInputText />
-        <small class="p-error"
+        <small class="wp-error"
             *ngIf="editPersonValidateObj.fatherName.hasError">{{editPersonValidateObj.fatherName.errorMessage}}</small>
 
     </div>
@@ -60,7 +60,7 @@
             [(ngModel)]="editPerson_national_id" class="p-inputtext-sm"
             [class.ng-dirty]="editPersonValidateObj.nationalID.hasError"
             [class.ng-invalid]="editPersonValidateObj.nationalID.hasError" pInputText />
-        <small class="p-error"
+        <small class="wp-error"
             *ngIf="editPersonValidateObj.nationalID.hasError">{{editPersonValidateObj.nationalID.errorMessage}}</small>
     </div>
     <div class="p-field col-4">
@@ -69,7 +69,7 @@
             [(ngModel)]="editPerson_certificate_number" class="p-inputtext-sm"
             [class.ng-dirty]="editPersonValidateObj.certificateNumber.hasError"
             [class.ng-invalid]="editPersonValidateObj.certificateNumber.hasError" pInputText />
-        <small class="p-error"
+        <small class="wp-error"
             *ngIf="editPersonValidateObj.certificateNumber.hasError">{{editPersonValidateObj.certificateNumber.errorMessage}}</small>
 
     </div>
@@ -79,7 +79,7 @@
         <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_from_location"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.fromLocation.hasError"
             [class.ng-invalid]="editPersonValidateObj.fromLocation.hasError" pInputText />
-        <small class="p-error"
+        <small class="wp-error"
             *ngIf="editPersonValidateObj.fromLocation.hasError">{{editPersonValidateObj.fromLocation.errorMessage}}</small>
     </div>
 </div>
@@ -93,7 +93,7 @@
             [(ngModel)]="editPerson_string_birth_date" class="p-inputtext-sm"
             [class.ng-dirty]="editPersonValidateObj.stringBirthDate.hasError"
             [class.ng-invalid]="editPersonValidateObj.stringBirthDate.hasError" pInputText />
-        <small class="p-error"
+        <small class="wp-error"
             *ngIf="editPersonValidateObj.stringBirthDate.hasError">{{editPersonValidateObj.stringBirthDate.errorMessage}}</small>
     </div>
     <div class="p-field col-4">
@@ -101,7 +101,7 @@
         <input type="text" (input)="this.editPersonValidate('allFields')" [(ngModel)]="editPerson_address"
             class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.address.hasError"
             [class.ng-invalid]="editPersonValidateObj.address.hasError" pInputText />
-        <small class="p-error"
+        <small class="wp-error"
             *ngIf="editPersonValidateObj.address.hasError">{{editPersonValidateObj.address.errorMessage}}</small>
 
     </div>
@@ -111,7 +111,7 @@
             [(ngModel)]="editPerson_phone_number" class="p-inputtext-sm"
             [class.ng-dirty]="editPersonValidateObj.phoneNumber.hasError"
             [class.ng-invalid]="editPersonValidateObj.phoneNumber.hasError" pInputText />
-        <small class="p-error"
+        <small class="wp-error"
             *ngIf="editPersonValidateObj.phoneNumber.hasError">{{editPersonValidateObj.phoneNumber.errorMessage}}</small>
     </div>
 </div>

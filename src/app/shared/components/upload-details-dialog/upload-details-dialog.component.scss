@@ -33,10 +33,11 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    .settings-save-status {
+    position: relative;
+    .app-save-status {
         float: left;
     }
-    > div:not(:last-child) {
+    > div:not(:last-child):not(.progress-spinner) {
         position: relative;
         overflow: hidden;
         margin-bottom: 15px;

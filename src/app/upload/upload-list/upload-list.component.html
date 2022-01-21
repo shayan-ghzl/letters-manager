@@ -1,5 +1,6 @@
-<p-toast key="uploadListToast" position="bottom-left" [showTransitionOptions]="'400ms'" [hideTransitionOptions]="'400ms'" [baseZIndex]="1102"
-[breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast> 
+<p-toast key="uploadListToast" position="bottom-left" [showTransitionOptions]="'400ms'"
+    [hideTransitionOptions]="'400ms'" [baseZIndex]="1102"
+    [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
 <div class="upload-frame-content">
     <div class="attachments-browser has-load-more">
 
@@ -7,10 +8,11 @@
         <div class="uploader-inline" appDragDropUpload (appdrop)="onUpload($event)">
             <div class="uploader-inline-content">
                 <div class="upload-ui">
-                    
+
                     <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
                     <p>یا</p>
-                    <input type="file" name="image" id="input-file" accept="image/*" (change)="onUpload($event.target)" multiple/> 
+                    <input type="file" name="image" id="input-file" accept="image/*" (change)="onUpload($event.target)"
+                        multiple />
                     <label for="input-file" class="button-hero wp-btn">گزینش پرونده‌ها</label>
                 </div>
                 <p class="max-upload-size">حداکثر اندازه پرونده برای بارگذاری: 200 مگابایت. </p>
@@ -19,13 +21,21 @@
 
 
         <div class="upload-toolbar">
-            <div class="upload-toolbar-secondary">
+            <!-- <div class="upload-toolbar-secondary">
 
-            </div>
+            </div> -->
             <div class="upload-toolbar-primary">
                 <label>جستجو</label>
                 <input type="text" class="app-small-input" pInputText />
             </div>
+            <div class="bulkactions">
+                <select class="wp-select">
+                    <option value="-1">کارهای دسته‌جمعی</option>
+                    <option value="delete">پاک کردن</option>
+                </select>
+                <button type="button" class="wp-btn">اجرا</button>
+            </div>
+          
         </div>
 
         <div class="attachments-wrapper">
@@ -60,12 +70,13 @@
                         <span class="upload-modal-icon"></span>
                     </button>
                 </li> -->
-                <li *ngFor="let image of images" (click)="openUploadDetailsDialog(image)" tabindex="0" role="checkbox" aria-checked="false" class="attachment">
+                <li *ngFor="let image of images;let index = index" (click)="openUploadDetailsDialog(image, index)" tabindex="0"
+                    role="checkbox" aria-checked="false" class="attachment">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
                             <div class="centered">
-                                    <img class="details-image" [src]="image.resourceUrl" [alt]="image.alternateText">
+                                <img class="details-image" [src]="image.resourceUrl" [alt]="image.alternateText">
                             </div>
                         </div>
                     </div>
@@ -89,11 +100,11 @@
             <div *ngIf="images.length" class="load-more-wrapper">
                 <span class="spinner" [class.hidden]="!showLoading"></span>
                 <p class="load-more-count">نمایش {{images.length}} از {{tableRowsTotal}} موارد رسانه</p>
-                <button *ngIf="!isDone" type="button" class="wp-btn wp-btn-primary"
-                    (click)="loadMoreImage()">بارگذاری بیشتر</button>
+                <button *ngIf="!isDone" type="button" class="wp-btn wp-btn-primary" (click)="loadMoreImage()">بارگذاری
+                    بیشتر</button>
                 <button type="button" class="btn load-more-jump hidden" disabled=""></button>
             </div>
         </div>
     </div>
 </div>
-<app-upload-details-dialog></app-upload-details-dialog>
+<app-upload-details-dialog (update)="imageUpdated($event)"></app-upload-details-dialog>
