@@ -35,11 +35,11 @@ export class LetterService {
   }
   // // this is for edit letter 
   // putLetter(letter: Letter): Observable<any> {
-  //   return this.http.put<any>(this.baseUrl + 'lm/v1/letter/' + letter.personUUID, letter);
+  //   return this.http.put<any>(this.baseUrl + 'lm/v1/letter/' + letter.customerUUID, letter);
   // }
   // // this is for delete letter
   // deleteLetter(letter: Letter): Observable<any> {
-  //   return this.http.delete<any>(this.baseUrl + 'lm/v1/letter/' + letter.personUUID);
+  //   return this.http.delete<any>(this.baseUrl + 'lm/v1/letter/' + letter.customerUUID);
   // }
   // // this is for add letter
   // addLetter(letter: Letter): Observable<any> {

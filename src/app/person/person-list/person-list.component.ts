@@ -71,7 +71,7 @@ export class PersonListComponent  {
   //       e.data.isAdded = false;
   //     }, 1000);
   //   } else {
-  //     let theIndex = this.persons.findIndex(p => p.personUUID == e.data.personUUID);
+  //     let theIndex = this.persons.findIndex(p => p.customerUUID == e.data.customerUUID);
   //     this.persons[theIndex].isEdited = true;
   //     setTimeout(() => {
   //       e.data.isEdited = false;
@@ -84,7 +84,7 @@ export class PersonListComponent  {
   updateFromDeletePerson(e: Person) {
     e.isRemoved = true;
     setTimeout(() => {
-      let index = this.persons.findIndex(p => p.personUUID == e.personUUID);
+      let index = this.persons.findIndex(p => p.customerUUID == e.customerUUID);
       if (index > -1) {
         this.persons.splice(index, 1);
       }
@@ -104,7 +104,7 @@ export class PersonListComponent  {
       state: {
         person: person
       },
-      queryParams: { p:person?.personUUID  }
+      queryParams: { p:person?.customerUUID  }
     };
     this.router.navigate(['person/edit'], navigationExtras);
   }

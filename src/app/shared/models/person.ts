@@ -1,5 +1,7 @@
+import { Image } from './upload';
+
 export interface Person {
-    personUUID: string | null;
+    customerUUID: string | null;
     firstName: string;
     lastName: string;
     fatherName: string;
@@ -13,7 +15,7 @@ export interface Person {
     isEdited?:boolean;
     isAdded?:boolean;
     hasWarning?:boolean;
-    // medias:Image[]
+    medias:Image[]
 }
 export interface PersonParams {
     page?: number;

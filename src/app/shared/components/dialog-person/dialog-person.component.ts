@@ -163,7 +163,7 @@ export class DialogPersonComponent implements OnInit {
       if (status == 'editPerson') {
         this.personService.putPerson(
           {
-            personUUID: this.editPerson.personUUID,
+            customerUUID: this.editPerson.customerUUID,
             firstName: this.editPerson_firstname,
             lastName: this.editPerson_lastname,
             fatherName: this.editPerson_father_name,
@@ -172,7 +172,8 @@ export class DialogPersonComponent implements OnInit {
             fromLocation: this.editPerson_from_location,
             stringBirthDate: this.editPerson_string_birth_date,
             address: this.editPerson_address,
-            phoneNumber: this.editPerson_phone_number
+            phoneNumber: this.editPerson_phone_number,
+            medias:[]
           }
         ).subscribe(
           (data) => {
@@ -198,7 +199,7 @@ export class DialogPersonComponent implements OnInit {
       } else {
         this.personService.addPerson(
           {
-            personUUID: null,
+            customerUUID: null,
             firstName: this.editPerson_firstname,
             lastName: this.editPerson_lastname,
             fatherName: this.editPerson_father_name,
@@ -207,7 +208,8 @@ export class DialogPersonComponent implements OnInit {
             fromLocation: this.editPerson_from_location,
             stringBirthDate: this.editPerson_string_birth_date,
             address: this.editPerson_address,
-            phoneNumber: this.editPerson_phone_number
+            phoneNumber: this.editPerson_phone_number,
+            medias:[]
           }
         ).subscribe(
           (data) => {

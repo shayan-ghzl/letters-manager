@@ -10,7 +10,7 @@ import { Image, ImageParams } from '../../models/upload';
 })
 export class DialogUploadComponent implements OnInit {
 
-  @Output() update = new EventEmitter<any>();
+  @Output() update = new EventEmitter<Image[]>();
   DialogUpload: boolean = false;
   dialogTitle = 'پیوست ها';
   saveSpinner = false;
@@ -84,8 +84,11 @@ export class DialogUploadComponent implements OnInit {
   clear() {
     // this.messageService.clear('DialogUploadToast');
   }
-  showPersonDialog(image: Image | null = null): void | boolean {
-
+  showPersonDialog(images: Image[] = []) {
+    images.forEach((Element) => {
+      Element.isSelected = true;
+    })
+    this.selectedImages = images;
     this.DialogUpload = true;
     this.getImages({ size: this.tableRows, page: this.currentPage });
   }
@@ -184,7 +187,7 @@ export class DialogUploadComponent implements OnInit {
     this.imageAlt = image.alternateText;
     this.imageDesc = image.description;
     for (const [key, value] of Object.entries(this.validateObj)) {
-        value.hasError = false;
+      value.hasError = false;
     }
     if (e.ctrlKey) {
       if (image.isSelected) {
@@ -228,7 +231,8 @@ export class DialogUploadComponent implements OnInit {
 
   addImage() {
     if (!this.submitBtnDisabled) {
-
+      this.update.emit(this.selectedImages);
+      this.DialogUpload = false;
     }
   }
 

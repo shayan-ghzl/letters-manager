@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { DialogUploadComponent } from 'src/app/shared/components/dialog-upload/dialog-upload.component';
 import { Person, PersonSubErrors } from 'src/app/shared/models/person';
 import { PersonService } from '../person.service';
+import { Image } from '../../shared/models/upload';
 
 @Component({
   selector: 'app-person-edit',
@@ -116,26 +117,26 @@ export class PersonEditComponent implements OnInit {
     },
   };
 
-  constructor(private route: ActivatedRoute, private router: Router,private personService: PersonService, private messageService: MessageService) { 
+  constructor(private route: ActivatedRoute, private router: Router, private personService: PersonService, private messageService: MessageService) {
     this.route.queryParams.subscribe(
       (data) => {
         let parameter = this.router.getCurrentNavigation()?.extras.state;
         let personIdQueryParam = this.router.getCurrentNavigation()?.extractedUrl.queryParams.p;
-        if (parameter ){
+        if (parameter) {
           this.showPersonDialog(parameter.person);
-        }else if(personIdQueryParam){
-            this.personService.getPersonById(personIdQueryParam).subscribe(
-              (data) => {
-                this.showPersonDialog(data);
-              },
-              (error) => {
-                this.showPersonDialog();
-               },
-              () => { },
-            );
-          
-        }else{
-            this.router.navigate(['person']);
+        } else if (personIdQueryParam) {
+          this.personService.getPersonById(personIdQueryParam).subscribe(
+            (data) => {
+              this.showPersonDialog(data);
+            },
+            (error) => {
+              this.showPersonDialog();
+            },
+            () => { },
+          );
+
+        } else {
+          this.router.navigate(['person']);
         }
       },
       (error) => { console.log(error); },
@@ -153,6 +154,7 @@ export class PersonEditComponent implements OnInit {
       if (person.isRemoved || person.isEdited) {
         return false;
       }
+      console.log(person);
       this.dialogStatus = 'editPerson';
       this.editPerson = person;
       // this.editPersonRowIndex = rowIndex;
@@ -166,6 +168,7 @@ export class PersonEditComponent implements OnInit {
       this.editPerson_string_birth_date = person.stringBirthDate;
       this.editPerson_address = person.address;
       this.editPerson_phone_number = person.phoneNumber;
+      this.atacheedImages = person.medias;
     } else {
       this.dialogStatus = 'addPerson';
       this.dialogTitle = 'افزودن جدید';
@@ -178,19 +181,19 @@ export class PersonEditComponent implements OnInit {
       this.editPerson_string_birth_date = '';
       this.editPerson_address = '';
       this.editPerson_phone_number = '';
+      this.atacheedImages = [];
       this.editPersonValidate('allFields');
     }
     // this.DialogPerson = true;
   }
   dialogPersonSubmit(status = 'editPerson') {
-
     if (this.editPersonValidate('allFields')) {
       this.displaySubmitBtn = true;
       this.displayDialogSpinner = true;
       if (status == 'editPerson') {
         this.personService.putPerson(
           {
-            personUUID: this.editPerson.personUUID,
+            customerUUID: this.editPerson.customerUUID,
             firstName: this.editPerson_firstname,
             lastName: this.editPerson_lastname,
             fatherName: this.editPerson_father_name,
@@ -199,7 +202,8 @@ export class PersonEditComponent implements OnInit {
             fromLocation: this.editPerson_from_location,
             stringBirthDate: this.editPerson_string_birth_date,
             address: this.editPerson_address,
-            phoneNumber: this.editPerson_phone_number
+            phoneNumber: this.editPerson_phone_number,
+            medias: this.atacheedImages
           }
         ).subscribe(
           (data) => {
@@ -225,7 +229,7 @@ export class PersonEditComponent implements OnInit {
       } else {
         this.personService.addPerson(
           {
-            personUUID: null,
+            customerUUID: null,
             firstName: this.editPerson_firstname,
             lastName: this.editPerson_lastname,
             fatherName: this.editPerson_father_name,
@@ -234,7 +238,8 @@ export class PersonEditComponent implements OnInit {
             fromLocation: this.editPerson_from_location,
             stringBirthDate: this.editPerson_string_birth_date,
             address: this.editPerson_address,
-            phoneNumber: this.editPerson_phone_number
+            phoneNumber: this.editPerson_phone_number,
+            medias: this.atacheedImages
           }
         ).subscribe(
           (data) => {
@@ -393,8 +398,14 @@ export class PersonEditComponent implements OnInit {
   //     value.hasError = false;
   //   }
   // }
-  openImagePicker(e:any){
-    this.dialogUploadComponent.showPersonDialog();
+  atacheedImages: Image[] = [];
+  openImagePicker(e: any) {
+    this.dialogUploadComponent.showPersonDialog(this.atacheedImages);
   }
-
+  imageIncoming(images: Image[]) {
+    this.atacheedImages = this.atacheedImages.concat(images);
+  }
+  deleteThisAtachment(index: number) {
+    this.atacheedImages.splice(index, 1);
+  }
 }

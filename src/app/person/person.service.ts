@@ -41,7 +41,7 @@ export class PersonService {
   }
   // this is for delete person
   deletePerson(person: Person): Observable<any> {
-    return this.http.delete<any>(this.baseUrl + 'lm/v1/person/' + person.personUUID);
+    return this.http.delete<any>(this.baseUrl + 'lm/v1/person/' + person.customerUUID);
   }
   // this is for add person
   addPerson(person: Person): Observable<any> {

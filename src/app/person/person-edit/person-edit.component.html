@@ -60,9 +60,8 @@
     <div class="p-field col-4">
         <label>کد ملی<span class="app-required-star"
                 *ngIf="editPersonValidateObj.nationalID.isRequired">*</span></label>
-        <input type="text" appOnlyNumbers (input)="editPersonValidate('allFields')"
-            [(ngModel)]="editPerson_national_id" class="p-inputtext-sm"
-            [class.ng-dirty]="editPersonValidateObj.nationalID.hasError"
+        <input type="text" appOnlyNumbers (input)="editPersonValidate('allFields')" [(ngModel)]="editPerson_national_id"
+            class="p-inputtext-sm" [class.ng-dirty]="editPersonValidateObj.nationalID.hasError"
             [class.ng-invalid]="editPersonValidateObj.nationalID.hasError" pInputText />
         <small class="wp-error"
             *ngIf="editPersonValidateObj.nationalID.hasError">{{editPersonValidateObj.nationalID.errorMessage}}</small>
@@ -124,49 +123,27 @@
 <div class="row-span">
     <div class="person-panel-postbox">
 
-        <!-- <div id="person-image-container">
+        <div id="person-image-container" *ngIf="atacheedImages.length;else noImages">
             <ul class="person-image-wrapper">
-                <li class="image">
-                    <img width="150" height="150"
-                        src="https://petroll.ir/wp-content/uploads/2019/03/parrot-1-150x150.jpg"
-                        class="attachment-thumbnail">
+                <li class="image" *ngFor="let atacheedImage of atacheedImages;let index = index">
+                    <img width="150" height="150" [src]="atacheedImage.resourceUrl" class="attachment-thumbnail">
                     <ul class="actions">
                         <li>
-                            <button type="button" class="delete">
-                                <img width="17" src="../../../assets/images/svg-icon/image-remove.svg" alt="delete icon">
+                            <button type="button" class="delete" (click)="deleteThisAtachment(index)">
+                                <img width="17" src="../../../assets/images/svg-icon/image-remove.svg"
+                                    alt="delete icon">
                             </button>
                         </li>
                     </ul>
                 </li>
-                <li class="image">
-                    <img width="150" height="150"
-                        src="https://petroll.ir/wp-content/uploads/2019/03/parrot-1-150x150.jpg"
-                        class="attachment-thumbnail">
-                    <ul class="actions">
-                        <li>
-                            <button type="button" class="delete">
-                                <img width="17" src="../../../assets/images/svg-icon/image-remove.svg" alt="delete icon">
-                            </button>
-                        </li>
-                    </ul>
-                </li>
-                <li class="image">
-                    <img width="150" height="150"
-                        src="https://petroll.ir/wp-content/uploads/2019/03/parrot-1-150x150.jpg"
-                        class="attachment-thumbnail">
-                    <ul class="actions">
-                        <li>
-                            <button type="button" class="delete">
-                                <img width="17" src="../../../assets/images/svg-icon/image-remove.svg" alt="delete icon">
-                            </button>
-                        </li>
-                    </ul>
-                </li>
+
             </ul>
-        </div> -->
-        <div class="person-image-empty-box">
-            تصویری وجود ندارد.
         </div>
+        <ng-template #noImages>
+            <div class="person-image-empty-box">
+                تصویری وجود ندارد.
+            </div>
+        </ng-template>
         <button type="button" class="wp-btn" (click)="openImagePicker($event)">افزودن تصویر</button>
     </div>
 </div>
@@ -181,4 +158,4 @@
 <!-- </div> -->
 <!-- </ng-template>
 </p-dialog>  -->
-<app-dialog-upload></app-dialog-upload>
+<app-dialog-upload (update)="imageIncoming($event)"></app-dialog-upload>
