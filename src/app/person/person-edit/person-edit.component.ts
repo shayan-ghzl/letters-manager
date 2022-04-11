@@ -188,9 +188,15 @@ export class PersonEditComponent implements OnInit {
   }
   dialogPersonSubmit(status = 'editPerson') {
     if (this.editPersonValidate('allFields')) {
+      let temp:string[] = [];
+      this.atacheedImages.forEach((Element) => {
+        temp.push(Element.mediaUUID);
+      });
       this.displaySubmitBtn = true;
       this.displayDialogSpinner = true;
       if (status == 'editPerson') {
+
+
         this.personService.putPerson(
           {
             customerUUID: this.editPerson.customerUUID,
@@ -203,7 +209,7 @@ export class PersonEditComponent implements OnInit {
             stringBirthDate: this.editPerson_string_birth_date,
             address: this.editPerson_address,
             phoneNumber: this.editPerson_phone_number,
-            medias: this.atacheedImages
+            medias: temp
           }
         ).subscribe(
           (data) => {
@@ -239,7 +245,7 @@ export class PersonEditComponent implements OnInit {
             stringBirthDate: this.editPerson_string_birth_date,
             address: this.editPerson_address,
             phoneNumber: this.editPerson_phone_number,
-            medias: this.atacheedImages
+            medias: temp
           }
         ).subscribe(
           (data) => {
@@ -382,7 +388,7 @@ export class PersonEditComponent implements OnInit {
             isFormValid--;
           }
         }
-        if (Object.entries(this.editPersonValidateObj).length == isFormValid) {
+        if (Object.entries(this.editPersonValidateObj).length == isFormValid || this.atacheedImages != this.editPerson.medias) {
           this.displaySubmitBtn = false;
           return true;
         } else {
@@ -404,6 +410,7 @@ export class PersonEditComponent implements OnInit {
   }
   imageIncoming(images: Image[]) {
     this.atacheedImages = this.atacheedImages.concat(images);
+    this.editPersonValidate('allFields');
   }
   deleteThisAtachment(index: number) {
     this.atacheedImages.splice(index, 1);

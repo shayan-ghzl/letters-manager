@@ -27,6 +27,11 @@ export class UploadService {
     }
     return this.http.get<Image>(this.baseUrl + 'lm/v1/media/image', { params: params });
   }
+  getImageById(imageId: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('imageId ', imageId);
+    return this.http.get<Image>(this.baseUrl + 'lm/v1/media/image', { params: params });
+  }
 
   uploadImages(file: any) {
     let formData = new FormData();
@@ -75,7 +80,7 @@ export class UploadService {
   editCategory(category: AddMediaCategory): Observable<any> {
     return this.http.put<any>(this.baseUrl + 'lm/v1/category/media', category);
   }
-  deleteCategory(category:MediaCategory): Observable<any>{
-      return this.http.delete<any>(this.baseUrl + 'lm/v1/category/media/' + category.categoryUUID);
+  deleteCategory(category: MediaCategory): Observable<any> {
+    return this.http.delete<any>(this.baseUrl + 'lm/v1/category/media/' + category.categoryUUID);
   }
 }

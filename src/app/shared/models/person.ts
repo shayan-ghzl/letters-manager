@@ -15,7 +15,7 @@ export interface Person {
     isEdited?:boolean;
     isAdded?:boolean;
     hasWarning?:boolean;
-    medias:Image[]
+    medias:any[]
 }
 export interface PersonParams {
     page?: number;
