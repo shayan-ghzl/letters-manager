@@ -1,35 +1,32 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PersonListComponent } from './person-list/person-list.component';
+import { PersonModificationComponent } from './person-modification/person-modification.component';
 import { PersonRoutingModule } from './person-routing.module';
-
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { PaginatorModule } from 'primeng/paginator';
 import { SharedModule } from '../shared/shared.module';
-import { PersonEditComponent } from './person-edit/person-edit.component';
-import { ToastModule } from 'primeng/toast';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     PersonListComponent,
-    PersonEditComponent,
+    PersonModificationComponent
   ],
   imports: [
     CommonModule,
     PersonRoutingModule,
-    TableModule,
-    ButtonModule,
-    InputTextModule,
-    PaginatorModule,
     SharedModule,
-    ToastModule,
-    
-  ],
-  providers: [
-
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatCardModule,
+    MatIconModule
   ]
 })
 export class PersonModule { }

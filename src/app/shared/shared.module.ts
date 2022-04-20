@@ -1,69 +1,53 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AcVmAccordionComponent } from './components/ac-vm-accordion/ac-vm-accordion.component';
-import { SubAccordionGroupComponent } from './components/ac-vm-accordion/sub-accordion-group/sub-accordion-group.component';
-import { OnlyNumbersDirective } from './directives/only-numbers.directive';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { ToastModule } from 'primeng/toast';
-import { ConfirmDeletePersonComponent } from './components/confirm-delete-person/confirm-delete-person.component';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { MessageService } from 'primeng/api';
-import { ConfirmationService } from 'primeng/api';
-import { FormsModule } from '@angular/forms';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
-
 import { RouterModule } from '@angular/router';
-import { DialogPersonComponent } from './components/dialog-person/dialog-person.component';
-import { UploadDetailsDialogComponent } from './components/upload-details-dialog/upload-details-dialog.component';
-import { DragDropUploadDirective } from './directives/drag-drop-upload.directive';
-import { KbConvertionPipe } from './pipes/kb-convertion.pipe';
-import { DialogUploadComponent } from './components/dialog-upload/dialog-upload.component';
-import { MediaCategoryTableComponent } from './components/media-category-table/media-category-table.component';
-
+import { CommonModule } from '@angular/common';
+import { TableListComponent } from './component/table-list/table-list.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { CustomMatPaginatorIntl } from './custom-mat-paginator-int';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UploadSelectDialogContentComponent } from './component/upload-select-dialog-content/upload-select-dialog-content.component';
+import { RemoveConfirmationDialogContentComponent } from './component/remove-confirmation-dialog-content/remove-confirmation-dialog-content.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
+import { ModificationFormComponent } from './component/modification-form/modification-form.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
-    AcVmAccordionComponent,
-    SubAccordionGroupComponent,
-    OnlyNumbersDirective,
-    ConfirmDeletePersonComponent,
-    DialogPersonComponent,
-    UploadDetailsDialogComponent,
-    DragDropUploadDirective,
-    KbConvertionPipe,
-    DialogUploadComponent,
-    MediaCategoryTableComponent,
-
+    TableListComponent,
+    UploadSelectDialogContentComponent,
+    RemoveConfirmationDialogContentComponent,
+    ModificationFormComponent
   ],
   imports: [
     CommonModule,
-    DialogModule,
-    ButtonModule,
-    InputTextModule,
-    ToastModule,
-    ConfirmDialogModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatDialogModule,
+    MatInputModule,
     FormsModule,
-    AccordionModule.forRoot(),
     RouterModule,
+    MatSnackBarModule,
+    MatTabsModule,
+    ReactiveFormsModule,
+    MatCardModule
   ],
-  exports: [
-    AcVmAccordionComponent,
-    OnlyNumbersDirective,
-    ConfirmDeletePersonComponent,
-    DialogPersonComponent,
-    UploadDetailsDialogComponent,
-    DragDropUploadDirective,
-    KbConvertionPipe,
-    DialogUploadComponent,
-    MediaCategoryTableComponent,
-    ConfirmDialogModule
-
+  exports:[
+    TableListComponent,
+    ModificationFormComponent
   ],
-  providers: [
-    ConfirmationService,
-    MessageService
-  ]
+  providers: [{
+    provide: MatPaginatorIntl, 
+    useClass: CustomMatPaginatorIntl
+  }]
 })
 export class SharedModule { }

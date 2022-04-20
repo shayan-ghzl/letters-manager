@@ -1,15 +1,49 @@
-// layout is global
-@import "./assets/scss/layout/font.scss";
-@import "./assets/scss/layout/spinner.scss";
+/* You can add global styles to this file, and also import other style files */
+@import "./assets/scss/layout/fonts.scss";
 
-@import "./assets/scss/ngx-bootstrap/vertical-menu/accordion.scss";
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Vazir, "Vazir";
+}
 
-// primeng rtl thing
-@import "./assets/scss/primeng/primeng-rtl.scss";
-// primeng utility added in this app
-@import "./assets/scss/primeng/primeng-utility.scss";
+.app-remove-highlight {
+    background: #f4433633;
+}
+.app-edit-highlight {
+    background: #f9ab0033;
+}
+.app-add-highlight {
+    background: #46a35e33;
+}
 
-// app utility
-@import "./assets/scss/app-global/style.scss";
+.app-upload-preview-dialog,
+.app-upload-select-dialog {
+    .mat-dialog-container {
+        padding: 0;
+        overflow: hidden;
+    }
+}
 
-
+.app-upload-select-dialog .mat-tab-body-wrapper {
+    height: calc(100% - 108px);
+    mat-tab-body {
+        .mat-tab-body-content {
+            box-sizing: border-box;
+            padding: 1rem;
+        }
+        &:last-child {
+            .mat-tab-body-content {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                button {
+                    margin-top: auto;
+                }
+            }
+        }
+    }
+}

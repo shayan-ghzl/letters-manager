@@ -1,0 +1,128 @@
+<div class="dialog-heading">
+    <h1>پیوست ها</h1>
+    <button mat-icon-button (click)="dialogRef.close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div class="dialog-content">
+    <mat-tab-group>
+        <mat-tab label="بارگذاری پرونده‌ها">
+    
+            <div class="uploader-inline" appDragDropUpload (appdrop)="onUpload($event)">
+                <div class="uploader-inline-content">
+                    <div class="upload-ui">
+    
+                        <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
+                        <p>یا</p>
+                        <input type="file" name="image" id="input-file" accept="image/*" (change)="onUpload($event.target)"
+                            multiple />
+                        <label for="input-file" class="button-hero wp-btn">گزینش پرونده‌ها</label>
+                    </div>
+                    <p class="max-upload-size">حداکثر اندازه پرونده برای بارگذاری: 200 مگابایت. </p>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="کتابخانه پرونده‌های چندرسانه‌ای">
+            <ul *ngIf="images.length; else noImage" class="attachments" tabindex="-1">
+                <!-- <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
+                        class="attachment selected">
+                        <div class="attachment-preview">
+                            <div class="thumbnail"> -->
+                <!-- // <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
+                <!-- <div class="centered">
+                                    <img src="./assets/images/sample-upload.jpg"
+                                        alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="check" tabindex="-1">
+                            <span class="upload-modal-icon"></span>
+                        </button>
+                    </li> -->
+                <!-- <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
+                        class="attachment">
+                        <div class="attachment-preview">
+                            <div class="thumbnail">
+                                <div class="upload-progress-bar"><div style="width: 50%"></div></div> -->
+                <!--// <div class="centered">
+                                   // <img src="./assets/images/sample-upload.jpg" alt="">
+                                   // </div> -->
+                <!-- </div>
+                        </div>
+                        <button type="button" class="check" tabindex="-1">
+                            <span class="upload-modal-icon"></span>
+                        </button>
+                    </li> -->
+                <li *ngFor="let image of images" (click)="selectImage($event,image)" [class.selected]="image.isSelected"
+                    tabindex="0" role="checkbox" aria-checked="false" class="attachment">
+                    <div class="attachment-preview">
+                        <div class="thumbnail">
+                            <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
+                            <div class="centered">
+                                <img class="details-image" [src]="image.resourceUrl" [alt]="image.alternateText">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="check" tabindex="-1">
+                        <span class="upload-modal-icon"></span>
+                    </button>
+                </li>
+    
+            </ul>
+            <ng-template #noImage>
+                <div class="message-container">
+                    <ul class="message-wrapper">
+                        <li class="message-item">
+                            <h2 class="empty-text">
+                                موردی برای نمایش وجود ندارد.
+                            </h2>
+                        </li>
+                    </ul>
+                </div>
+            </ng-template>
+            <div *ngIf="images.length" class="load-more-wrapper">
+                <span class="spinner" [class.hidden]="!showLoading"></span>
+                <p class="load-more-count">نمایش {{images.length}} از {{tableRowsTotal}} موارد رسانه</p>
+                <button *ngIf="!isDone" type="button" class="wp-btn wp-btn-primary" (click)="loadMoreImage()">بارگذاری بیشتر</button>
+                <button type="button" class="btn load-more-jump hidden" disabled=""></button>
+            </div>
+            <button mat-raised-button (click)="addImage()" color="primary">افزودن</button>
+        </mat-tab>
+    
+    </mat-tab-group>
+    
+    <div class="attachment-info" *ngIf="true">
+        <div class="image-preview" [style]="'background-image:url(' + data.element.resourceUrl + ')'"></div>
+        <div>
+            <div><strong>تاریخ بارگذاری:</strong> {{data.element.uploadDate | date:'fullDate'}}</div>
+            <div><strong>نام پرونده:</strong> {{data.element.name}}</div>
+            <div><strong>نوع پرونده:</strong> {{data.element.contentType}}</div>
+            <div><strong>اندازه پرونده:</strong> {{data.element.size }} کیلوبایت</div>
+            <div class="actions">
+                <a mat-button [href]="data.element.resourceUrl" color="primary" target="_blank">نمایش صفحهٔ پیوست</a>
+                <button type="button" mat-button color="warn" (click)="openDialog(data.element)">حذف برای همیشه</button>
+            </div>
+        </div>
+        <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+      
+            <mat-form-field appearance="fill" [hideRequiredMarker]="true">
+                <mat-label>متن جایگزین</mat-label>
+                <input matInput formControlName="alt">
+                <mat-hint>هدف از تصویر را شرح دهید. اگر تصویر کاملا
+                    تزئینی است این را خالی رها نمایید.</mat-hint>
+                <mat-error *ngIf="cardForm.controls['alt'].invalid">بیشتر از 30 حرف مجاز نیست</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill" [hideRequiredMarker]="true">
+                <mat-label>توضیح</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+                <mat-error *ngIf="cardForm.controls['description'].invalid">بیشتر از 30 حرف مجاز نیست</mat-error>
+              </mat-form-field>
+          
+            
+            <button mat-raised-button [disabled]="!cardForm.valid || cardForm.controls['description'].untouched" color="primary">ثبت</button>
+        </form>
+    </div>
+
+
+</div>

@@ -1,16 +1,42 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UploadCategoryComponent } from './upload-category/upload-category.component';
-import {  UploadListComponent } from './upload-list/upload-list.component';
+import { NotFoundComponent } from '../not-found/not-found.component';
+import { UploadCategoryListComponent } from './upload-category-list/upload-category-list.component';
+import { UploadCategoryModificationComponent } from './upload-category-modification/upload-category-modification.component';
+import { UploadListComponent } from './upload-list/upload-list.component';
+
+
+
 
 const routes: Routes = [
   {
-    path: '',
-    component:UploadListComponent
+    path: 'list',
+    component: UploadListComponent
   },
   {
     path: 'category',
-    component:UploadCategoryComponent
+    children: [
+      {
+        path: 'list',
+        component: UploadCategoryListComponent
+      },
+      {
+        path: 'edit',
+        component: UploadCategoryModificationComponent
+      },
+      {
+        path: 'create',
+        component: UploadCategoryModificationComponent
+      },
+      {
+        path: '**',
+        component: NotFoundComponent
+      },
+    ]
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   },
 ];
 
@@ -18,5 +44,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-
 export class UploadRoutingModule { }

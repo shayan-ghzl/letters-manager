@@ -4,10 +4,6 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: HomeComponent
-  },
-  {
     path: 'home',
     component: HomeComponent
   },
@@ -22,6 +18,22 @@ const routes: Routes = [
   {
     path: 'letter',
     loadChildren: () => import('./letter/letter.module').then(mod => mod.LetterModule)
+  },
+  {
+    path: 'vehicle',
+    loadChildren: () => import('./vehicle/vehicle.module').then(mod => mod.VehicleModule)
+  },
+  {
+    path: 'company',
+    loadChildren: () => import('./company/company.module').then(mod => mod.CompanyModule)
+  },
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: '**',
+    component: HomeComponent
   },
 
 

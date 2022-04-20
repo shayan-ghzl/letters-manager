@@ -1,0 +1,29 @@
+<div class="form-heading">
+    <h1>{{formTitle.join(' ')}}</h1>
+</div>
+<form [formGroup]="cardForm" (submit)="submitHandler()">
+  <div class="form-fields-container">
+
+    <mat-form-field appearance="fill" *ngFor="let cardFormControl of cardFormControls" [hideRequiredMarker]="!cardFormControl.validation.isRequired">
+        <mat-label>{{cardFormControl.persianLable}}</mat-label>
+        <input matInput [formControlName]="cardFormControl.formControlName" [required]="cardFormControl.validation.isRequired">
+        <mat-error *ngIf="cardForm.controls[cardFormControl.formControlName].invalid">{{cardFormControl.fieldErrorMessage}}</mat-error>
+    </mat-form-field>
+  
+    <mat-card>
+        <div class="attachment-feature">
+            <!-- <div>
+                <button type="button" mat-mini-fab>
+                    <mat-icon>close</mat-icon>
+                  </button>
+                <div class="image-container" style="background-image: url('https://material.angular.io/assets/img/examples/shiba2.jpg');"></div>
+            </div> -->
+            <div class="empty-attachment-msg">
+              <h3>تصویر ندارد</h3>
+            </div>
+        </div>
+        <button mat-stroked-button color="primary" type="button" (click)="openDialog()">افزودن</button>
+    </mat-card>
+  </div>
+  <button mat-raised-button [disabled]="!cardForm.valid" class="submit-button" color="primary">ثبت</button>
+</form>

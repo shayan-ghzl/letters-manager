@@ -1,0 +1,23 @@
+:host{
+  padding: 32px 32px;
+  display: block;
+}
+.search-field {
+  width: 200px;
+}
+table {
+    width: 100%;
+  }
+  .table-heading{
+
+    h1{
+      font-weight: 500;
+      color: #2c2c2c;
+    }
+    .row-span{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+  }

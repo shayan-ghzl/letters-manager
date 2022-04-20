@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Person } from '../shared/models/person';
+import { Person } from '../shared/model/model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
-
+ 
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
@@ -47,20 +47,17 @@ export class PersonService {
   addPerson(person: Person): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'lm/v1/person', person);
   }
+  // this is for add person or edit
+  modificationPerson(person: Person): Observable<any> {
+    if(person.customerUUID){
+      return this.http.put<any>(this.baseUrl + 'lm/v1/person', person);
+
+    }else{
+      return this.http.post<any>(this.baseUrl + 'lm/v1/person', person);
+    }
+  }
 
   getPersonById(id:string): Observable<any> {
     return this.http.get<Person>(this.baseUrl + 'lm/v1/person/' + id);
   }
-  // .pipe(
-  //   tap( // Log the result or error
-  //     data => this.log(filename, data),
-  //     error => this.logError(filename, error)
-  //   )
-  // );
-  // .pipe(
-  //   map(event => this.getEventMessage(event, file)),
-  //   tap(message => this.showProgress(message)),
-  //   last(), // return last (completed) message to caller
-  //   catchError(this.handleError(file))
-  // );
 }

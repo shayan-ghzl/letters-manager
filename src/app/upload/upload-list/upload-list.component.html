@@ -1,6 +1,3 @@
-<p-toast key="uploadListToast" position="bottom-left" [showTransitionOptions]="'400ms'"
-    [hideTransitionOptions]="'400ms'" [baseZIndex]="1102"
-    [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
 <div class="upload-frame-content">
     <div class="attachments-browser has-load-more">
 
@@ -21,21 +18,15 @@
 
 
         <div class="upload-toolbar">
-            <!-- <div class="upload-toolbar-secondary">
 
-            </div> -->
-            <div class="upload-toolbar-primary">
-                <label>جستجو</label>
-                <input type="text" class="app-small-input" pInputText />
-            </div>
-            <div class="bulkactions">
-                <select class="wp-select">
-                    <option value="-1">کارهای دسته‌جمعی</option>
-                    <option value="delete">پاک کردن</option>
-                </select>
-                <button type="button" class="wp-btn">اجرا</button>
-            </div>
-          
+            <mat-form-field class="search-field" appearance="fill">
+                <mat-label>جستجو</mat-label>
+                <input matInput type="text" [(ngModel)]="searchField">
+                <button *ngIf="searchField" matSuffix mat-icon-button aria-label="Clear" (click)="searchField=''">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+
         </div>
 
         <div class="attachments-wrapper">
@@ -70,8 +61,8 @@
                         <span class="upload-modal-icon"></span>
                     </button>
                 </li> -->
-                <li *ngFor="let image of images;let index = index" (click)="openUploadDetailsDialog(image, index)" tabindex="0"
-                    role="checkbox" aria-checked="false" class="attachment">
+                <li *ngFor="let image of images;let index = index" (click)="openDialog(image)"
+                    tabindex="0" role="checkbox" aria-checked="false" class="attachment" [ngClass]="{'app-remove-highlight':image.isRemoved, 'app-edit-highlight': image.isEdited, 'app-add-highlight':image.isAdded}">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
@@ -107,4 +98,3 @@
         </div>
     </div>
 </div>
-<app-upload-details-dialog (update)="imageUpdated($event)"></app-upload-details-dialog>

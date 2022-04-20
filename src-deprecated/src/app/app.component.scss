@@ -1,0 +1,69 @@
+@import "../assets/scss/layout/vertical-menu.scss";
+@import "../assets/scss/layout/media.scss";
+#app-body {
+   
+    min-height: 100vh;
+
+}
+.app-navbar {
+    padding: 0 24px;
+    background-color: #1d2327;
+    box-shadow: 0 0 35px 0 #9aa1ab26;
+    min-height: 70px;
+    z-index: 99;
+    display: flex;
+    display: none !important;
+    align-items: center;
+    .col-span{
+        .hamburger-btn{
+            font-size: 1.3rem;
+        }
+    }
+    .toolbar-menu {
+        margin-right: auto;
+        > ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            .btn{
+                font-size: 1.5rem;
+              }
+
+        }
+    }
+    i{
+        vertical-align: middle;
+    }
+}
+#account-dropdown-btn{
+    display: flex;
+    align-items: center;
+    text-align: right;
+    font-size: 1rem;
+    color: #fff;
+    .avatar {
+        margin-left: 0.6rem;
+        img {
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+        }
+    }
+    .name {
+        display: block;
+        font-weight: bold;
+        font-size: 0.85rem;
+    }
+    .role {
+        display: block;
+        font-size: 0.75rem;
+    }
+    .dropdown-toggle::after{
+        margin-right: 0.5rem;
+    }    
+}
+.router-container{
+    padding: 24px;
+}

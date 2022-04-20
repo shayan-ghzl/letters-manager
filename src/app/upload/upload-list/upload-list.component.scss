@@ -1,3 +1,7 @@
+:host{
+    padding: 32px 32px;
+    display: block;
+  }
 .is-dragover {
     background-color: #fff;
     * {
@@ -37,18 +41,7 @@
 }
 .upload-toolbar {
     margin-top: 1.3rem;
-    padding: 0.7rem;
-    box-shadow: 0 1px 1px #0000000a;
-    border: 1px solid #c3c4c7;
-    background: #fff;
-    color: #50575e;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    label {
-        margin-left: 1em;
-    }
+    border-bottom: 1px solid #c3c4c7;
 }
 .attachments-wrapper {
     .attachments {
@@ -87,7 +80,6 @@
                 height: 15px;
                 width: 15px;
                 margin: 5px;
-                background-image: url("../../../assets/images/uploader-icons.png");
                 background-repeat: no-repeat;
             }
         }

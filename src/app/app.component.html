@@ -1,71 +1,12 @@
-<div id="application-container">
-    <aside id="vertical-menu">
-        <!-- logo -->
-        <a [routerLink]="" class="logo">
-            <span class="logo-lg">
-                <img src="./assets/images/logo.png" alt="branding logo" height="16">
-            </span>
-            <span class="logo-sm">
-                <img src="./assets/images/logo_sm.png" alt="branding logo" height="16">
-            </span>
-        </a>
-        <!-- accordion -->
-        <app-ac-vm-accordion [accordionInitObject]="accordionInitObject"></app-ac-vm-accordion>
-
-    </aside>
-    <div id="app-body">
-        <header class="app-navbar">
-            <!-- <div class="col-span">
-                <button type="button" class="btn hamburger-btn">
-                    <i class="icon-hamburger"></i>
-                </button>
-                <div class="search-form">
-
-                </div>
-            </div> -->
-            <div class="toolbar-menu">
-                <ul>
-                    <!-- <li>
-                        <button type="button" class="btn">
-                            <i class="icon-search"></i>
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="btn">
-                            <i class="icon-settings"></i>
-                        </button>
-                    </li> -->
-                    <li>
-                        <div class="btn-group" dropdown>
-                            <button id="account-dropdown-btn" dropdownToggle type="button" class="btn dropdown-toggle"
-                                aria-controls="dropdown-basic">
-                                <span class="avatar">
-                                    <img src="./assets/images/avatar.jpg" alt="user-image">
-                                </span>
-                                <span>
-                                    <span class="name">غزالی اند جلیلی</span>
-                                    <span class="role">مدیر کل</span>
-                                </span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="account-dropdown-btn">
-                                <li role="menuitem"><a class="dropdown-item" href="#">خوش آمدین !</a></li>
-                                <li role="menuitem"><a class="dropdown-item" href="#">حساب کاربری</a></li>
-                                <li role="menuitem"><a class="dropdown-item" href="#">تنظیمات</a></li>
-                                <li class="divider dropdown-divider"></li>
-                                <li role="menuitem"><a class="dropdown-item" href="#">پشتیبانی</a>
-                                <li role="menuitem"><a class="dropdown-item" href="#">صفحه نمایش</a>
-                                <li role="menuitem"><a class="dropdown-item" href="#">خروج</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </header>
-    <div class="router-container">
-        <router-outlet></router-outlet>
-    </div>
-    </div>
-    <aside id="app-setting"></aside>
-</div>
+<mat-toolbar color="primary">
+  <nav class="primary-menu-navbar">
+    <a mat-button routerLink="home/list" routerLinkActive="active">مدیریت بایگانی</a>
+    <a mat-button routerLink="person/list" routerLinkActive="active">شخص</a>
+    <a mat-button routerLink="letter/list" routerLinkActive="active">قلنامه</a>
+    <a mat-button routerLink="vehicle/list" routerLinkActive="active">وسیله نقلیه</a>
+    <a mat-button routerLink="company/list" routerLinkActive="active">کمپانی</a>
+    <a mat-button routerLink="upload/list" routerLinkActive="active">رسانه</a>
+    <a mat-button routerLink="upload/category/list" routerLinkActive="active">دسته بندی رسانه</a>
+  </nav>
+</mat-toolbar>
+<router-outlet></router-outlet>

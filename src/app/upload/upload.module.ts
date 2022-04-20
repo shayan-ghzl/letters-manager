@@ -1,29 +1,40 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UploadRoutingModule } from './upload-routing.module';
 import { UploadListComponent } from './upload-list/upload-list.component';
-import { InputTextModule } from 'primeng/inputtext';
-import { HttpClientModule } from '@angular/common/http';
+import { UploadRoutingModule } from './upload-routing.module';
+import { UploadCategoryListComponent } from './upload-category-list/upload-category-list.component';
+import { UploadCategoryModificationComponent } from './upload-category-modification/upload-category-modification.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SharedModule } from '../shared/shared.module';
-import { ToastModule } from 'primeng/toast';
-import { UploadCategoryComponent } from './upload-category/upload-category.component';
-import { FormsModule } from '@angular/forms';
-import {PaginatorModule} from 'primeng/paginator';
+import {MatButtonModule} from '@angular/material/button';
+import { UploadPreviewDialogContentComponent } from './upload-preview-dialog-content/upload-preview-dialog-content.component';
+
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 
 @NgModule({
   declarations: [
     UploadListComponent,
-    UploadCategoryComponent
+    UploadCategoryListComponent,
+    UploadCategoryModificationComponent,
+    UploadPreviewDialogContentComponent,
   ],
   imports: [
     CommonModule,
     UploadRoutingModule,
-    InputTextModule,
-    HttpClientModule,
-    SharedModule,
-    ToastModule,
+    MatInputModule,
+    MatIconModule,
     FormsModule,
-    PaginatorModule
+    MatSnackBarModule,
+    SharedModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ]
 })
 export class UploadModule { }

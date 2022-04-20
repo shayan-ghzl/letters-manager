@@ -1,17 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PersonEditComponent } from './person-edit/person-edit.component';
+import { NotFoundComponent } from '../not-found/not-found.component';
 import { PersonListComponent } from './person-list/person-list.component';
+import { PersonModificationComponent } from './person-modification/person-modification.component';
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'list',
     component: PersonListComponent
   },
   {
     path: 'edit',
-    component: PersonEditComponent
+    component: PersonModificationComponent
+  },
+  {
+    path: 'create',
+    component: PersonModificationComponent
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   },
 
 ];
