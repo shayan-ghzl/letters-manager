@@ -96,5 +96,71 @@
                 <button type="button" class="btn load-more-jump hidden" disabled=""></button>
             </div>
         </div>
+        <div class="attachments-wrapper">
+
+            <ul *ngIf="images.length; else noImage" class="attachments" tabindex="-1">
+                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
+                    class="attachment selected">
+                    <div class="attachment-preview">
+                        <div class="thumbnail">
+                            <div class="upload-progress-bar">
+                                <div style="width: 5%"></div>
+                            </div>
+                            <div class="centered">
+                                <img src="./assets/images/sample-upload.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="check" tabindex="-1">
+                        <span class="upload-modal-icon"></span>
+                    </button>
+                </li>
+                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
+                    class="attachment">
+                    <div class="attachment-preview">
+                        <div class="thumbnail">
+                            <div class="upload-progress-bar">
+                                <div style="width: 50%"></div>
+                            </div>
+                            <div class="centered">
+                                <img src="./assets/images/sample-upload.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="check" tabindex="-1">
+                        <span class="upload-modal-icon"></span>
+                    </button>
+                </li>
+                <li *ngFor="let image of images;let index = index" (click)="openDialog(image)" tabindex="0" role="checkbox"
+                    aria-checked="false" class="attachment"
+                    [ngClass]="{'app-remove-highlight':image.isRemoved, 'app-edit-highlight': image.isEdited, 'app-add-highlight':image.isAdded}">
+                    <div class="attachment-preview">
+                        <div class="thumbnail">
+                            <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
+                            <div class="centered">
+                                <img class="details-image" [src]="image.resourceUrl" [alt]="image.alternateText">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="check" tabindex="-1">
+                        <span class="upload-modal-icon"></span>
+                    </button>
+                </li>
+        
+            </ul>
+            <ng-template #noImage>
+                <div class="empty-attachment-msg">
+                    <h2>
+                        موردی برای نمایش وجود ندارد.
+                    </h2>
+                </div>
+            </ng-template>
+            <div *ngIf="images.length" class="load-more-wrapper">
+                <!-- <span class="spinner" [class.hidden]="!showLoading"></span> -->
+                <p class="load-more-count">نمایش {{images.length}} از {{tableRowsTotal}} موارد رسانه</p>
+                <button *ngIf="!isDone" mat-raised-button type="button" color="primary" (click)="loadMoreImage()">بارگذاری
+                    بیشتر</button>
+            </div>
+        </div>
     </div>
 </div>

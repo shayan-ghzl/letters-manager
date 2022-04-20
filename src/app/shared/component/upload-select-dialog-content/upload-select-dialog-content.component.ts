@@ -24,8 +24,8 @@ export class UploadSelectDialogContentComponent {
   selectedImages: Image[] = [];
 
   cardForm = new FormGroup({
-    alt: new FormControl(this.data.element.alternateText, [Validators.maxLength(30)]),
-    description: new FormControl(this.data.element.description, [Validators.maxLength(30)]),
+    alt: new FormControl(this.data.element?.alternateText, [Validators.maxLength(150)]),
+    description: new FormControl(this.data.element?.description, [Validators.maxLength(255)]),
     category: new FormControl(''),
   });
 
@@ -75,10 +75,10 @@ export class UploadSelectDialogContentComponent {
 
   getImages(params: ImageParams) {
     this.uploadService.getImages(params).subscribe(
-      (data) => {
-        console.log(data, 'getImages');
-        this.tableRowsTotal = data.totalElements;
-        this.images = [...this.images, ...data.content];
+      (response) => {
+        console.log(response, 'getImages');
+        this.tableRowsTotal = response.totalElements;
+        this.images = [...this.images, ...response.content];
       },
       (error) => { console.log(error); },
     );

@@ -91,38 +91,34 @@
     
     </mat-tab-group>
     
-    <div class="attachment-info" *ngIf="true">
-        <div class="image-preview" [style]="'background-image:url(' + data.element.resourceUrl + ')'"></div>
-        <div>
-            <div><strong>تاریخ بارگذاری:</strong> {{data.element.uploadDate | date:'fullDate'}}</div>
-            <div><strong>نام پرونده:</strong> {{data.element.name}}</div>
-            <div><strong>نوع پرونده:</strong> {{data.element.contentType}}</div>
-            <div><strong>اندازه پرونده:</strong> {{data.element.size }} کیلوبایت</div>
-            <div class="actions">
-                <a mat-button [href]="data.element.resourceUrl" color="primary" target="_blank">نمایش صفحهٔ پیوست</a>
-                <button type="button" mat-button color="warn" (click)="openDialog(data.element)">حذف برای همیشه</button>
+    <div class="attachment-info">
+        <ng-container *ngIf="data.element">
+            <div class="image-preview" [style]="'background-image:url(' + data.element.resourceUrl + ')'"></div>
+            <div>
+                <div><strong>تاریخ بارگذاری:</strong> {{data.element.uploadDate | date:'fullDate'}}</div>
+                <div><strong>نام پرونده:</strong> {{data.element.name}}</div>
+                <div><strong>نوع پرونده:</strong> {{data.element.contentType}}</div>
+                <div><strong>اندازه پرونده:</strong> {{data.element.size }} کیلوبایت</div>
+                <div class="actions">
+                    <a mat-button [href]="data.element.resourceUrl" color="primary" target="_blank">نمایش صفحهٔ پیوست</a>
+                    <button type="button" mat-button color="warn" (click)="openDialog(data.element)">حذف برای همیشه</button>
+                </div>
             </div>
-        </div>
-        <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
-      
-            <mat-form-field appearance="fill" [hideRequiredMarker]="true">
-                <mat-label>متن جایگزین</mat-label>
-                <input matInput formControlName="alt">
-                <mat-hint>هدف از تصویر را شرح دهید. اگر تصویر کاملا
-                    تزئینی است این را خالی رها نمایید.</mat-hint>
-                <mat-error *ngIf="cardForm.controls['alt'].invalid">بیشتر از 30 حرف مجاز نیست</mat-error>
-            </mat-form-field>
-    
-            <mat-form-field appearance="fill" [hideRequiredMarker]="true">
-                <mat-label>توضیح</mat-label>
-                <textarea matInput formControlName="description"></textarea>
-                <mat-error *ngIf="cardForm.controls['description'].invalid">بیشتر از 30 حرف مجاز نیست</mat-error>
-              </mat-form-field>
-          
-            
-            <button mat-raised-button [disabled]="!cardForm.valid || cardForm.controls['description'].untouched" color="primary">ثبت</button>
-        </form>
+            <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="fill" [hideRequiredMarker]="true">
+                    <mat-label>متن جایگزین</mat-label>
+                    <input matInput formControlName="alt">
+                    <mat-hint>هدف از تصویر را شرح دهید. اگر تصویر کاملا
+                        تزئینی است این را خالی رها نمایید.</mat-hint>
+                    <mat-error *ngIf="cardForm.controls['alt'].invalid">بیشتر از 150 حرف مجاز نیست</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [hideRequiredMarker]="true">
+                    <mat-label>توضیح</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
+                    <mat-error *ngIf="cardForm.controls['description'].invalid">بیشتر از 255 حرف مجاز نیست</mat-error>
+                    </mat-form-field>
+                <button mat-raised-button [disabled]="!cardForm.valid || cardForm.controls['description'].untouched" color="primary">ثبت</button>
+            </form>
+        </ng-container>
     </div>
-
-
 </div>
