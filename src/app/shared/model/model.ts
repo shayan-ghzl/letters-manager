@@ -72,6 +72,7 @@ export interface Image extends ModificationHighlights {
 export interface ImageParams {
     page?: number;
     size?: number;
+    keyword?: string;
 }
 export interface MediaCategoryParams {
     page?: number;

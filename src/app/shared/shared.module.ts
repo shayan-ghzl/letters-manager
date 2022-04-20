@@ -17,13 +17,16 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ModificationFormComponent } from './component/modification-form/modification-form.component';
 import { MatCardModule } from '@angular/material/card';
+import { DragDropUploadDirective } from './directive/drag-drop-upload.directive';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     TableListComponent,
     UploadSelectDialogContentComponent,
     RemoveConfirmationDialogContentComponent,
-    ModificationFormComponent
+    ModificationFormComponent,
+    DragDropUploadDirective
   ],
   imports: [
     CommonModule,
@@ -39,11 +42,13 @@ import { MatCardModule } from '@angular/material/card';
     MatSnackBarModule,
     MatTabsModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   exports:[
     TableListComponent,
-    ModificationFormComponent
+    ModificationFormComponent,
+    DragDropUploadDirective
   ],
   providers: [{
     provide: MatPaginatorIntl, 

@@ -40,7 +40,7 @@
 
             <mat-form-field class="example-chip-list" appearance="fill">
                 <mat-label>دسته بندی</mat-label>
-                <mat-chip-list #chipList aria-label="Fruit selection">
+                <mat-chip-list formControlName="category" #chipList aria-label="Fruit selection">
                   <mat-chip
                     *ngFor="let selectedCategory of selectedCategories"
                     (removed)="remove(selectedCategory)">
@@ -52,7 +52,6 @@
                   <input
                     placeholder="افزودن دسته..."
                     #fruitInput
-                    formControlName="category"
                     [matAutocomplete]="auto"
                     [matChipInputFor]="chipList"
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
@@ -66,7 +65,7 @@
 
 
             
-            <button mat-raised-button [disabled]="!cardForm.valid || cardForm.controls['description'].untouched" color="primary">ثبت</button>
+            <button mat-raised-button [disabled]="!cardForm.valid || (disableSave | async)" color="primary">ثبت</button>
             <!-- <mat-spinner [diameter]="25"></mat-spinner> -->
         </form>
     </div>

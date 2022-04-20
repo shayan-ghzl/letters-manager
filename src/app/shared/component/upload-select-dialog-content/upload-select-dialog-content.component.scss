@@ -11,16 +11,16 @@
         background: transparent;
     }
 }
-.dialog-content{
+.dialog-content {
     display: flex;
     height: 100%;
-    mat-tab-group{
+    mat-tab-group {
         box-sizing: border-box;
         flex: 0 0 66.666666%;
         max-width: 66.666666%;
         height: 100%;
     }
-    .attachment-info{
+    .attachment-info {
         box-sizing: border-box;
         flex: 0 0 33.333333%;
         max-width: 33.333333%;
@@ -42,45 +42,24 @@
         margin-top: 0.7rem;
     }
 }
-form{
+form {
     margin-top: 16px;
     padding-top: 16px;
     border-top: 1px solid #dcdcde;
 
-    mat-form-field{
+    mat-form-field {
         width: 100%;
         margin-bottom: 16px;
     }
-    button{
+    button {
         width: 100%;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .attachments-wrapper {
-    .attachments {
+    // .empty-attachment-msg {
+    //     margin-top: 16px;
+    // }
+    > ul {
         margin: 1.3rem 0 0 0;
         padding: 0;
         li {
@@ -116,7 +95,7 @@ form{
                 height: 15px;
                 width: 15px;
                 margin: 5px;
-                // background-image: url("../../../../assets/images/uploader-icons.png");
+                background-image: url("../../../../assets/images/uploader-icons.png");
                 background-repeat: no-repeat;
             }
         }
@@ -201,33 +180,33 @@ form{
     clear: both;
     text-align: center;
     padding: 1em 0;
+    > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 0;
+    }
     .hidden {
         display: none;
     }
+    mat-spinner {
+        margin-right: 10px;
+    }
     p {
-        margin: 0.5em 0 1em 0;
-    }
-}
-.message-container {
-    .message-wrapper {
-        color: #1d2327;
-        list-style: none;
         margin: 0;
-        padding: 0;
-        .empty-text {
-            font-size: 1.2rem;
-            line-height: 1.4;
-            font-weight: bold;
-            margin: 0;
-        }
+        line-height: 20px;
     }
 }
-// .media-frame-tab-panel {
-//     height: 100%;
-//     .media-frame-content {
-//         height: calc(100% - 36px);
-//     }
-// }
+
+
+
+
+
+
+
+
+
+
 .is-dragover {
     background-color: #fff;
     * {
@@ -289,7 +268,7 @@ form{
         // overflow: auto;
         // -webkit-overflow-scrolling: touch;
         // box-shadow: inset 0 4px 4px -4px #0000001a;
-        
+
         .image-preview {
             width: 100%;
             padding-top: 100%;

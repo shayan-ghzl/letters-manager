@@ -5,7 +5,6 @@
         <div class="uploader-inline" appDragDropUpload (appdrop)="onUpload($event)">
             <div class="uploader-inline-content">
                 <div class="upload-ui">
-
                     <h2 class="upload-instructions">برای بارگذاری، پرونده‌ها را بکشید</h2>
                     <p>یا</p>
                     <input type="file" name="image" id="input-file" accept="image/*" (change)="onUpload($event.target)"
@@ -21,7 +20,7 @@
 
             <mat-form-field class="search-field" appearance="fill">
                 <mat-label>جستجو</mat-label>
-                <input matInput type="text" [(ngModel)]="searchField">
+                <input matInput type="text" [(ngModel)]="searchField" (ngModelChange)="searchFieldOpration()">
                 <button *ngIf="searchField" matSuffix mat-icon-button aria-label="Clear" (click)="searchField=''">
                     <mat-icon>close</mat-icon>
                 </button>
@@ -30,110 +29,32 @@
         </div>
 
         <div class="attachments-wrapper">
-
-            <ul *ngIf="images.length; else noImage" class="attachments" tabindex="-1">
-                <!-- <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment selected">
-                    <div class="attachment-preview">
-                        <div class="thumbnail"> -->
-                <!-- // <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
-                <!-- <div class="centered">
-                                <img src="./assets/images/sample-upload.jpg"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="check" tabindex="-1">
-                        <span class="upload-modal-icon"></span>
-                    </button>
-                </li> -->
-                <!-- <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment">
-                    <div class="attachment-preview">
-                        <div class="thumbnail">
-                            <div class="upload-progress-bar"><div style="width: 50%"></div></div> -->
-                <!--// <div class="centered">
-                               // <img src="./assets/images/sample-upload.jpg" alt="">
-                               // </div> -->
-                <!-- </div>
-                    </div>
-                    <button type="button" class="check" tabindex="-1">
-                        <span class="upload-modal-icon"></span>
-                    </button>
-                </li> -->
-                <li *ngFor="let image of images;let index = index" (click)="openDialog(image)"
-                    tabindex="0" role="checkbox" aria-checked="false" class="attachment" [ngClass]="{'app-remove-highlight':image.isRemoved, 'app-edit-highlight': image.isEdited, 'app-add-highlight':image.isAdded}">
-                    <div class="attachment-preview">
-                        <div class="thumbnail">
-                            <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
-                            <div class="centered">
-                                <img class="details-image" [src]="image.resourceUrl" [alt]="image.alternateText">
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="check" tabindex="-1">
-                        <span class="upload-modal-icon"></span>
-                    </button>
-                </li>
-
-            </ul>
-            <ng-template #noImage>
-                <div class="message-container">
-                    <ul class="message-wrapper">
-                        <li class="message-item">
-                            <h2 class="empty-text">
-                                موردی برای نمایش وجود ندارد.
-                            </h2>
-                        </li>
-                    </ul>
-                </div>
-            </ng-template>
-            <div *ngIf="images.length" class="load-more-wrapper">
-                <span class="spinner" [class.hidden]="!showLoading"></span>
-                <p class="load-more-count">نمایش {{images.length}} از {{tableRowsTotal}} موارد رسانه</p>
-                <button *ngIf="!isDone" type="button" class="wp-btn wp-btn-primary" (click)="loadMoreImage()">بارگذاری
-                    بیشتر</button>
-                <button type="button" class="btn load-more-jump hidden" disabled=""></button>
-            </div>
-        </div>
-        <div class="attachments-wrapper">
-
-            <ul *ngIf="images.length; else noImage" class="attachments" tabindex="-1">
-                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment selected">
+            <ul *ngIf="images.length; else noImage" tabindex="-1">
+        <!--         <li tabindex="0" class="selected">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <div class="upload-progress-bar">
                                 <div style="width: 5%"></div>
                             </div>
-                            <div class="centered">
-                                <img src="./assets/images/sample-upload.jpg" alt="">
-                            </div>
                         </div>
                     </div>
                     <button type="button" class="check" tabindex="-1">
                         <span class="upload-modal-icon"></span>
                     </button>
-                </li>
-                <li tabindex="0" role="checkbox" aria-label="shishtzu-dog" aria-checked="false" data-id="722"
-                    class="attachment">
+                </li> -->
+                <li tabindex="0">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <div class="upload-progress-bar">
                                 <div style="width: 50%"></div>
                             </div>
-                            <div class="centered">
-                                <img src="./assets/images/sample-upload.jpg" alt="">
-                            </div>
                         </div>
                     </div>
                     <button type="button" class="check" tabindex="-1">
                         <span class="upload-modal-icon"></span>
                     </button>
                 </li>
-                <li *ngFor="let image of images;let index = index" (click)="openDialog(image)" tabindex="0" role="checkbox"
-                    aria-checked="false" class="attachment"
-                    [ngClass]="{'app-remove-highlight':image.isRemoved, 'app-edit-highlight': image.isEdited, 'app-add-highlight':image.isAdded}">
+                <li *ngFor="let image of images;let index = index" (click)="openDialog(image)" tabindex="0" [ngClass]="{'app-remove-highlight':image.isRemoved, 'app-edit-highlight': image.isEdited, 'app-add-highlight':image.isAdded}">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
@@ -156,10 +77,11 @@
                 </div>
             </ng-template>
             <div *ngIf="images.length" class="load-more-wrapper">
-                <!-- <span class="spinner" [class.hidden]="!showLoading"></span> -->
-                <p class="load-more-count">نمایش {{images.length}} از {{tableRowsTotal}} موارد رسانه</p>
-                <button *ngIf="!isDone" mat-raised-button type="button" color="primary" (click)="loadMoreImage()">بارگذاری
-                    بیشتر</button>
+               <div>
+                    <p class="load-more-count">نمایش {{images.length}} از {{tableRowsTotal}} موارد رسانه</p>
+                    <mat-spinner [diameter]="20" [class.hidden]="!showLoading"></mat-spinner>
+               </div>
+                <button *ngIf="!isDone" mat-raised-button type="button" color="primary" (click)="loadMoreImage()">بارگذاری بیشتر</button>
             </div>
         </div>
     </div>

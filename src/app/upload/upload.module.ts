@@ -11,9 +11,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SharedModule } from '../shared/shared.module';
 import {MatButtonModule} from '@angular/material/button';
 import { UploadPreviewDialogContentComponent } from './upload-preview-dialog-content/upload-preview-dialog-content.component';
-
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -34,7 +34,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ReactiveFormsModule,
     MatButtonModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatProgressSpinnerModule
   ]
 })
 export class UploadModule { }

@@ -15,9 +15,8 @@ export class UploadListComponent {
 
   searchField = '';
   images: Image[] = [];
-
   tableRowsTotal!: number;
-  tableRows: number = 20;
+  tableRows: number = 10;
   currentPage: number = 0;
   isDone = false;
   showLoading: boolean = false;
@@ -47,24 +46,21 @@ export class UploadListComponent {
       },
     });
   }
-
   getImages(params: ImageParams) {
     if (!this.isDone) {
       this.showLoading = true;
-      this.uploadService.getImages(params).subscribe(
-        (data) => {
-          console.log(data.content);
-          this.tableRowsTotal = data.totalElements;
-          this.images = [...this.images, ...data.content];
+      this.uploadService.getImages(params).subscribe({
+        next: (response) => {
+          console.log(response.content);
+          this.tableRowsTotal = response.totalElements;
+          this.images = [...this.images, ...response.content];
           this.showLoading = false;
-        },
-        (error) => { console.log(error); },
-        () => {
           if (this.images.length >= this.tableRowsTotal) {
             this.isDone = true;
           }
         },
-      );
+        error: (error) => { console.log(error); },
+      });
     }
   }
   loadMoreImage() {
@@ -79,22 +75,38 @@ export class UploadListComponent {
     this.images[this.editedMediaIndex] = image;
   }
 
+  searchFieldOpration() {
+    this.currentPage = 0;
+    this.getImages({ keyword: this.searchField, page: this.currentPage, size: this.tableRows });
+  }
+
   onUpload(fileObject: any) {
     for (let file of fileObject.files) {
       var filesize = +((file.size / 1024) / 1024).toFixed(4); // MB
       if (typeof file.name != "undefined" && filesize <= 10) {
-        this.uploadService.addImage(file).subscribe((response) => {
-          this.images.unshift(response);
-          this.tableRowsTotal++;
-        }, (error) => {
-          // this.messageService.add({ key: 'uploadListToast', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
+        this.uploadService.addImage(file).subscribe({
+          next: (response) => {
+            this.images.unshift(response);
+            this.tableRowsTotal++;
+          },
+          error: (error) => {
+            this.matSnackBar.open(`خطا: ${error.error.message}.`, 'بستن', {
+              duration: 7000,
+              direction: 'rtl',
+              panelClass: '',
+            });
+          }
         });
       } else {
-        // this.messageService.add({ key: 'uploadListToast', severity: 'error', summary: 'خطا', detail: 'حجم فایل بیشتر از حد مجاز است.', life: 7000 });
+        this.matSnackBar.open('حجم فایل بیش از حد مجاز است', 'بستن', {
+          duration: 7000,
+          direction: 'rtl',
+          panelClass: '',
+        });
       }
     }
   }
-  
+
   openDialog(element: any) {
     let dialogRef = this.dialog.open(UploadPreviewDialogContentComponent, {
       width: '85%',
@@ -121,6 +133,7 @@ export class UploadListComponent {
             });
           },
           error: (error) => {
+            console.log(error);
             result.isEdited = true;
             setTimeout(() => {
               result.isEdited = false;

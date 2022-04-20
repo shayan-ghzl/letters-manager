@@ -20,7 +20,7 @@ export class UploadPreviewDialogContentComponent {
   cardForm = new FormGroup({
     alt: new FormControl(this.data.element.alternateText, [Validators.maxLength(30)]),
     description: new FormControl(this.data.element.description, [Validators.maxLength(30)]),
-    category: new FormControl(''),
+    category: new FormControl([]),
   });
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -29,13 +29,19 @@ export class UploadPreviewDialogContentComponent {
   allCategories: MediaCategory[] = this.data.categories;
   @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;
 
+  disableSave!: Observable<boolean>;
   constructor(
     public dialogRef: MatDialogRef<UploadPreviewDialogContentComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private matSnackBar: MatSnackBar, private uploadService:UploadService
+    @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private matSnackBar: MatSnackBar, private uploadService: UploadService
   ) {
     this.filteredCategories = this.cardForm.controls['category'].valueChanges.pipe(
       startWith(null),
       map((fieldValue: string | null) => (fieldValue ? this._filter(fieldValue) : this.allCategories.slice())),
+    );
+    this.disableSave = this.cardForm.valueChanges.pipe(
+      tap(values => {console.log(values)}),
+      map(values => (values.alt == this.data.element.alternateText && values.description == this.data.element.description) ? true : false),
+      startWith(true)
     );
   }
 
@@ -53,10 +59,11 @@ export class UploadPreviewDialogContentComponent {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
+    console.log(this.selectedCategories,'selected');
     if (this.selectedCategories.indexOf(event.option.value) == -1)
       this.selectedCategories.push(event.option.value);
     this.fruitInput.nativeElement.value = '';
-    this.cardForm.controls['category'].setValue(null);
+    // this.cardForm.controls['category'].setValue(null);
   }
 
   private _filter(value: string | MediaCategory): MediaCategory[] {
@@ -84,11 +91,23 @@ export class UploadPreviewDialogContentComponent {
 
 
   onSubmit() {
-    // console.log('Your order has been submitted', this.cardForm.value);
+
+
+
+
+
+
+
+
+    console.log(this.selectedCategories, 'selectedCategories');
+    let temp: string[] = [];
+    this.selectedCategories.forEach((Element) => {
+      temp.push(Element.categoryUUID);
+    });
     this.uploadService.editImage({
       "mediaUUID": this.data.element.mediaUUID,
       "description": this.cardForm.controls['description'].value,
-      "categoriesId": this.selectedCategories,
+      "categoriesId": temp,
       "alternateText": this.cardForm.controls['alt'].value
     }).subscribe({
       next: (response) => {
