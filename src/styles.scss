@@ -31,10 +31,12 @@ body {
 .app-upload-select-dialog .mat-tab-body-wrapper {
     height: calc(100% - 108px);
     mat-tab-body {
+    &:first-child{
         .mat-tab-body-content {
             box-sizing: border-box;
-            padding: 1rem;
+            padding: 16px;
         }
+    }
         &:last-child {
             .mat-tab-body-content {
                 display: flex;

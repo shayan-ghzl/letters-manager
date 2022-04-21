@@ -24,8 +24,8 @@ export class UploadSelectDialogContentComponent {
   selectedImages: Image[] = [];
 
   cardForm = new FormGroup({
-    alt: new FormControl(this.data.element?.alternateText, [Validators.maxLength(150)]),
-    description: new FormControl(this.data.element?.description, [Validators.maxLength(255)]),
+    alt: new FormControl('', [Validators.maxLength(150)]),
+    description: new FormControl('', [Validators.maxLength(255)]),
     category: new FormControl(''),
   });
 
@@ -86,11 +86,6 @@ export class UploadSelectDialogContentComponent {
 
 
   selectImage(e: any, image: Image) {
-    // this.imageAlt = image.alternateText;
-    // this.imageDesc = image.description;
-    // for (const [key, value] of Object.entries(this.validateObj)) {
-    //   value.hasError = false;
-    // }
     if (e.ctrlKey) {
       if (image.isSelected) {
         image.isSelected = false;
@@ -116,12 +111,9 @@ export class UploadSelectDialogContentComponent {
         this.selectedImages = [image];
       }
     }
-    // if (this.selectedImages.length) {
-    //   this.imageDetails = this.selectedImages[this.selectedImages.length - 1];
-    //   this.showImageDetails = true;
-    // } else {
-    //   this.showImageDetails = false;
-    // }
+    console.log(this.selectedImages[this.selectedImages.length - 1]);
+    this.cardForm.controls['alt'].setValue(this.selectedImages[this.selectedImages.length - 1]?.alternateText);
+    this.cardForm.controls['description'].setValue(this.selectedImages[this.selectedImages.length - 1]?.description);
   }
 
   loadMoreImage() {

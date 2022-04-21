@@ -45,11 +45,12 @@
     border-bottom: 1px solid #c3c4c7;
 }
 .attachments-wrapper {
+    margin-top: 20px;
     .empty-attachment-msg{
         margin-top: 16px;
     }
     >ul {
-        margin: 1.3rem 0 0 0;
+        margin:  0;
         padding: 0;
         li {
             position: relative;

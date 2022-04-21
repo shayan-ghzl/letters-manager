@@ -50,7 +50,7 @@
                             <span class="upload-modal-icon"></span>
                         </button>
                     </li>
-                    <li *ngFor="let image of images;let index = index" (click)="openDialog(image)" tabindex="0" [ngClass]="{'app-remove-highlight':image.isRemoved, 'app-edit-highlight': image.isEdited, 'app-add-highlight':image.isAdded}">
+                    <li *ngFor="let image of images;let index = index" (click)="selectImage($event, image)" tabindex="0" [ngClass]="{'app-remove-highlight':image.isRemoved, 'app-edit-highlight': image.isEdited, 'app-add-highlight':image.isAdded, 'selected':image.isSelected}">
                         <div class="attachment-preview">
                             <div class="thumbnail">
                                 <!-- <div class="upload-progress-bar"><div style="width: 5%"></div></div> -->
@@ -80,22 +80,24 @@
                     <button mat-raised-button type="button" color="primary" (click)="loadMoreImage()">بارگذاری بیشتر</button>
                 </div>
             </div>
+           <div class="tab-footer">
             <button mat-raised-button (click)="addImage()" color="primary">افزودن</button>
+           </div>
         </mat-tab>
     
     </mat-tab-group>
     
     <div class="attachment-info">
-        <ng-container *ngIf="data.element">
-            <div class="image-preview" [style]="'background-image:url(' + data.element.resourceUrl + ')'"></div>
+        <ng-container *ngIf="selectedImages.length">
+            <div class="image-preview" [style]="'background-image:url(' + selectedImages[selectedImages.length-1].resourceUrl + ')'"></div>
             <div>
-                <div><strong>تاریخ بارگذاری:</strong> {{data.element.uploadDate | date:'fullDate'}}</div>
-                <div><strong>نام پرونده:</strong> {{data.element.name}}</div>
-                <div><strong>نوع پرونده:</strong> {{data.element.contentType}}</div>
-                <div><strong>اندازه پرونده:</strong> {{data.element.size }} کیلوبایت</div>
+                <div><strong>تاریخ بارگذاری:</strong> {{selectedImages[selectedImages.length-1].uploadDate | date:'fullDate'}}</div>
+                <div><strong>نام پرونده:</strong> {{selectedImages[selectedImages.length-1].name}}</div>
+                <div><strong>نوع پرونده:</strong> {{selectedImages[selectedImages.length-1].contentType}}</div>
+                <div><strong>اندازه پرونده:</strong> {{selectedImages[selectedImages.length-1].size }} کیلوبایت</div>
                 <div class="actions">
-                    <a mat-button [href]="data.element.resourceUrl" color="primary" target="_blank">نمایش صفحهٔ پیوست</a>
-                    <button type="button" mat-button color="warn" (click)="openDialog(data.element)">حذف برای همیشه</button>
+                    <a mat-button [href]="selectedImages[selectedImages.length-1].resourceUrl" color="primary" target="_blank">نمایش صفحهٔ پیوست</a>
+                    <button type="button" mat-button color="warn" (click)="openDialog(selectedImages[selectedImages.length-1])">حذف برای همیشه</button>
                 </div>
             </div>
             <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
@@ -111,7 +113,7 @@
                     <textarea matInput formControlName="description"></textarea>
                     <mat-error *ngIf="cardForm.controls['description'].invalid">بیشتر از 255 حرف مجاز نیست</mat-error>
                     </mat-form-field>
-                <button mat-raised-button [disabled]="!cardForm.valid || cardForm.controls['description'].untouched" color="primary">ثبت</button>
+                <button mat-raised-button [disabled]="!cardForm.valid" color="primary">ثبت</button>
             </form>
         </ng-container>
     </div>

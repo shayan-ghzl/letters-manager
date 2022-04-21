@@ -66,7 +66,6 @@ export interface Image extends ModificationHighlights {
     letters: string[];
     categories: MediaCategory[];
     alternateText: string;
-
     isSelected?: boolean;
 }
 export interface ImageParams {
