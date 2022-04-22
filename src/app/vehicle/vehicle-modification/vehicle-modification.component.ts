@@ -6,20 +6,74 @@ import { CardFormControls } from 'src/app/shared/model/model';
   templateUrl: './vehicle-modification.component.html',
   styleUrls: ['./vehicle-modification.component.scss']
 })
-export class VehicleModificationComponent  {
+export class VehicleModificationComponent {
 
-  formTitle = ['افزودن', 'شرکت'];
-  requestRoute = 'lm/v1/company';
-  idAttributeKey = 'customerUUID';
+  formTitle = ['افزودن', 'وسیله نقلیه'];
+  requestRoute = 'lm/v1/item/vehicle';
+  idAttributeKey = 'itemUUID';
   cardFormControls: CardFormControls[] = [
     {
-      'formControlName': 'firstName',
-      'fieldErrorMessage': 'بین 2 تا 30 حرف مجاز است',
-      'persianLable': 'نام',
+      'formControlName': 'system',
+      'fieldErrorMessage': 'بیش از 50 حرف مجاز نیست',
+      'persianLable': 'سیستم',
+      'validation': {
+        'isRequired': false,
+        'maxLength': 50,
+      }
+    },
+    {
+      'formControlName': 'color',
+      'fieldErrorMessage': 'بیش از 50 حرف مجاز نیست',
+      'persianLable': 'رنگ',
+      'validation': {
+        'isRequired': false,
+        'maxLength': 50,
+      }
+    },
+    {
+      'formControlName': 'chassisNumber',
+      'fieldErrorMessage': 'بیش از 100 حرف مجاز نیست',
+      'persianLable': 'شماره شاسی',
+      'validation': {
+        'isRequired': false,
+        'maxLength': 100,
+      }
+    },
+    {
+      'formControlName': 'motorNumber',
+      'fieldErrorMessage': 'بیش از 50 حرف مجاز نیست',
+      'persianLable': 'شماره موتور',
+      'validation': {
+        'isRequired': false,
+        'maxLength': 50,
+      }
+    },
+    {
+      'formControlName': 'bodyNumber',
+      'fieldErrorMessage': 'بیش از 50 حرف مجاز نیست',
+      'persianLable': 'شماره بدنه',
+      'validation': {
+        'isRequired': false,
+        'maxLength': 50,
+      }
+    },
+    {
+      'formControlName': 'vin',
+      'fieldErrorMessage': 'بیش از 100 حرف مجاز نیست',
+      'persianLable': 'شماره vin',
+      'validation': {
+        'isRequired': false,
+        'maxLength': 100,
+      }
+    },
+    {
+      'formControlName': 'plaque',
+      'fieldErrorMessage': 'بین 3 تا 50 حرف مجاز است',
+      'persianLable': 'شماره بلاک',
       'validation': {
         'isRequired': true,
-        'minLength': 2,
-        'maxLength': 30,
+        'minLength': 3,
+        'maxLength': 50,
       }
     },
   ];

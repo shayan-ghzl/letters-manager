@@ -123,13 +123,13 @@ export class ModificationFormComponent implements OnInit {
 
   submitHandler() {
     let modificationObject: any = {};
+    modificationObject[this.idAttributeKey] = this.currentObject?.customerUUID;
     this.cardFormControls.forEach((Element) => {
       modificationObject[Element.formControlName] = this.cardForm.controls[Element.formControlName].value;
     });
     this.modificationMood({
       ...modificationObject,
-      customerUUID: this.currentObject?.customerUUID,
-      medias: this.attachedImage.map(a => a.mediaUUID)
+      mediaIds: this.attachedImage.map(a => a.mediaUUID)
     }).subscribe({
       next: (response: any) => {
         console.log(response);
