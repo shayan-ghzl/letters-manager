@@ -5,9 +5,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { UploadService } from 'src/app/upload/upload.service';
 import { environment } from 'src/environments/environment';
 import { CardFormControls } from '../../model/model';
 import { UploadSelectDialogContentComponent } from '../upload-select-dialog-content/upload-select-dialog-content.component';
+import { Image } from '../../model/model';
 
 @Component({
   selector: 'app-modification-form',
@@ -22,8 +24,9 @@ export class ModificationFormComponent implements OnInit {
   @Input() idAttributeKey = '';
   @Input() cardFormControls: CardFormControls[] = [];
   cardForm!: FormGroup;
+  attachedImage: Image[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog, private matSnackBar: MatSnackBar, private http: HttpClient) { }
+  constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog, private matSnackBar: MatSnackBar, private http: HttpClient, private uploadService: UploadService) { }
 
   ngOnInit(): void {
     let isEditMood = this.activatedRoute.snapshot.queryParams['ob'];
@@ -31,10 +34,11 @@ export class ModificationFormComponent implements OnInit {
       this.http.get<any>(environment.apiUrl + this.requestRoute + '/' + isEditMood).subscribe({
         next: (response) => {
           console.log(response, 'currentObject');
-          this.currentObject = response;
           this.cardFormControls.forEach((Element) => {
             this.cardForm.controls[Element.formControlName].setValue(response[Element.formControlName]);
           });
+          this.currentObject = response;
+          this.attachedImage = response.medias;
           this.formTitle[0] = 'ویرایش'
         },
         error: (error) => {
@@ -69,18 +73,50 @@ export class ModificationFormComponent implements OnInit {
     });
     this.cardForm = new FormGroup(formGroupObject);
   }
-
+  removeAttache(image: Image) {
+    var index = this.attachedImage.indexOf(image);
+    if (index !== -1) {
+      this.attachedImage.splice(index, 1);
+    }
+  }
   openDialog() {
     let dialogRef = this.dialog.open(UploadSelectDialogContentComponent, {
       width: '85%',
       height: '90%',
-      data: { element: this.currentObject },
+      data: { element: this.currentObject, selectedImage: this.attachedImage },
       panelClass: 'app-upload-select-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-
+      if (Array.isArray(result)) {
+        result.forEach((Element) => {
+          if(!this.attachedImage.filter((p:Image) => p.mediaUUID == Element.mediaUUID).length){
+            this.attachedImage.push(Element);
+          }
+        });
+        console.log(result, 'delete image');
+      } else if (result) {
+        this.uploadService.deleteImage(result.mediaUUID).subscribe({
+          next: (response: any) => {
+            this.matSnackBar.open(`مورد ${result.position} (${result.name}) حذف گردید.`, 'بستن', {
+              duration: 7000,
+              direction: 'rtl',
+              panelClass: '',
+            });
+          },
+          error: (error: any) => {
+            console.log(error);
+            result.isEdited = true;
+            setTimeout(() => {
+              result.isEdited = false;
+            }, 7000);
+            this.matSnackBar.open(`خطا: ${error.error.message}.`, 'بستن', {
+              duration: 7000,
+              direction: 'rtl',
+              panelClass: '',
+            });
+          },
+        });
       }
     });
   }
@@ -93,7 +129,7 @@ export class ModificationFormComponent implements OnInit {
     this.modificationMood({
       ...modificationObject,
       customerUUID: this.currentObject?.customerUUID,
-      medias: []
+      medias: this.attachedImage.map(a => a.mediaUUID)
     }).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -116,6 +152,7 @@ export class ModificationFormComponent implements OnInit {
   }
 
   modificationMood(object: any): Observable<any> {
+    console.log(object);
     if (object[this.idAttributeKey]) {
       return this.http.put<any>(environment.apiUrl + this.requestRoute, object);
     } else {

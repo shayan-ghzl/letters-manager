@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { map, Observable, startWith, tap } from 'rxjs';
 import { UploadService } from 'src/app/upload/upload.service';
 import { ImageParams, Image } from '../../model/model';
 import { RemoveConfirmationDialogContentComponent } from '../remove-confirmation-dialog-content/remove-confirmation-dialog-content.component';
@@ -26,64 +27,38 @@ export class UploadSelectDialogContentComponent {
   cardForm = new FormGroup({
     alt: new FormControl('', [Validators.maxLength(150)]),
     description: new FormControl('', [Validators.maxLength(255)]),
-    category: new FormControl(''),
   });
+  disableSave!: Observable<boolean>;
 
   constructor(
     public dialogRef: MatDialogRef<UploadSelectDialogContentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private matSnackBar: MatSnackBar, private uploadService: UploadService
   ) {
     console.log(data, 'UploadSelectDialogContentComponent data');
-    this.getImages({ page: 0, size: 20 });
+    this.getImages({ page: this.currentPage, size: this.tableRows });
   }
-
-  // showPersonDialog(images: Image[] = []) {
-  //   images.forEach((Element) => {
-  //     Element.isSelected = true;
-  //   })
-  //   this.selectedImages = images;
-  //   // this.DialogUpload = true;
-  //   this.getImages({ size: this.tableRows, page: this.currentPage });
-  // }
-
-  updateUploadDetails() {
-    this.uploadService.editImage({
-      // "mediaUUID": this.imageDetails.mediaUUID,
-      // "description": this.imageDesc,
-      // "categoriesId": this.imageDetails.categories,
-      // "alternateText": this.imageAlt
-    }).subscribe({
-      next: (response: Image) => {
-        response.isSelected = true;
-        this.images[this.images.findIndex(Element => Element.mediaUUID == response.mediaUUID)] = response;
-        this.selectedImages[this.selectedImages.findIndex(Element => Element.mediaUUID == response.mediaUUID)] = response;
-      },
-      error: (error) => { console.log(error); },
-    });
-  }
-
-  // hideDialog() {
-  //   // for (const [key, value] of Object.entries(this.editImageValidateObj)) {
-  //   //   value.hasError = false;
-  //   // }
-  //   this.showImageDetails = false;
-  //   this.selectedImages.forEach((Element) => {
-  //     Element.isSelected = false;
-  //   });
-  //   this.selectedImages = [];
-  // }
 
   getImages(params: ImageParams) {
-    this.uploadService.getImages(params).subscribe(
-      (response) => {
-        console.log(response, 'getImages');
-        this.tableRowsTotal = response.totalElements;
-        this.images = [...this.images, ...response.content];
-      },
-      (error) => { console.log(error); },
-    );
+    if (!this.isDone) {
+      this.showLoading = true;
+      this.uploadService.getImages(params).subscribe({
+        next: (response) => {
+          this.tableRowsTotal = response.totalElements;
+          response.content.forEach((Element: Image) => {
+            if(this.data.selectedImage.filter((p:Image) => p.mediaUUID == Element.mediaUUID).length){
+              Element.isSelected = true;
+            }
+          });
+          this.images = [...this.images, ...response.content];
+          this.showLoading = false;
+          if (this.images.length >= this.tableRowsTotal) {
+            this.isDone = true;
+          }
+        },
+        error: (error) => { console.log(error); },
+      });
+    }
   }
-
 
   selectImage(e: any, image: Image) {
     if (e.ctrlKey) {
@@ -114,18 +89,17 @@ export class UploadSelectDialogContentComponent {
     console.log(this.selectedImages[this.selectedImages.length - 1]);
     this.cardForm.controls['alt'].setValue(this.selectedImages[this.selectedImages.length - 1]?.alternateText);
     this.cardForm.controls['description'].setValue(this.selectedImages[this.selectedImages.length - 1]?.description);
+
+    this.disableSave = this.cardForm.valueChanges.pipe(
+      tap(values => { console.log(values) }),
+      map(values => (values.alt == this.selectedImages[this.selectedImages.length - 1]?.alternateText && values.description == this.selectedImages[this.selectedImages.length - 1]?.description) ? true : false),
+      startWith(true)
+    );
   }
 
   loadMoreImage() {
     this.currentPage = this.currentPage + 1;
     this.getImages({ size: this.tableRows, page: this.currentPage });
-  }
-
-  addImage() {
-    // if (!this.submitBtnDisabled) {
-    //   this.update.emit(this.selectedImages);
-    //   this.DialogUpload = false;
-    // }
   }
 
   onUpload(fileObject: any) {
@@ -134,23 +108,28 @@ export class UploadSelectDialogContentComponent {
       if (typeof file.name != "undefined" && filesize <= 10) {
         // this.mediaFrameTabPanel.upload = false;
         // this.mediaFrameTabPanel.library = true;
-        this.uploadService.addImage(file).subscribe((response) => {
-          this.images.unshift(response);
-          this.tableRowsTotal++;
-        }, (error) => {
-          // this.messageService.add({ key: 'DialogUploadToast', severity: 'error', summary: 'خطا', detail: 'خطا رخ داد.', life: 7000 });
+        this.uploadService.addImage(file).subscribe({
+          next: (response) => {
+            this.images.unshift(response);
+            this.tableRowsTotal++;
+          },
+          error: (error) => {
+            this.matSnackBar.open('خطا رخ داد', 'بستن', {
+              duration: 7000,
+              direction: 'rtl',
+              panelClass: '',
+            });
+          }
         });
       } else {
-        // this.messageService.add({ key: 'DialogUploadToast', severity: 'error', summary: 'خطا', detail: 'حجم فایل بیشتر از حد مجاز است.', life: 7000 });
+        this.matSnackBar.open('خطا: حجم فایل بیشتر از حد مجاز است', 'بستن', {
+          duration: 7000,
+          direction: 'rtl',
+          panelClass: '',
+        });
       }
     }
   }
-
-
-
-
-
-
 
   openDialog(element: any) {
     let dialogRef2 = this.dialog.open(RemoveConfirmationDialogContentComponent, {
@@ -164,18 +143,19 @@ export class UploadSelectDialogContentComponent {
     });
   }
 
-
-
   onSubmit() {
-    // console.log('Your order has been submitted', this.cardForm.value);
+    this.cardForm.setErrors({ 'incorrect': true });
+    let temp = this.selectedImages[this.selectedImages.length - 1];
     this.uploadService.editImage({
-      "mediaUUID": this.data.element.mediaUUID,
+      "mediaUUID": temp?.mediaUUID,
       "description": this.cardForm.controls['description'].value,
-      // "categoriesId": this.selectedCategories,
+      "categoriesId": temp?.categories,
       "alternateText": this.cardForm.controls['alt'].value
     }).subscribe({
       next: (response) => {
-        console.log(response);
+        response.isSelected = true;
+        this.images[this.images.findIndex(Element => Element.mediaUUID == temp?.mediaUUID)] = response;
+        this.selectedImages[this.selectedImages.findIndex(Element => Element.mediaUUID == temp?.mediaUUID)] = response;
         this.matSnackBar.open('ذخیره گردید.', 'بستن', {
           duration: 7000,
           direction: 'rtl',
@@ -187,5 +167,9 @@ export class UploadSelectDialogContentComponent {
       },
     });
 
+  }
+
+  addImage() {
+    this.dialogRef.close(this.selectedImages);
   }
 }

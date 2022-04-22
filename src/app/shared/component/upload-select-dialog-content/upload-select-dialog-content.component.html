@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="dialog-content">
-    <mat-tab-group>
+    <mat-tab-group selectedIndex="1">
         <mat-tab label="بارگذاری پرونده‌ها">
     
             <div class="uploader-inline" appDragDropUpload (appdrop)="onUpload($event)">
@@ -77,7 +77,7 @@
                         <p class="load-more-count">نمایش {{images.length}} از {{tableRowsTotal}} موارد رسانه</p>
                         <mat-spinner [diameter]="20" [class.hidden]="!showLoading"></mat-spinner>
                    </div>
-                    <button mat-raised-button type="button" color="primary" (click)="loadMoreImage()">بارگذاری بیشتر</button>
+                    <button *ngIf="!isDone" mat-raised-button type="button" color="primary" (click)="loadMoreImage()">بارگذاری بیشتر</button>
                 </div>
             </div>
            <div class="tab-footer">
@@ -113,7 +113,7 @@
                     <textarea matInput formControlName="description"></textarea>
                     <mat-error *ngIf="cardForm.controls['description'].invalid">بیشتر از 255 حرف مجاز نیست</mat-error>
                     </mat-form-field>
-                <button mat-raised-button [disabled]="!cardForm.valid" color="primary">ثبت</button>
+                <button mat-raised-button [disabled]="!cardForm.valid || (disableSave | async)" color="primary">ثبت</button>
             </form>
         </ng-container>
     </div>

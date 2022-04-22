@@ -13,7 +13,7 @@
 }
 .dialog-content {
     display: flex;
-    height: 100%;
+    height: calc(100% - 60px);
     mat-tab-group {
         box-sizing: border-box;
         flex: 0 0 66.666666%;
@@ -32,6 +32,7 @@
         box-sizing: border-box;
         flex: 0 0 33.333333%;
         max-width: 33.333333%;
+        height: 100%;
         padding: 12px 16px;
         z-index: 75;
         background: #f6f7f7;

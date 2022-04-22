@@ -12,15 +12,16 @@
   
     <mat-card>
         <div class="attachment-feature">
-            <!-- <div>
-                <button type="button" mat-mini-fab>
+            <div *ngFor="let image of attachedImage">
+                <button type="button" mat-mini-fab (click)="removeAttache(image)">
                     <mat-icon>close</mat-icon>
                   </button>
-                <div class="image-container" style="background-image: url('https://material.angular.io/assets/img/examples/shiba2.jpg');"></div>
-            </div> -->
-            <div class="post-empty-attachment-msg">
-              <h3>تصویر ندارد</h3>
+                <div class="image-container" [style]="'background-image:url(' + image.resourceUrl + ')'"></div>
             </div>
+              <div *ngIf="!attachedImage.length" class="post-empty-attachment-msg">
+                <h3>تصویر ندارد</h3>
+              </div>
+
         </div>
         <button mat-stroked-button color="primary" type="button" (click)="openDialog()">افزودن</button>
     </mat-card>

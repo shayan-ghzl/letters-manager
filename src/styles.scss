@@ -29,7 +29,7 @@ body {
 }
 
 .app-upload-select-dialog .mat-tab-body-wrapper {
-    height: calc(100% - 108px);
+    height: 100%;
     mat-tab-body {
     &:first-child{
         .mat-tab-body-content {

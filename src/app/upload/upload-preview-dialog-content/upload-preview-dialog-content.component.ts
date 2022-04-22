@@ -91,15 +91,8 @@ export class UploadPreviewDialogContentComponent {
 
 
   onSubmit() {
-
-
-
-
-
-
-
-
     console.log(this.selectedCategories, 'selectedCategories');
+    this.cardForm.setErrors({'incorrect': true});
     let temp: string[] = [];
     this.selectedCategories.forEach((Element) => {
       temp.push(Element.categoryUUID);
