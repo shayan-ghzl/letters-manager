@@ -19,6 +19,9 @@ import { ModificationFormComponent } from './component/modification-form/modific
 import { MatCardModule } from '@angular/material/card';
 import { DragDropUploadDirective } from './directive/drag-drop-upload.directive';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSelectModule} from '@angular/material/select';
+import { MatSelectSearchComponent } from './component/mat-select-search/mat-select-search.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     UploadSelectDialogContentComponent,
     RemoveConfirmationDialogContentComponent,
     ModificationFormComponent,
-    DragDropUploadDirective
+    DragDropUploadDirective,
+    MatSelectSearchComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +47,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatTabsModule,
     ReactiveFormsModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   exports:[
     TableListComponent,

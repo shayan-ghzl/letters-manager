@@ -31,12 +31,12 @@ body {
 .app-upload-select-dialog .mat-tab-body-wrapper {
     height: 100%;
     mat-tab-body {
-    &:first-child{
-        .mat-tab-body-content {
-            box-sizing: border-box;
-            padding: 16px;
+        &:first-child {
+            .mat-tab-body-content {
+                box-sizing: border-box;
+                padding: 16px;
+            }
         }
-    }
         &:last-child {
             .mat-tab-body-content {
                 display: flex;
@@ -47,5 +47,16 @@ body {
                 }
             }
         }
+    }
+}
+
+.mat-select-field {
+    width: 100%;
+    margin-top: 17.5px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    font-size: 15px;
+    .mat-form-field-infix {
+        border: 0;
     }
 }

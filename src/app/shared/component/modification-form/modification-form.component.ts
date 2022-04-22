@@ -1,15 +1,16 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { map, Observable, startWith, Subscription, tap } from 'rxjs';
 import { UploadService } from 'src/app/upload/upload.service';
 import { environment } from 'src/environments/environment';
-import { CardFormControls } from '../../model/model';
+import { AppMatSelectOptionLabel, CardFormControls } from '../../model/model';
 import { UploadSelectDialogContentComponent } from '../upload-select-dialog-content/upload-select-dialog-content.component';
 import { Image } from '../../model/model';
+import { MatOptionSelectionChange } from '@angular/material/core';
 
 @Component({
   selector: 'app-modification-form',
@@ -25,8 +26,31 @@ export class ModificationFormComponent implements OnInit {
   @Input() cardFormControls: CardFormControls[] = [];
   cardForm!: FormGroup;
   attachedImage: Image[] = [];
+  optionLabels: AppMatSelectOptionLabel[] = [
+    {
+      persianKey: 'نام:',
+      attribute: 'firstName',
+      separator: ' ',
+    },
+    {
+      persianKey: '',
+      attribute: 'lastName',
+      separator: ' - ',
+    },
+    {
+      persianKey: 'کد ملی:',
+      attribute: 'nationalID',
+      separator: '',
+    }
+  ];
 
-  constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog, private matSnackBar: MatSnackBar, private http: HttpClient, private uploadService: UploadService) { }
+
+  // disableSave!: Observable<boolean>;
+  // || (disableSave | async)
+
+  constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog, private matSnackBar: MatSnackBar, private http: HttpClient, private uploadService: UploadService) {
+
+  }
 
   ngOnInit(): void {
     let isEditMood = this.activatedRoute.snapshot.queryParams['ob'];
@@ -45,6 +69,11 @@ export class ModificationFormComponent implements OnInit {
           console.log(error);
         },
       });
+      // this.disableSave = this.cardForm.valueChanges.pipe(
+      //   tap(values => { console.log(values) }),
+      //   map(values => (values.alt == this.selectedImages[this.selectedImages.length - 1]?.alternateText) ? true : false),
+      //   startWith(true)
+      // );
     }
     let formGroupObject: any = {};
     this.cardFormControls.forEach((Element) => {
@@ -90,7 +119,7 @@ export class ModificationFormComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (Array.isArray(result)) {
         result.forEach((Element) => {
-          if(!this.attachedImage.filter((p:Image) => p.mediaUUID == Element.mediaUUID).length){
+          if (!this.attachedImage.filter((p: Image) => p.mediaUUID == Element.mediaUUID).length) {
             this.attachedImage.push(Element);
           }
         });
@@ -122,6 +151,7 @@ export class ModificationFormComponent implements OnInit {
   }
 
   submitHandler() {
+    this.cardForm.setErrors({ 'incorrect': true });
     let modificationObject: any = {};
     modificationObject[this.idAttributeKey] = this.currentObject?.customerUUID;
     this.cardFormControls.forEach((Element) => {
@@ -159,5 +189,16 @@ export class ModificationFormComponent implements OnInit {
       return this.http.post<any>(environment.apiUrl + this.requestRoute, object);
     }
   }
+  updateObjects(e: Observable<MatOptionSelectionChange<any>>) {
+    e.subscribe((res) => { 
+      console.log(res.source.value)
+      // if(res.source.value?.){
 
+      // }else if(res.source.value?.){
+
+      // }else{
+
+      // }
+     });
+  }
 }

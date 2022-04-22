@@ -1,0 +1,17 @@
+<mat-form-field appearance="fill">
+    <mat-label>انتخاب {{objectTitle}}</mat-label>
+    <mat-select #select="matSelect" [formControl]="selectObject" required>
+        <mat-form-field class="mat-select-field" appearance="legacy" hideRequiredMarker="true" floatLabel="never">
+            <mat-label>جستجو {{objectTitle}}...</mat-label>
+            <input autocomplete="off" matInput (input)="getSelectObjects($event)">
+        </mat-form-field>
+        <mat-option style="display: none;">
+            هیچ کدام
+        </mat-option>
+        <mat-option *ngFor="let person of objects" [value]="person">
+            <!-- نام: {{person.firstName}} {{person.lastName}} - کد ملی: {{person.nationalID}} -->
+            <ng-container *ngFor="let optionLabel of optionLabels">{{optionLabel.persianKey}} {{person[optionLabel.attribute]}}{{optionLabel.separator}}</ng-container>
+        </mat-option>
+    </mat-select>
+    <mat-error *ngIf="selectObject.hasError('required')">انتخاب {{objectTitle}} الزامی است</mat-error>
+</mat-form-field>

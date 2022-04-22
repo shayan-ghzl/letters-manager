@@ -110,3 +110,10 @@ export interface CardFormControls {
         pattern?: string;
     }
 }
+export interface AppMatSelectOptionLabel {
+
+    persianKey: string;
+    attribute: string;
+    separator: string;
+
+}

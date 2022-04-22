@@ -61,6 +61,7 @@ export class UploadSelectDialogContentComponent {
   }
 
   selectImage(e: any, image: Image) {
+    console.log(e);
     if (e.ctrlKey) {
       if (image.isSelected) {
         image.isSelected = false;

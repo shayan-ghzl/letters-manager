@@ -1,29 +1,37 @@
 <div class="form-heading">
-    <h1>{{formTitle.join(' ')}}</h1>
+  <h1>{{formTitle.join(' ')}}</h1>
 </div>
-<form [formGroup]="cardForm" (submit)="submitHandler()">
+<form [formGroup]="cardForm" (submit)="submitHandler()" autocomplete="off">
   <div class="form-fields-container">
 
-    <mat-form-field appearance="fill" *ngFor="let cardFormControl of cardFormControls" [hideRequiredMarker]="!cardFormControl.validation.isRequired">
-        <mat-label>{{cardFormControl.persianLable}}</mat-label>
-        <input matInput [formControlName]="cardFormControl.formControlName" [required]="cardFormControl.validation.isRequired">
-        <mat-error *ngIf="cardForm.controls[cardFormControl.formControlName].invalid">{{cardFormControl.fieldErrorMessage}}</mat-error>
+    <mat-form-field appearance="fill" *ngFor="let cardFormControl of cardFormControls"
+      [hideRequiredMarker]="!cardFormControl.validation.isRequired">
+      <mat-label>{{cardFormControl.persianLable}}</mat-label>
+      <input matInput [formControlName]="cardFormControl.formControlName"
+        [required]="cardFormControl.validation.isRequired">
+      <mat-error *ngIf="cardForm.controls[cardFormControl.formControlName].invalid">
+        {{cardFormControl.fieldErrorMessage}}</mat-error>
     </mat-form-field>
-  
-    <mat-card>
-        <div class="attachment-feature">
-            <div *ngFor="let image of attachedImage">
-                <button type="button" mat-mini-fab (click)="removeAttache(image)">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                <div class="image-container" [style]="'background-image:url(' + image.resourceUrl + ')'"></div>
-            </div>
-              <div *ngIf="!attachedImage.length" class="post-empty-attachment-msg">
-                <h3>تصویر ندارد</h3>
-              </div>
 
+
+    <app-mat-select-search [optionLabels]="optionLabels" (update)="updateObjects($event)" [requestRoute]="'lm/v1/person'" [objectTitle]="'شخص'"></app-mat-select-search>
+    <app-mat-select-search [optionLabels]="optionLabels" (update)="updateObjects($event)" [requestRoute]="'lm/v1/company'" [objectTitle]="'کمپانی'"></app-mat-select-search>
+    <app-mat-select-search [optionLabels]="optionLabels" (update)="updateObjects($event)" [requestRoute]="'lm/v1/item/vehicle'" [objectTitle]="'وسیله نقلیه'"></app-mat-select-search>
+
+    <mat-card>
+      <div class="attachment-feature">
+        <div *ngFor="let image of attachedImage">
+          <button type="button" mat-mini-fab (click)="removeAttache(image)">
+            <mat-icon>close</mat-icon>
+          </button>
+          <div class="image-container" [style]="'background-image:url(' + image.resourceUrl + ')'"></div>
         </div>
-        <button mat-stroked-button color="primary" type="button" (click)="openDialog()">افزودن</button>
+        <div *ngIf="!attachedImage.length" class="post-empty-attachment-msg">
+          <h3>تصویر ندارد</h3>
+        </div>
+
+      </div>
+      <button mat-stroked-button color="primary" type="button" (click)="openDialog()">افزودن</button>
     </mat-card>
   </div>
   <button mat-raised-button [disabled]="!cardForm.valid" class="submit-button" color="primary">ثبت</button>
