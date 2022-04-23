@@ -3,7 +3,7 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChil
 import { FormControl, Validators } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
-import { Observable, Subscription } from 'rxjs';
+import { last, map, Observable, shareReplay, Subscription, take, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppMatSelectOptionLabel } from '../../model/model';
 
@@ -14,10 +14,12 @@ import { AppMatSelectOptionLabel } from '../../model/model';
 })
 export class MatSelectSearchComponent implements OnInit, AfterViewInit {
 
+  @Input() fieldId = '';
+  @Input() initialValue:any;
   @Input() requestRoute = '';
   @Input() objectTitle = '';
   @Input() optionLabels: AppMatSelectOptionLabel[] = [];
-  @Output() update = new EventEmitter<Observable<MatOptionSelectionChange<any>>>();
+  @Output() update = new EventEmitter<Observable<any>>();
   searchSelectTimeout = setTimeout(() => { }, 200);
   selectObject = new FormControl('', Validators.required);
   objects: any[] = [];
@@ -27,24 +29,37 @@ export class MatSelectSearchComponent implements OnInit, AfterViewInit {
   constructor(private http: HttpClient) { }
 
   ngAfterViewInit(): void {
-    this.update.emit(this.select.optionSelectionChanges);
-    // this.select.optionSelectionChanges.subscribe(res => {console.log(res.source.value)});
+    this.update.emit(this.select.optionSelectionChanges.pipe(
+      map((input) => {
+        let obj: any = {};
+        if (input.source.value?.customerUUID) {
+          obj[this.fieldId] = input.source.value?.customerUUID;
+        } else {
+          obj[this.fieldId] = input.source.value?.itemUUID;
+        }
+        return obj;
+      })
+    )
+    );
   }
 
   ngOnInit(): void {
+    this.selectObject.setValue(this.initialValue);
   }
 
   getSelectObjects(e: any) {
     this.selectGetObservable?.unsubscribe();
     clearTimeout(this.searchSelectTimeout);
-    this.searchSelectTimeout = setTimeout(() => {
-      this.selectGetObservable = this.getObservable({ page: 0, size: 10, keyword: e.target.value }).subscribe(
-        (response: any) => {
-          console.log(response.content);
-          this.objects = response.content;
-        }
-      );
-    }, 200);
+    if (e.target.value.trim()) {
+      this.searchSelectTimeout = setTimeout(() => {
+        this.selectGetObservable = this.getObservable({ page: 0, size: 10, keyword: e.target.value.trim() }).subscribe(
+          (response: any) => {
+            console.log(response.content);
+            this.objects = response.content;
+          }
+        );
+      }, 200);
+    }
   }
 
   getObservable(parameters: any) {

@@ -26,23 +26,7 @@ export class ModificationFormComponent implements OnInit {
   @Input() cardFormControls: CardFormControls[] = [];
   cardForm!: FormGroup;
   attachedImage: Image[] = [];
-  optionLabels: AppMatSelectOptionLabel[] = [
-    {
-      persianKey: 'نام:',
-      attribute: 'firstName',
-      separator: ' ',
-    },
-    {
-      persianKey: '',
-      attribute: 'lastName',
-      separator: ' - ',
-    },
-    {
-      persianKey: 'کد ملی:',
-      attribute: 'nationalID',
-      separator: '',
-    }
-  ];
+  optionLabels: AppMatSelectOptionLabel[] = [];
 
 
   // disableSave!: Observable<boolean>;
@@ -59,7 +43,11 @@ export class ModificationFormComponent implements OnInit {
         next: (response) => {
           console.log(response, 'currentObject');
           this.cardFormControls.forEach((Element) => {
-            this.cardForm.controls[Element.formControlName].setValue(response[Element.formControlName]);
+            if (Element?.field) {
+              this.cardForm.controls[Element.formControlName].setValue(response[Element.field.objectAttribute]);
+            } else {
+              this.cardForm.controls[Element.formControlName].setValue(response[Element.formControlName]);
+            }
           });
           this.currentObject = response;
           this.attachedImage = response.medias;
@@ -153,13 +141,15 @@ export class ModificationFormComponent implements OnInit {
   submitHandler() {
     this.cardForm.setErrors({ 'incorrect': true });
     let modificationObject: any = {};
-    modificationObject[this.idAttributeKey] = this.currentObject?.customerUUID;
+    console.log(modificationObject);
+    modificationObject[this.idAttributeKey] = (this.currentObject) ? this.currentObject[this.idAttributeKey] : null;
+    console.log(modificationObject);
     this.cardFormControls.forEach((Element) => {
       modificationObject[Element.formControlName] = this.cardForm.controls[Element.formControlName].value;
     });
     this.modificationMood({
       ...modificationObject,
-      mediaIds: this.attachedImage.map(a => a.mediaUUID)
+      mediaIds: this.attachedImage.map(a => a.mediaUUID),
     }).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -189,16 +179,11 @@ export class ModificationFormComponent implements OnInit {
       return this.http.post<any>(environment.apiUrl + this.requestRoute, object);
     }
   }
-  updateObjects(e: Observable<MatOptionSelectionChange<any>>) {
-    e.subscribe((res) => { 
-      console.log(res.source.value)
-      // if(res.source.value?.){
 
-      // }else if(res.source.value?.){
-
-      // }else{
-
-      // }
-     });
+  updateObjects(e: Observable<any>) {
+    e.subscribe((res) => {
+      // this.modificationObject[Object.keys(res)[0]] = res[Object.keys(res)[0]];
+      this.cardForm.controls[Object.keys(res)[0]].setValue(res[Object.keys(res)[0]]);
+    });
   }
 }

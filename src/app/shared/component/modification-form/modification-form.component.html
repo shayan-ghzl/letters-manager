@@ -4,19 +4,23 @@
 <form [formGroup]="cardForm" (submit)="submitHandler()" autocomplete="off">
   <div class="form-fields-container">
 
-    <mat-form-field appearance="fill" *ngFor="let cardFormControl of cardFormControls"
-      [hideRequiredMarker]="!cardFormControl.validation.isRequired">
-      <mat-label>{{cardFormControl.persianLable}}</mat-label>
-      <input matInput [formControlName]="cardFormControl.formControlName"
-        [required]="cardFormControl.validation.isRequired">
-      <mat-error *ngIf="cardForm.controls[cardFormControl.formControlName].invalid">
-        {{cardFormControl.fieldErrorMessage}}</mat-error>
-    </mat-form-field>
+<ng-container *ngFor="let cardFormControl of cardFormControls">
+  <mat-form-field *ngIf="!cardFormControl?.field" appearance="fill" [hideRequiredMarker]="!cardFormControl.validation.isRequired">
+    <mat-label>{{cardFormControl.persianLable}}</mat-label>
+    <input matInput [formControlName]="cardFormControl.formControlName"
+      [required]="cardFormControl.validation.isRequired">
+    <mat-error *ngIf="cardForm.controls[cardFormControl.formControlName].invalid">
+      {{cardFormControl.fieldErrorMessage}}</mat-error>
+  </mat-form-field>
+    <ng-container *ngIf="cardFormControl?.field">
+      <app-mat-select-search [optionLabels]="cardFormControl.field!.objectLabel" [fieldId]="cardFormControl.formControlName" (update)="updateObjects($event)" [requestRoute]="cardFormControl.field!.requestRoute" [objectTitle]="cardFormControl.persianLable" [initialValue]="cardFormControl.persianLable"></app-mat-select-search>
+    </ng-container>
+</ng-container>
 
 
-    <app-mat-select-search [optionLabels]="optionLabels" (update)="updateObjects($event)" [requestRoute]="'lm/v1/person'" [objectTitle]="'شخص'"></app-mat-select-search>
-    <app-mat-select-search [optionLabels]="optionLabels" (update)="updateObjects($event)" [requestRoute]="'lm/v1/company'" [objectTitle]="'کمپانی'"></app-mat-select-search>
-    <app-mat-select-search [optionLabels]="optionLabels" (update)="updateObjects($event)" [requestRoute]="'lm/v1/item/vehicle'" [objectTitle]="'وسیله نقلیه'"></app-mat-select-search>
+    <!-- <app-mat-select-search [optionLabels]="optionLabels" [fieldId]="'sellerId'" (update)="updateObjects($event)" [requestRoute]="'lm/v1/person'" [objectTitle]="'فروشنده'"></app-mat-select-search> -->
+    <!-- <app-mat-select-search [optionLabels]="optionLabels" [fieldId]="fieldId" (update)="updateObjects($event)" [requestRoute]="'lm/v1/company'" [objectTitle]="'کمپانی'"></app-mat-select-search> -->
+    <!-- <app-mat-select-search [optionLabels]="optionLabels" [fieldId]="'itemId'" (update)="updateObjects($event)" [requestRoute]="'lm/v1/item/vehicle'" [objectTitle]="'وسیله نقلیه'"></app-mat-select-search> -->
 
     <mat-card>
       <div class="attachment-feature">

@@ -100,6 +100,7 @@ export interface AddMediaCategory {
 
 }
 export interface CardFormControls {
+    field?: { type: string, requestRoute: string, objectLabel: AppMatSelectOptionLabel[], objectAttribute:string };
     formControlName: string;
     fieldErrorMessage: string;
     persianLable: string;

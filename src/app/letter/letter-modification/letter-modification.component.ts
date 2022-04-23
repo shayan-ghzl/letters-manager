@@ -41,36 +41,82 @@ export class LetterModificationComponent {
         'pattern': '^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|([1-2][0-9])|(0[1-9]))))$'
       }
     },
-    // {
-    //   'formControlName': 'sellerId',
-    //   'fieldErrorMessage': 'بین 2 تا 30 حرف مجاز است',
-    //   'persianLable': 'فروشنده',
-    //   'validation': {
-    //     'isRequired': true,
-    //     'minLength': 2,
-    //     'maxLength': 30,
-    //   }
-    // },
-    // {
-    //   'formControlName': 'buyerId',
-    //   'fieldErrorMessage': 'بین 2 تا 30 حرف مجاز است',
-    //   'persianLable': 'خریدار',
-    //   'validation': {
-    //     'isRequired': true,
-    //     'minLength': 2,
-    //     'maxLength': 30,
-    //   }
-    // },
-    // {
-    //   'formControlName': 'itemId',
-    //   'fieldErrorMessage': 'بین 2 تا 30 حرف مجاز است',
-    //   'persianLable': 'وسیه نفلیه',
-    //   'validation': {
-    //     'isRequired': true,
-    //     'minLength': 2,
-    //     'maxLength': 30,
-    //   }
-    // },
+    {
+      'field': {
+        type: 'select', objectAttribute:'seller', requestRoute: 'lm/v1/person', objectLabel: [
+          {
+            persianKey: 'نام:',
+            attribute: 'firstName',
+            separator: ' ',
+          },
+          {
+            persianKey: '',
+            attribute: 'lastName',
+            separator: ' - ',
+          },
+          {
+            persianKey: 'کد ملی:',
+            attribute: 'nationalID',
+            separator: '',
+          }
+        ]
+      },
+      'formControlName': 'sellerId',
+      'fieldErrorMessage': '',
+      'persianLable': 'فروشنده',
+      'validation': {
+        'isRequired': true,
+      }
+    },
+    {
+      'field': {
+        type: 'select', objectAttribute:'buyer', requestRoute: 'lm/v1/person', objectLabel: [
+          {
+            persianKey: 'نام:',
+            attribute: 'firstName',
+            separator: ' ',
+          },
+          {
+            persianKey: '',
+            attribute: 'lastName',
+            separator: ' - ',
+          },
+          {
+            persianKey: 'کد ملی:',
+            attribute: 'nationalID',
+            separator: '',
+          }
+        ]
+      },
+      'formControlName': 'buyerId',
+      'fieldErrorMessage': '',
+      'persianLable': 'خریدار',
+      'validation': {
+        'isRequired': true,
+      }
+    },
+    {
+      'field': {
+        type: 'select', objectAttribute:'item', requestRoute: 'lm/v1/item/vehicle', objectLabel: [
+          {
+            persianKey: 'نام:',
+            attribute: 'system',
+            separator: ' - ',
+          },
+          {
+            persianKey: 'پلاک:',
+            attribute: 'plaque',
+            separator: '',
+          }
+        ]
+      },
+      'formControlName': 'itemId',
+      'fieldErrorMessage': '',
+      'persianLable': 'وسیله نقلیه',
+      'validation': {
+        'isRequired': true,
+      }
+    },
   ];
 
   constructor() { }
