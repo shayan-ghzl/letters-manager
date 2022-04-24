@@ -14,6 +14,7 @@ export class AddMediaCategoryDialogContentComponent implements OnInit {
   idAttributeKey = 'categoryUUID';
   cardFormControls: CardFormControls[] = [
     {
+       'field': { 'type': 'input' },
       'formControlName': 'name',
       'fieldErrorMessage': 'بین 2 تا 70 حرف مجاز است',
       'persianLable': 'نام',
@@ -24,6 +25,7 @@ export class AddMediaCategoryDialogContentComponent implements OnInit {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'description',
       'fieldErrorMessage': 'بیش از 150 حرف مجاز نیست',
       'persianLable': 'توضیح',

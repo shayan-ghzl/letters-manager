@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, Observable, startWith, Subscription, tap } from 'rxjs';
 import { UploadService } from 'src/app/upload/upload.service';
 import { environment } from 'src/environments/environment';
-import { AppMatSelectOptionLabel, CardFormControls } from '../../model/model';
+import { AppMatSelectOptionLabel, CardFormControls, SelectSearchAdd } from '../../model/model';
 import { UploadSelectDialogContentComponent } from '../upload-select-dialog-content/upload-select-dialog-content.component';
 import { Image } from '../../model/model';
 import { MatOptionSelectionChange } from '@angular/material/core';
@@ -44,7 +44,7 @@ export class ModificationFormComponent implements OnInit {
           console.log(response, 'currentObject');
           this.cardFormControls.forEach((Element) => {
             if (Element?.field) {
-              this.cardForm.controls[Element.formControlName].setValue(response[Element.field.objectAttribute]);
+              this.cardForm.controls[Element.formControlName].setValue(response[(<SelectSearchAdd>Element.field).objectAttribute]);
             } else {
               this.cardForm.controls[Element.formControlName].setValue(response[Element.formControlName]);
             }

@@ -6,13 +6,14 @@ import { CardFormControls } from 'src/app/shared/model/model';
   templateUrl: './company-modification.component.html',
   styleUrls: ['./company-modification.component.scss']
 })
-export class CompanyModificationComponent  {
-  
+export class CompanyModificationComponent {
+
   formTitle = ['افزودن', 'شرکت'];
   requestRoute = 'lm/v1/company';
   idAttributeKey = 'customerUUID';
   cardFormControls: CardFormControls[] = [
     {
+      'field': { 'type': 'input' },
       'formControlName': 'address',
       'fieldErrorMessage': 'بین 2 تا 350 حرف مجاز است',
       'persianLable': 'آدرس',
@@ -23,6 +24,7 @@ export class CompanyModificationComponent  {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'phoneNumber',
       'fieldErrorMessage': '11 رقم مجاز است',
       'persianLable': 'تلفن',
@@ -35,6 +37,7 @@ export class CompanyModificationComponent  {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'name',
       'fieldErrorMessage': 'بین 2 تا 250 حرف مجاز است',
       'persianLable': 'نام',
@@ -45,6 +48,7 @@ export class CompanyModificationComponent  {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'type',
       'fieldErrorMessage': 'بین 2 تا 100 حرف مجاز است',
       'persianLable': 'نوع فعالیت',
@@ -55,6 +59,7 @@ export class CompanyModificationComponent  {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'registerCode',
       'fieldErrorMessage': 'بین 2 تا 15 رقم مجاز است',
       'persianLable': 'شناسه ثبت',
@@ -67,6 +72,7 @@ export class CompanyModificationComponent  {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'nationalCode',
       'fieldErrorMessage': 'بین 2 تا 15 رقم مجاز است',
       'persianLable': 'شناسه ملی',

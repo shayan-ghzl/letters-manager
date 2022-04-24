@@ -13,6 +13,7 @@ export class VehicleModificationComponent {
   idAttributeKey = 'itemUUID';
   cardFormControls: CardFormControls[] = [
     {
+       'field': { 'type': 'input' },
       'formControlName': 'system',
       'fieldErrorMessage': 'بیش از 50 حرف مجاز نیست',
       'persianLable': 'سیستم',
@@ -22,6 +23,7 @@ export class VehicleModificationComponent {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'color',
       'fieldErrorMessage': 'بیش از 50 حرف مجاز نیست',
       'persianLable': 'رنگ',
@@ -31,6 +33,7 @@ export class VehicleModificationComponent {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'chassisNumber',
       'fieldErrorMessage': 'بیش از 100 حرف مجاز نیست',
       'persianLable': 'شماره شاسی',
@@ -40,6 +43,7 @@ export class VehicleModificationComponent {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'motorNumber',
       'fieldErrorMessage': 'بیش از 50 حرف مجاز نیست',
       'persianLable': 'شماره موتور',
@@ -49,6 +53,7 @@ export class VehicleModificationComponent {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'bodyNumber',
       'fieldErrorMessage': 'بیش از 50 حرف مجاز نیست',
       'persianLable': 'شماره بدنه',
@@ -58,6 +63,7 @@ export class VehicleModificationComponent {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'vin',
       'fieldErrorMessage': 'بیش از 100 حرف مجاز نیست',
       'persianLable': 'شماره vin',
@@ -67,6 +73,7 @@ export class VehicleModificationComponent {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'plaque',
       'fieldErrorMessage': 'بین 3 تا 50 حرف مجاز است',
       'persianLable': 'شماره بلاک',

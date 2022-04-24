@@ -15,6 +15,7 @@ export class UploadCategoryModificationComponent {
   idAttributeKey = 'categoryUUID';
   cardFormControls: CardFormControls[] = [
     {
+       'field': { 'type': 'input' },
       'formControlName': 'name',
       'fieldErrorMessage': 'بین 2 تا 70 حرف مجاز است',
       'persianLable': 'نام',
@@ -25,6 +26,7 @@ export class UploadCategoryModificationComponent {
       }
     },
     {
+       'field': { 'type': 'textarea' },
       'formControlName': 'description',
       'fieldErrorMessage': 'بیش از 150 حرف مجاز نیست',
       'persianLable': 'توضیح',

@@ -15,6 +15,7 @@ export class LetterModificationComponent {
   idAttributeKey = 'letterUUID';
   cardFormControls: CardFormControls[] = [
     {
+       'field': { 'type': 'input' },
       'formControlName': 'fileNumber',
       'fieldErrorMessage': 'بین 2 تا 10 حرف مجاز است',
       'persianLable': 'شماره برونده',
@@ -25,6 +26,7 @@ export class LetterModificationComponent {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'accountingCode',
       'fieldErrorMessage': 'بین 2 تا 10 حرف مجاز است',
       'persianLable': 'کد حسابداری',
@@ -35,6 +37,7 @@ export class LetterModificationComponent {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'stringDate',
       'fieldErrorMessage': 'xxxx/xx/xx فرمت مجاز می باشد',
       'persianLable': 'تاریخ',

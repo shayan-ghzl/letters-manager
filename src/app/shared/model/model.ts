@@ -101,7 +101,7 @@ export interface AddMediaCategory {
 
 }
 export interface CardFormControls {
-    field?: { type: string, requestRoute: string, openAddDialog: any, objectLabel: AppMatSelectOptionLabel[], objectAttribute:string };
+    field: SelectSearchAdd | { type: 'input' | 'textarea' };
     formControlName: string;
     fieldErrorMessage: string;
     persianLable: string;
@@ -112,6 +112,14 @@ export interface CardFormControls {
         pattern?: string;
     }
 }
+export interface SelectSearchAdd {
+    type: 'select';
+    requestRoute: string;
+    openAddDialog: any;
+    objectLabel: AppMatSelectOptionLabel[];
+    objectAttribute: string;
+}
+
 export interface AppMatSelectOptionLabel {
 
     persianKey: string;

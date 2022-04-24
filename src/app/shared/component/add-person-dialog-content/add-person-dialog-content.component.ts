@@ -16,6 +16,7 @@ export class AddPersonDialogContentComponent implements OnInit {
   idAttributeKey = 'customerUUID';
   cardFormControls: CardFormControls[] = [
     {
+       'field': { 'type': 'input' },
       'formControlName': 'firstName',
       'fieldErrorMessage': 'بین 2 تا 30 حرف مجاز است',
       'persianLable': 'نام',
@@ -26,6 +27,7 @@ export class AddPersonDialogContentComponent implements OnInit {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'lastName',
       'fieldErrorMessage': 'بین 2 تا 30 حرف مجاز است',
       'persianLable': 'نام خانوادگی',
@@ -36,6 +38,7 @@ export class AddPersonDialogContentComponent implements OnInit {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'fatherName',
       'fieldErrorMessage': 'بین 2 تا 30 حرف مجاز است',
       'persianLable': 'نام پدر',
@@ -46,6 +49,7 @@ export class AddPersonDialogContentComponent implements OnInit {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'nationalID',
       'fieldErrorMessage': '10 رقم مجاز است',
       'persianLable': 'کد ملی',
@@ -57,6 +61,7 @@ export class AddPersonDialogContentComponent implements OnInit {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'certificateNumber',
       'fieldErrorMessage': 'بین 2 تا 30 رقم مجاز است',
       'persianLable': 'شماره شناسنامه',
@@ -68,6 +73,7 @@ export class AddPersonDialogContentComponent implements OnInit {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'fromLocation',
       'fieldErrorMessage': 'بین 2 تا 30 حرف مجاز است',
       'persianLable': 'صادره',
@@ -78,6 +84,7 @@ export class AddPersonDialogContentComponent implements OnInit {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'stringBirthDate',
       'fieldErrorMessage': 'xxxx/xx/xx فرمت مجاز می باشد',
       'persianLable': 'تاریخ تولد',
@@ -87,6 +94,7 @@ export class AddPersonDialogContentComponent implements OnInit {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'address',
       'fieldErrorMessage': 'بین 2 تا 350 حرف مجاز است',
       'persianLable': 'آدرس',
@@ -97,6 +105,7 @@ export class AddPersonDialogContentComponent implements OnInit {
       }
     },
     {
+       'field': { 'type': 'input' },
       'formControlName': 'phoneNumber',
       'fieldErrorMessage': '11 رقم مجاز است',
       'persianLable': 'تلفن',

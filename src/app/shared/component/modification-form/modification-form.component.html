@@ -5,17 +5,28 @@
   <div class="form-fields-container">
 
 <ng-container *ngFor="let cardFormControl of cardFormControls">
-  <mat-form-field *ngIf="!cardFormControl?.field" appearance="fill" [hideRequiredMarker]="!cardFormControl.validation.isRequired">
+  <mat-form-field *ngIf="cardFormControl.field.type == 'input'" appearance="fill" [hideRequiredMarker]="!cardFormControl.validation.isRequired">
     <mat-label>{{cardFormControl.persianLable}}</mat-label>
     <input matInput [formControlName]="cardFormControl.formControlName"
       [required]="cardFormControl.validation.isRequired">
     <mat-error *ngIf="cardForm.controls[cardFormControl.formControlName].invalid">
       {{cardFormControl.fieldErrorMessage}}</mat-error>
   </mat-form-field>
-    <ng-container *ngIf="cardFormControl?.field">
-      <app-mat-select-search [openAddDialog]="cardFormControl.field!.openAddDialog" [optionLabels]="cardFormControl.field!.objectLabel" [fieldId]="cardFormControl.formControlName" (update)="updateObjects($event)" [requestRoute]="cardFormControl.field!.requestRoute" [objectTitle]="cardFormControl.persianLable" [initialValue]="cardFormControl.persianLable"></app-mat-select-search>
+  <mat-form-field *ngIf="cardFormControl.field.type == 'textarea'" appearance="fill" [hideRequiredMarker]="!cardFormControl.validation.isRequired">
+    <mat-label>{{cardFormControl.persianLable}}</mat-label>
+    <textarea matInput [formControlName]="cardFormControl.formControlName"
+      [required]="cardFormControl.validation.isRequired"></textarea>
+    <mat-error *ngIf="cardForm.controls[cardFormControl.formControlName].invalid">
+      {{cardFormControl.fieldErrorMessage}}</mat-error>
+  </mat-form-field>
+    <ng-container *ngIf="cardFormControl.field.type == 'select'">
+      <app-mat-select-search [openAddDialog]="cardFormControl.field.openAddDialog" [optionLabels]="cardFormControl.field.objectLabel" [fieldId]="cardFormControl.formControlName" (update)="updateObjects($event)" [requestRoute]="cardFormControl.field.requestRoute" [objectTitle]="cardFormControl.persianLable" [initialValue]="cardFormControl.persianLable"></app-mat-select-search>
     </ng-container>
+
 </ng-container>
+
+
+
 
 
     <!-- <app-mat-select-search [optionLabels]="optionLabels" [fieldId]="'sellerId'" (update)="updateObjects($event)" [requestRoute]="'lm/v1/person'" [objectTitle]="'فروشنده'"></app-mat-select-search> -->
