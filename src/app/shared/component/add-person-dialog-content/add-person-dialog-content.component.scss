@@ -23,7 +23,7 @@
       margin: 0 auto 0 calc(32px + 0.75em);
       display: block;
     }
-    mat-form-field , app-mat-select-search {
+    mat-form-field {
       flex: 0 0 33%;
       max-width: 33%;
       padding: 0 0 32px 32px;
@@ -57,11 +57,6 @@
         background: #000000de;
       }
     }
-    .post-empty-attachment-msg{
-      h3{
-        font-weight: bold;
-      }
-    }
     .image-container {
       width: 100px;
       height: 100px;
@@ -70,3 +65,4 @@
       border-radius: 2px;
     }
   }
+  

@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AddMediaCategoryDialogContentComponent } from 'src/app/shared/component/add-media-category-dialog-content/add-media-category-dialog-content.component';
-import { CardFormControls } from 'src/app/shared/model/model';
-
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CardFormControls } from '../../model/model';
 
 @Component({
-  selector: 'app-upload-category-modification',
-  templateUrl: './upload-category-modification.component.html',
-  styleUrls: ['./upload-category-modification.component.scss']
+  selector: 'app-add-media-category-dialog-content',
+  templateUrl: './add-media-category-dialog-content.component.html',
+  styleUrls: ['./add-media-category-dialog-content.component.scss']
 })
-export class UploadCategoryModificationComponent {
+export class AddMediaCategoryDialogContentComponent implements OnInit {
+
   formTitle = ['افزودن', 'دسته بندی رسانه'];
   requestRoute = 'lm/v1/media/category';
   idAttributeKey = 'categoryUUID';
@@ -35,7 +34,7 @@ export class UploadCategoryModificationComponent {
     },
     {
       'field': {
-        type: 'select',openAddDialog:AddMediaCategoryDialogContentComponent , objectAttribute:'category', requestRoute: 'lm/v1/media/category', objectLabel: [
+        type: 'select',openAddDialog:AddMediaCategoryDialogContentComponent, objectAttribute:'category', requestRoute: 'lm/v1/media/category', objectLabel: [
           {
             persianKey: 'نام:',
             attribute: 'name',
@@ -57,6 +56,13 @@ export class UploadCategoryModificationComponent {
     },
   ];
 
-  constructor() { }
+  
+  constructor(
+    public dialogRef: MatDialogRef<AddMediaCategoryDialogContentComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) {
+   
+  }
+  ngOnInit(): void {
+  }
 
 }

@@ -13,7 +13,7 @@
       {{cardFormControl.fieldErrorMessage}}</mat-error>
   </mat-form-field>
     <ng-container *ngIf="cardFormControl?.field">
-      <app-mat-select-search [optionLabels]="cardFormControl.field!.objectLabel" [fieldId]="cardFormControl.formControlName" (update)="updateObjects($event)" [requestRoute]="cardFormControl.field!.requestRoute" [objectTitle]="cardFormControl.persianLable" [initialValue]="cardFormControl.persianLable"></app-mat-select-search>
+      <app-mat-select-search [openAddDialog]="cardFormControl.field!.openAddDialog" [optionLabels]="cardFormControl.field!.objectLabel" [fieldId]="cardFormControl.formControlName" (update)="updateObjects($event)" [requestRoute]="cardFormControl.field!.requestRoute" [objectTitle]="cardFormControl.persianLable" [initialValue]="cardFormControl.persianLable"></app-mat-select-search>
     </ng-container>
 </ng-container>
 
@@ -30,12 +30,12 @@
           </button>
           <div class="image-container" [style]="'background-image:url(' + image.resourceUrl + ')'"></div>
         </div>
-        <div *ngIf="!attachedImage.length" class="post-empty-attachment-msg">
+        <div *ngIf="!attachedImage?.length" class="post-empty-attachment-msg">
           <h3>تصویر ندارد</h3>
         </div>
 
       </div>
-      <button mat-stroked-button color="primary" type="button" (click)="openDialog()">افزودن</button>
+      <button mat-stroked-button color="primary" type="button" (click)="openDialog()"><mat-icon>add</mat-icon>افزودن</button>
     </mat-card>
   </div>
   <button mat-raised-button [disabled]="!cardForm.valid" class="submit-button" color="primary">ثبت</button>

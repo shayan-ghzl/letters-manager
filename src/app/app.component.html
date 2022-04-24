@@ -1,12 +1,15 @@
 <mat-toolbar color="primary">
   <nav class="primary-menu-navbar">
-    <a mat-button routerLink="home/list" routerLinkActive="active">مدیریت بایگانی</a>
-    <a mat-button routerLink="person/list" routerLinkActive="active">شخص</a>
-    <a mat-button routerLink="letter/list" routerLinkActive="active">قلنامه</a>
-    <a mat-button routerLink="vehicle/list" routerLinkActive="active">وسیله نقلیه</a>
-    <a mat-button routerLink="company/list" routerLinkActive="active">کمپانی</a>
-    <a mat-button routerLink="upload/list" routerLinkActive="active">رسانه</a>
-    <a mat-button routerLink="upload/category/list" routerLinkActive="active">دسته بندی رسانه</a>
+    <a mat-button routerLink="home/list" routerLinkActive="active"> <mat-icon>home</mat-icon>مدیریت بایگانی</a>
+    <a mat-button routerLink="person/list" routerLinkActive="active"> <mat-icon>person</mat-icon>شخص</a>
+    <a mat-button routerLink="letter/list" routerLinkActive="active"> <mat-icon>library_books</mat-icon>قلنامه</a>
+    <a mat-button routerLink="vehicle/list" routerLinkActive="active"> <mat-icon>directions_car</mat-icon>وسیله نقلیه</a>
+    <a mat-button routerLink="company/list" routerLinkActive="active"> <mat-icon>business</mat-icon>کمپانی</a>
+    <a mat-button routerLink="upload/list" routerLinkActive="active"> <mat-icon>perm_media</mat-icon>رسانه</a>
+    <button mat-button [matMenuTriggerFor]="menu"><mat-icon>arrow_drop_down</mat-icon></button>
   </nav>
+  <mat-menu #menu="matMenu">
+    <a mat-menu-item routerLink="upload/category/list" routerLinkActive="active">دسته بندی رسانه</a>
+  </mat-menu>
 </mat-toolbar>
 <router-outlet></router-outlet>

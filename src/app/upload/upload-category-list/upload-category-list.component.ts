@@ -8,8 +8,12 @@ import { Component } from '@angular/core';
 })
 export class UploadCategoryListComponent {
 
+
+  idAttributeKey = 'categoryUUID';
+  nameAttributeKey = 'name';
   tableHeadline = 'جدول لیست دسته بندی رسانه';
   requestRoute = 'lm/v1/media/category';
+  editRouter = '/upload/category/edit';
   addRouter = '/upload/category/create';
   columns = [
     {
@@ -22,14 +26,14 @@ export class UploadCategoryListComponent {
     },
     {
       name: 'نام پدر',
-      field: 'fatherName',
+      field: 'parentId',
     },
     {
       name: 'تعداد',
       field: 'childrenCount',
     },
   ];
-  displayedColumns = ['position', 'name', 'description', 'fatherName', 'childrenCount', 'opration'];
+  displayedColumns = ['position', 'name', 'description', 'parentId', 'childrenCount', 'opration'];
 
   constructor() { }
 

@@ -5,8 +5,16 @@
         &:hover {
             background: rgba(0, 0, 0, 0.4);
         }
+        mat-icon{
+            margin-left: 5px;
+        }
     }
     .active{
         background: rgba(0, 0, 0, 0.4);
     }
+    button{
+        padding: 0;
+        min-width: unset;
+    }
+
 }

@@ -51,6 +51,7 @@ export class TableListComponent implements OnInit {
     this.pageSize = e.pageSize ? e.pageSize : this.pageSize;
     this.getObservable({ page: e.pageIndex, size: this.pageSize, keyword: this.searchField }).subscribe(
       (response) => {
+        console.log(response.content);
         response.content.forEach((Element: any, Index: number) => {
           Element.position = (e.pageIndex * this.pageSize) + (Index + 1);
         });
@@ -94,34 +95,36 @@ export class TableListComponent implements OnInit {
       data: { element: element, nameInDialog: element[this.nameAttributeKey] },
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.http.delete<any>(environment.apiUrl + this.requestRoute + '/' + result[this.idAttributeKey]).subscribe({
-        next: response => {
-          result.isRemoved = true;
-          const index = this.tableRows.indexOf(result);
-          if (index > -1) {
-            this.tableRows.splice(index, 1);
-          }
-          setTimeout(() => {
-            this.dataSource = new MatTableDataSource<any>(this.tableRows);
-          }, 1000);
-          this.matSnackBar.open(`مورد ${result.position} (${result[this.nameAttributeKey]}) حذف گردید.`, 'بستن', {
-            duration: 7000,
-            direction: 'rtl',
-            panelClass: '',
-          });
-        },
-        error: error => {
-          result.isEdited = true;
-          setTimeout(() => {
-            result.isEdited = false;
-          }, 7000);
-          this.matSnackBar.open(`خطا: ${error.error.message}.`, 'بستن', {
-            duration: 7000,
-            direction: 'rtl',
-            panelClass: '',
-          });
-        },
-      });
+      if (result) {
+        this.http.delete<any>(environment.apiUrl + this.requestRoute + '/' + result[this.idAttributeKey]).subscribe({
+          next: response => {
+            result.isRemoved = true;
+            const index = this.tableRows.indexOf(result);
+            if (index > -1) {
+              this.tableRows.splice(index, 1);
+            }
+            setTimeout(() => {
+              this.dataSource = new MatTableDataSource<any>(this.tableRows);
+            }, 1000);
+            this.matSnackBar.open(`مورد ${result.position} (${result[this.nameAttributeKey]}) حذف گردید.`, 'بستن', {
+              duration: 7000,
+              direction: 'rtl',
+              panelClass: '',
+            });
+          },
+          error: error => {
+            result.isEdited = true;
+            setTimeout(() => {
+              result.isEdited = false;
+            }, 7000);
+            this.matSnackBar.open(`خطا: ${error.error.message}.`, 'بستن', {
+              duration: 7000,
+              direction: 'rtl',
+              panelClass: '',
+            });
+          },
+        });
+      }
     });
   }
 

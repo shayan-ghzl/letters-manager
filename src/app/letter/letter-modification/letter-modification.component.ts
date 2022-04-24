@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AddPersonDialogContentComponent } from 'src/app/shared/component/add-person-dialog-content/add-person-dialog-content.component';
+import { AddVehicleDialogContentComponent } from 'src/app/shared/component/add-vehicle-dialog-content/add-vehicle-dialog-content.component';
 import { CardFormControls } from 'src/app/shared/model/model';
 
 @Component({
@@ -43,7 +45,7 @@ export class LetterModificationComponent {
     },
     {
       'field': {
-        type: 'select', objectAttribute:'seller', requestRoute: 'lm/v1/person', objectLabel: [
+        type: 'select', openAddDialog: AddPersonDialogContentComponent, objectAttribute: 'seller', requestRoute: 'lm/v1/person', objectLabel: [
           {
             persianKey: 'نام:',
             attribute: 'firstName',
@@ -70,7 +72,7 @@ export class LetterModificationComponent {
     },
     {
       'field': {
-        type: 'select', objectAttribute:'buyer', requestRoute: 'lm/v1/person', objectLabel: [
+        type: 'select', openAddDialog: AddPersonDialogContentComponent, objectAttribute: 'buyer', requestRoute: 'lm/v1/person', objectLabel: [
           {
             persianKey: 'نام:',
             attribute: 'firstName',
@@ -97,7 +99,7 @@ export class LetterModificationComponent {
     },
     {
       'field': {
-        type: 'select', objectAttribute:'item', requestRoute: 'lm/v1/item/vehicle', objectLabel: [
+        type: 'select', openAddDialog: AddVehicleDialogContentComponent, objectAttribute: 'item', requestRoute: 'lm/v1/item/vehicle', objectLabel: [
           {
             persianKey: 'نام:',
             attribute: 'system',

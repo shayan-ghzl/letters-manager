@@ -21,6 +21,9 @@ import { DragDropUploadDirective } from './directive/drag-drop-upload.directive'
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import { MatSelectSearchComponent } from './component/mat-select-search/mat-select-search.component';
+import { AddPersonDialogContentComponent } from './component/add-person-dialog-content/add-person-dialog-content.component';
+import { AddVehicleDialogContentComponent } from './component/add-vehicle-dialog-content/add-vehicle-dialog-content.component';
+import { AddMediaCategoryDialogContentComponent } from './component/add-media-category-dialog-content/add-media-category-dialog-content.component';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { MatSelectSearchComponent } from './component/mat-select-search/mat-sele
     RemoveConfirmationDialogContentComponent,
     ModificationFormComponent,
     DragDropUploadDirective,
-    MatSelectSearchComponent
+    MatSelectSearchComponent,
+    AddPersonDialogContentComponent,
+    AddVehicleDialogContentComponent,
+    AddMediaCategoryDialogContentComponent
   ],
   imports: [
     CommonModule,

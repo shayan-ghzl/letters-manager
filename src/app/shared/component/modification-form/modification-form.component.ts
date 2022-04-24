@@ -50,7 +50,7 @@ export class ModificationFormComponent implements OnInit {
             }
           });
           this.currentObject = response;
-          this.attachedImage = response.medias;
+          this.attachedImage = response?.medias;
           this.formTitle[0] = 'ویرایش'
         },
         error: (error) => {
