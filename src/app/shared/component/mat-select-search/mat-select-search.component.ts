@@ -1,24 +1,20 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatOptionSelectionChange } from '@angular/material/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
-import { last, map, Observable, shareReplay, Subscription, take, tap } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppMatSelectOptionLabel } from '../../model/model';
-import { AddMediaCategoryDialogContentComponent } from '../add-media-category-dialog-content/add-media-category-dialog-content.component';
-import { AddPersonDialogContentComponent } from '../add-person-dialog-content/add-person-dialog-content.component';
-import { AddVehicleDialogContentComponent } from '../add-vehicle-dialog-content/add-vehicle-dialog-content.component';
 
 @Component({
   selector: 'app-mat-select-search',
   templateUrl: './mat-select-search.component.html',
   styleUrls: ['./mat-select-search.component.scss']
 })
-export class MatSelectSearchComponent implements OnInit, AfterViewInit {
+export class MatSelectSearchComponent implements OnInit, AfterViewInit, OnChanges {
 
-  @Input() openAddDialog:any;
+  @Input() openAddDialog: any;
   @Input() fieldId = '';
   @Input() initialValue: any;
   @Input() requestRoute = '';
@@ -31,7 +27,17 @@ export class MatSelectSearchComponent implements OnInit, AfterViewInit {
   selectGetObservable!: Subscription;
   @ViewChild('select') select!: MatSelect;
 
-  constructor(private http: HttpClient, private dialog: MatDialog) { }
+  constructor(private http: HttpClient, private dialog: MatDialog) {
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+   if(changes['initialValue'].currentValue){
+     this.selectObject.setValue(this.initialValue);
+     this.initialValue.currentValue = true;
+     this.objects.push(this.initialValue);
+   }
+  }
 
   ngAfterViewInit(): void {
     this.update.emit(this.select.optionSelectionChanges.pipe(
@@ -49,7 +55,7 @@ export class MatSelectSearchComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.selectObject.setValue(this.initialValue);
+
   }
 
   openDialog() {
@@ -72,7 +78,13 @@ export class MatSelectSearchComponent implements OnInit, AfterViewInit {
       this.searchSelectTimeout = setTimeout(() => {
         this.selectGetObservable = this.getObservable({ page: 0, size: 10, keyword: e.target.value.trim() }).subscribe(
           (response: any) => {
-            console.log(response.content);
+            let index = response.content.findIndex((p:any) => p == this.initialValue);
+            if (index > -1) {
+              response.content.splice(index, 1);
+            }
+            if(this.initialValue){
+              response.content.unshift(this.initialValue);
+            }
             this.objects = response.content;
           }
         );

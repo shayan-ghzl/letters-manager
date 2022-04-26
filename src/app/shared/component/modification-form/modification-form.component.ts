@@ -28,7 +28,6 @@ export class ModificationFormComponent implements OnInit {
   attachedImage: Image[] = [];
   optionLabels: AppMatSelectOptionLabel[] = [];
 
-
   // disableSave!: Observable<boolean>;
   // || (disableSave | async)
 
@@ -37,32 +36,6 @@ export class ModificationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let isEditMood = this.activatedRoute.snapshot.queryParams['ob'];
-    if (isEditMood) {
-      this.http.get<any>(environment.apiUrl + this.requestRoute + '/' + isEditMood).subscribe({
-        next: (response) => {
-          console.log(response, 'currentObject');
-          this.cardFormControls.forEach((Element) => {
-            if (Element?.field) {
-              this.cardForm.controls[Element.formControlName].setValue(response[(<SelectSearchAdd>Element.field).objectAttribute]);
-            } else {
-              this.cardForm.controls[Element.formControlName].setValue(response[Element.formControlName]);
-            }
-          });
-          this.currentObject = response;
-          this.attachedImage = response?.medias;
-          this.formTitle[0] = 'ویرایش'
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      });
-      // this.disableSave = this.cardForm.valueChanges.pipe(
-      //   tap(values => { console.log(values) }),
-      //   map(values => (values.alt == this.selectedImages[this.selectedImages.length - 1]?.alternateText) ? true : false),
-      //   startWith(true)
-      // );
-    }
     let formGroupObject: any = {};
     this.cardFormControls.forEach((Element) => {
       let temp = [];
@@ -89,6 +62,34 @@ export class ModificationFormComponent implements OnInit {
       formGroupObject[Element.formControlName] = new FormControl('', temp);
     });
     this.cardForm = new FormGroup(formGroupObject);
+    let isEditMood = this.activatedRoute.snapshot.queryParams['ob'];
+    if (isEditMood) {
+      this.http.get<any>(environment.apiUrl + this.requestRoute + '/' + isEditMood).subscribe({
+        next: (response) => {
+          console.log(response, 'currentObject');
+          this.cardFormControls.forEach((Element) => {
+            if (Element.field.type == 'select') {
+              this.cardForm.controls[Element.formControlName].setValue(response[Element.field.objectAttribute]);
+            } else {
+              this.cardForm.controls[Element.formControlName].setValue(response[Element.formControlName]);
+            }
+          });
+          this.currentObject = response;
+          this.attachedImage = response?.medias;
+          this.formTitle[0] = 'ویرایش'
+          this.cardForm.setErrors({ 'incorrect': true });
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+      // this.disableSave = this.cardForm.valueChanges.pipe(
+      //   tap(values => { console.log(values) }),
+      //   map(values => (values.alt == this.selectedImages[this.selectedImages.length - 1]?.alternateText) ? true : false),
+      //   startWith(true)
+      // );
+    }
+
   }
   removeAttache(image: Image) {
     var index = this.attachedImage.indexOf(image);
@@ -183,6 +184,7 @@ export class ModificationFormComponent implements OnInit {
   updateObjects(e: Observable<any>) {
     e.subscribe((res) => {
       // this.modificationObject[Object.keys(res)[0]] = res[Object.keys(res)[0]];
+      console.log(res);
       this.cardForm.controls[Object.keys(res)[0]].setValue(res[Object.keys(res)[0]]);
     });
   }
