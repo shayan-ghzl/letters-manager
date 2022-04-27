@@ -15,6 +15,7 @@ export class UploadService {
 
   // this is for get image
   getImages(parameters: ImageParams): Observable<any> {
+    console.log(parameters);
     let params = new HttpParams();
     // these params are integer and maybe value will be zero so condition will be false
     if (typeof parameters.page !== 'undefined') {
@@ -23,6 +24,9 @@ export class UploadService {
     // these params are integer and maybe value will be zero so condition will be false
     if (typeof parameters.size !== 'undefined') {
       params = params.append('size', parameters.size);
+    }
+    if (parameters.keyword) {
+      params = params.append('keyword', parameters.keyword);
     }
     return this.http.get<Image>(this.baseUrl + 'lm/v1/media/image', { params: params });
   }

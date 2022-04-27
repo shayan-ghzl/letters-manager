@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 import { ImageParams, Image, MediaCategory } from 'src/app/shared/model/model';
 import { UploadPreviewDialogContentComponent } from '../upload-preview-dialog-content/upload-preview-dialog-content.component';
 import { UploadService } from '../upload.service';
@@ -22,6 +23,8 @@ export class UploadListComponent {
   showLoading: boolean = false;
   editedMediaIndex = 0;
 
+  getImageTimeout = setTimeout(() => { }, 200);
+  getImageObservable!: Subscription;
 
 
   constructor(private uploadService: UploadService, private dialog: MatDialog, private matSnackBar: MatSnackBar) {
@@ -46,14 +49,19 @@ export class UploadListComponent {
       },
     });
   }
-  getImages(params: ImageParams) {
+
+  getImages(params: ImageParams, append = true) {
     if (!this.isDone) {
       this.showLoading = true;
-      this.uploadService.getImages(params).subscribe({
+      this.getImageObservable = this.uploadService.getImages(params).subscribe({
         next: (response) => {
           console.log(response.content);
           this.tableRowsTotal = response.totalElements;
-          this.images = [...this.images, ...response.content];
+          if (append) {
+            this.images = [...this.images, ...response.content];
+          } else {
+            this.images = response.content;
+          }
           this.showLoading = false;
           if (this.images.length >= this.tableRowsTotal) {
             this.isDone = true;
@@ -65,7 +73,7 @@ export class UploadListComponent {
   }
   loadMoreImage() {
     this.currentPage = this.currentPage + 1;
-    this.getImages({ size: this.tableRows, page: this.currentPage });
+    this.getImages({ keyword: this.searchField.trim(), size: this.tableRows, page: this.currentPage });
   }
   openUploadDetailsDialog(image: Image, index: number) {
     this.editedMediaIndex = index;
@@ -76,8 +84,15 @@ export class UploadListComponent {
   }
 
   searchFieldOpration() {
-    this.currentPage = 0;
-    this.getImages({ keyword: this.searchField, page: this.currentPage, size: this.tableRows });
+    if (this.searchField.trim()) {
+    this.getImageObservable?.unsubscribe();
+    clearTimeout(this.getImageTimeout);
+      this.getImageTimeout = setTimeout(() => {
+        this.isDone = false;
+        this.currentPage = 0;
+        this.getImages({ keyword: this.searchField.trim(), page: this.currentPage, size: this.tableRows }, false);
+      }, 200);
+    }
   }
 
   onUpload(fileObject: any) {

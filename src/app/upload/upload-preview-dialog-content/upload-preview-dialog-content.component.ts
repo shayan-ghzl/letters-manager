@@ -91,6 +91,7 @@ export class UploadPreviewDialogContentComponent {
 
 
   onSubmit() {
+    console.log(this.cardForm.controls['category'].valid, 'this.cardForm.controls.valid');
     console.log(this.selectedCategories, 'selectedCategories');
     this.cardForm.setErrors({'incorrect': true});
     let temp: string[] = [];
