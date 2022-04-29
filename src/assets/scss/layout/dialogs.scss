@@ -1,0 +1,20 @@
+.dialog-heading {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px;
+    height: 60px;
+    box-sizing: border-box;
+    h1 {
+        line-height: 40px;
+        margin: 0;
+        font-weight: 500;
+    }
+    button {
+        background: transparent;
+    }
+}
+.dialog-content {
+    display: flex;
+    height: calc(100% - 60px);
+    border-top: 1px solid #dcdcde;
+}

@@ -9,8 +9,6 @@ import { CardFormControls } from '../../model/model';
 })
 export class AddPersonDialogContentComponent implements OnInit {
 
-
-
   formTitle = ['افزودن', 'شخص'];
   requestRoute = 'lm/v1/person';
   idAttributeKey = 'customerUUID';
@@ -117,14 +115,18 @@ export class AddPersonDialogContentComponent implements OnInit {
       }
     },
   ];
+
   constructor(
     public dialogRef: MatDialogRef<AddPersonDialogContentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) {
    
   }
 
-
   ngOnInit(): void {
+  }
+
+  update(e:any){
+    this.dialogRef.close(e);
   }
 
 }

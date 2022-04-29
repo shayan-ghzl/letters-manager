@@ -62,7 +62,7 @@ export class UploadSelectDialogContentComponent {
 
   selectImage(e: any, image: Image) {
     console.log(e);
-    if (e.ctrlKey) {
+    if (e.ctrlKey || e.shiftKey) {
       if (image.isSelected) {
         image.isSelected = false;
         var index = this.selectedImages.indexOf(image);

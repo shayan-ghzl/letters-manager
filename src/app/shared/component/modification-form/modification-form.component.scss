@@ -1,72 +1,74 @@
-// :host {
-//     padding: 32px 32px;
-//     display: block;
-//   }
-  /* Chrome, Safari, Edge, Opera */
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  
-  /* Firefox */
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
-  form {
-    .form-fields-container{
-  
-      display: flex;
-      flex-wrap: wrap;
-    }
-    .submit-button {
-      margin: 0 auto 0 calc(32px + 0.75em);
-      display: block;
-    }
-    mat-form-field , app-mat-select-search {
-      flex: 0 0 33%;
-      max-width: 33%;
-      padding: 0 0 32px 32px;
-      box-sizing: border-box;
-    }
-  }
-  .form-heading {
-    h1 {
-      font-weight: 500;
-      color: #2c2c2c;
-      margin-bottom: 32px;
-    }
-  }
-  
-  
-  .mat-card {
-    padding: 8px;
-    display: inline-block;
-  }
-  
-  .attachment-feature {
+:host {
+  overflow: auto;
+  width: 100%;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+form {
+  .form-fields-container {
     display: flex;
-    > div {
-      position: relative;
-      padding: 10px;
-      button {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        background: #000000de;
-      }
-    }
-    .post-empty-attachment-msg{
-      h3{
-        font-weight: bold;
-      }
-    }
-    .image-container {
-      width: 100px;
-      height: 100px;
-      background-position: center;
-      background-size: cover;
-      border-radius: 2px;
+    flex-wrap: wrap;
+  }
+  .submit-button {
+    margin: 0 auto 0 16px;
+    display: block;
+  }
+  mat-form-field,
+  app-mat-select-search {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding: 16px 16px 2px 16px;
+    box-sizing: border-box;
+  }
+}
+.form-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  h1 {
+    font-weight: 500;
+    color: #2c2c2c;
+    margin-bottom: 32px;
+  }
+}
+
+.mat-card {
+  padding: 8px;
+  display: inline-block;
+}
+
+.attachment-feature {
+  display: flex;
+  > div {
+    position: relative;
+    padding: 10px;
+    button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background: #000000de;
     }
   }
+  .post-empty-attachment-msg {
+    h3 {
+      font-weight: bold;
+    }
+  }
+  .image-container {
+    width: 100px;
+    height: 100px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 2px;
+  }
+}

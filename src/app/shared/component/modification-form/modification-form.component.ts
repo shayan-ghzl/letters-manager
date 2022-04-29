@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,6 +11,7 @@ import { AppMatSelectOptionLabel, CardFormControls, SelectSearchAdd } from '../.
 import { UploadSelectDialogContentComponent } from '../upload-select-dialog-content/upload-select-dialog-content.component';
 import { Image } from '../../model/model';
 import { MatOptionSelectionChange } from '@angular/material/core';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-modification-form',
@@ -21,6 +22,10 @@ export class ModificationFormComponent implements OnInit {
 
   currentObject!: any;
   @Input() formTitle: string[] = [];
+  // used in add dialogs
+  @Output() update: EventEmitter<any> = new EventEmitter<any>();
+  @Input() backRouter = '';
+  @Input() fieldStyle: MatFormFieldAppearance = 'fill';
   @Input() requestRoute = '';
   @Input() idAttributeKey = '';
   @Input() cardFormControls: CardFormControls[] = [];
@@ -154,7 +159,8 @@ export class ModificationFormComponent implements OnInit {
     }).subscribe({
       next: (response: any) => {
         console.log(response);
-        this.matSnackBar.open(`hello`, 'بستن', {
+        this.update.emit(response);
+        this.matSnackBar.open(`با موفقیت اضافه شد`, 'بستن', {
           duration: 7000,
           direction: 'rtl',
           panelClass: '',
@@ -162,7 +168,7 @@ export class ModificationFormComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-        this.matSnackBar.open(`hello`, 'بستن', {
+        this.matSnackBar.open(`خطا: ${error.error.message}.`, 'بستن', {
           duration: 7000,
           direction: 'rtl',
           panelClass: '',

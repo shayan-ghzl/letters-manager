@@ -4,3 +4,9 @@ mat-form-field {
 .current-value {
     background-color: #3f51b533 !important;
 }
+button {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}

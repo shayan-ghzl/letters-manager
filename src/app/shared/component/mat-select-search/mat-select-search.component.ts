@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { map, Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -18,6 +19,7 @@ export class MatSelectSearchComponent implements OnInit, AfterViewInit, OnChange
   @Input() fieldId = '';
   @Input() initialValue: any;
   @Input() requestRoute = '';
+  @Input() fieldStyle: MatFormFieldAppearance = 'fill';
   @Input() objectTitle = '';
   @Input() optionLabels: AppMatSelectOptionLabel[] = [];
   @Output() update = new EventEmitter<Observable<any>>();
@@ -32,11 +34,11 @@ export class MatSelectSearchComponent implements OnInit, AfterViewInit, OnChange
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-   if(changes['initialValue'].currentValue){
-     this.selectObject.setValue(this.initialValue);
-     this.initialValue.currentValue = true;
-     this.objects.push(this.initialValue);
-   }
+    if (changes['initialValue'].currentValue) {
+      this.selectObject.setValue(this.initialValue);
+      this.initialValue.currentValue = true;
+      this.objects.push(this.initialValue);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -66,7 +68,8 @@ export class MatSelectSearchComponent implements OnInit, AfterViewInit, OnChange
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-
+        this.selectObject.setValue(result);
+        this.objects.push(result);
       }
     });
   }
@@ -78,11 +81,11 @@ export class MatSelectSearchComponent implements OnInit, AfterViewInit, OnChange
       this.searchSelectTimeout = setTimeout(() => {
         this.selectGetObservable = this.getObservable({ page: 0, size: 10, keyword: e.target.value.trim() }).subscribe(
           (response: any) => {
-            let index = response.content.findIndex((p:any) => p == this.initialValue);
+            let index = response.content.findIndex((p: any) => p == this.initialValue);
             if (index > -1) {
               response.content.splice(index, 1);
             }
-            if(this.initialValue){
+            if (this.initialValue) {
               response.content.unshift(this.initialValue);
             }
             this.objects = response.content;

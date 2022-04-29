@@ -1,1 +1,9 @@
-<app-modification-form [cardFormControls]="cardFormControls" [idAttributeKey]="idAttributeKey" [requestRoute]="requestRoute" [formTitle]="formTitle"></app-modification-form>
+<div class="dialog-heading">
+    <h1>افزودن وسیله نقلیه</h1>
+    <button mat-icon-button (click)="dialogRef.close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div class="dialog-content">
+    <app-modification-form (update)="update($event)" [fieldStyle]="'outline'" [cardFormControls]="cardFormControls" [idAttributeKey]="idAttributeKey" [requestRoute]="requestRoute" [formTitle]="formTitle"></app-modification-form>
+</div>

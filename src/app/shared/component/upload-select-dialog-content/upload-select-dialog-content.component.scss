@@ -1,49 +1,28 @@
-.dialog-heading {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 16px;
-    h1 {
-        font-weight: 500;
-        margin: 0;
-        line-height: 40px;
-    }
-    button {
-        background: transparent;
+mat-tab-group {
+    box-sizing: border-box;
+    flex: 0 0 66.666666%;
+    max-width: 66.666666%;
+    height: 100%;
+    .tab-footer {
+        width: 100%;
+        padding: 16px;
+        margin-top: auto;
+        box-sizing: border-box;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
     }
 }
-.dialog-content {
-    display: flex;
-    height: calc(100% - 60px);
-    mat-tab-group {
-        box-sizing: border-box;
-        flex: 0 0 66.666666%;
-        max-width: 66.666666%;
-        height: 100%;
-        .tab-footer{
-            width: 100%;
-            padding: 16px;
-            height: 68px;
-            margin-top: auto;
-            box-sizing: border-box;
-            border-top: 1px solid rgba(0,0,0,.12);
-        }
-    }
-    .attachment-info {
-        box-sizing: border-box;
-        flex: 0 0 33.333333%;
-        max-width: 33.333333%;
-        height: 100%;
-        padding: 12px 16px;
-        z-index: 75;
-        background: #f6f7f7;
-        border-right: 1px solid #dcdcde;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-        box-shadow: inset 0 4px 4px -4px #0000001a;
-    }
-}
-
 .attachment-info {
+    box-sizing: border-box;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding: 12px 16px;
+    height: 100%;
+    font-size: 13px;
+    background: #f6f7f7;
+    border-right: 1px solid #dcdcde;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: inset 0 4px 4px -4px #0000001a;
     .image-preview {
         width: 100%;
         padding-top: 100%;
@@ -73,6 +52,59 @@ form {
         width: 100%;
     }
 }
+.is-dragover {
+    background-color: #0000001f;
+    * {
+        pointer-events: none;
+    }
+}
+
+
+
+
+
+.uploader-inline {
+    position: relative;
+    padding: 1.5rem;
+    border: 4px dashed #c3c4c7;
+    text-align: center;
+    color: #3c434a;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    #input-file {
+        display: none;
+    }
+    p {
+        margin: 0.4rem 0;
+        font-size: 0.8rem;
+    }
+    h2 {
+        font-size: 1.2rem;
+        line-height: 1.4;
+        font-weight: bold;
+        margin: 0;
+        color: #1d2327;
+    }
+    .upload-ui {
+        margin-bottom: 1.5rem;
+    }
+    .button-hero {
+        min-height: 45px;
+        line-height: 3;
+        font-size: 0.85rem;
+        padding: 0 2rem;
+        cursor: pointer;
+    }
+}
+.uploader-inline-container {
+    width: 100%;
+    padding: 2rem;
+    height: calc(100% - 30px);
+}
 .attachments-wrapper {
     width: 100%;
     height: 100%;
@@ -83,7 +115,7 @@ form {
     //     margin-top: 16px;
     // }
     > ul {
-        margin:  0;
+        margin: 0;
         padding: 0;
         li {
             position: relative;
@@ -218,63 +250,5 @@ form {
     p {
         margin: 0;
         line-height: 20px;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-.is-dragover {
-    background-color: #fff;
-    * {
-        pointer-events: none;
-    }
-}
-.uploader-inline-container {
-    width: 100%;
-    padding: 2rem;
-    height: calc(100% - 30px);
-}
-.uploader-inline {
-    position: relative;
-    padding: 1.5rem;
-    border: 4px dashed #c3c4c7;
-    text-align: center;
-    color: #3c434a;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    #input-file {
-        display: none;
-    }
-    p {
-        margin: 0.4rem 0;
-        font-size: 0.8rem;
-    }
-    h2 {
-        font-size: 1.2rem;
-        line-height: 1.4;
-        font-weight: bold;
-        margin: 0;
-        color: #1d2327;
-    }
-    .upload-ui {
-        margin-bottom: 1.5rem;
-    }
-    .button-hero {
-        min-height: 45px;
-        line-height: 3;
-        font-size: 0.85rem;
-        padding: 0 2rem;
-        cursor: pointer;
     }
 }

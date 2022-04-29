@@ -57,7 +57,6 @@ export class AddMediaCategoryDialogContentComponent implements OnInit {
       }
     },
   ];
-
   
   constructor(
     public dialogRef: MatDialogRef<AddMediaCategoryDialogContentComponent>,
@@ -67,4 +66,7 @@ export class AddMediaCategoryDialogContentComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  update(e:any){
+    this.dialogRef.close(e);
+  }
 }

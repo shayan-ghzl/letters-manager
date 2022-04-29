@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./assets/scss/layout/fonts.scss";
+@import "./assets/scss/layout/dialogs.scss";
 
 html,
 body {
@@ -19,13 +20,17 @@ body {
 .app-add-highlight {
     background: #46a35e33;
 }
-
-.app-upload-preview-dialog,
-.app-upload-select-dialog {
-    .mat-dialog-container {
-        padding: 0;
-        overflow: hidden;
-    }
+.mat-dialog-container {
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+app-person-modification,
+app-vehicle-modification,
+app-company-modification,
+app-letter-modification,
+app-upload-category-modification {
+    padding: 32px;
+    display: block;
 }
 
 .app-upload-select-dialog .mat-tab-body-wrapper {
@@ -58,5 +63,9 @@ body {
     font-size: 15px;
     .mat-form-field-infix {
         border: 0;
+        input {
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
     }
 }

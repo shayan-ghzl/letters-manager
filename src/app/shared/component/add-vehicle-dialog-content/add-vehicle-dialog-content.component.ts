@@ -85,6 +85,7 @@ export class AddVehicleDialogContentComponent implements OnInit {
       }
     },
   ];
+
   constructor(
     public dialogRef: MatDialogRef<AddVehicleDialogContentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) {
@@ -92,6 +93,10 @@ export class AddVehicleDialogContentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  update(e:any){
+    this.dialogRef.close(e);
   }
 
 }
