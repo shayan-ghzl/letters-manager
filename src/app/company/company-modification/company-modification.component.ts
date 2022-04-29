@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UploadSelectDialogContentComponent } from 'src/app/shared/component/upload-select-dialog-content/upload-select-dialog-content.component';
 import { CardFormControls } from 'src/app/shared/model/model';
 
 @Component({
@@ -82,6 +83,17 @@ export class CompanyModificationComponent {
         'maxLength': 15,
         'pattern': '^[0-9]*$'
 
+      }
+    },
+    {
+      'field': {
+        type: 'imagePicker', openAddDialog: UploadSelectDialogContentComponent, objectAttribute: 'medias', requestRoute: '', objectLabel: []
+      },
+      'formControlName': 'mediaIds',
+      'fieldErrorMessage': '',
+      'persianLable': 'پیوست',
+      'validation': {
+        'isRequired': false,
       }
     },
   ];

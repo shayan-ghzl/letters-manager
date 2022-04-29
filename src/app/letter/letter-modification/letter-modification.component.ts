@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AddPersonDialogContentComponent } from 'src/app/shared/component/add-person-dialog-content/add-person-dialog-content.component';
 import { AddVehicleDialogContentComponent } from 'src/app/shared/component/add-vehicle-dialog-content/add-vehicle-dialog-content.component';
+import { UploadSelectDialogContentComponent } from 'src/app/shared/component/upload-select-dialog-content/upload-select-dialog-content.component';
 import { CardFormControls } from 'src/app/shared/model/model';
 
 @Component({
@@ -120,6 +121,17 @@ export class LetterModificationComponent {
       'persianLable': 'وسیله نقلیه',
       'validation': {
         'isRequired': true,
+      }
+    },
+    {
+      'field': {
+        type: 'imagePicker', openAddDialog: UploadSelectDialogContentComponent, objectAttribute: 'medias', requestRoute: '', objectLabel: []
+      },
+      'formControlName': 'mediaIds',
+      'fieldErrorMessage': '',
+      'persianLable': 'پیوست',
+      'validation': {
+        'isRequired': false,
       }
     },
   ];

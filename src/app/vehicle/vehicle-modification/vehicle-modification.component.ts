@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UploadSelectDialogContentComponent } from 'src/app/shared/component/upload-select-dialog-content/upload-select-dialog-content.component';
 import { CardFormControls } from 'src/app/shared/model/model';
 
 @Component({
@@ -81,6 +82,17 @@ export class VehicleModificationComponent {
         'isRequired': true,
         'minLength': 3,
         'maxLength': 50,
+      }
+    },
+    {
+      'field': {
+        type: 'imagePicker', openAddDialog: UploadSelectDialogContentComponent, objectAttribute: 'medias', requestRoute: '', objectLabel: []
+      },
+      'formControlName': 'mediaIds',
+      'fieldErrorMessage': '',
+      'persianLable': 'پیوست',
+      'validation': {
+        'isRequired': false,
       }
     },
   ];

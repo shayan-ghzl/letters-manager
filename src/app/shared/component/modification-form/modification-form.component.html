@@ -1,54 +1,55 @@
 <div class="form-heading" *ngIf="fieldStyle == 'fill'">
   <h1>{{formTitle.join(' ')}}</h1>
-  <button [routerLink]="[backRouter]" routerLinkActive="router-link-active"  mat-stroked-button color="primary">بازگشت<mat-icon>chevron_left</mat-icon></button>
+  <button [routerLink]="[backRouter]" routerLinkActive="router-link-active" mat-stroked-button color="primary">بازگشت
+    <mat-icon>chevron_left</mat-icon>
+  </button>
 </div>
 <form [formGroup]="cardForm" (ngSubmit)="submitHandler()" autocomplete="off">
   <div class="form-fields-container">
 
-<ng-container *ngFor="let cardFormControl of cardFormControls">
-  <mat-form-field *ngIf="cardFormControl.field.type == 'input'" [appearance]="fieldStyle" [hideRequiredMarker]="!cardFormControl.validation.isRequired">
-    <mat-label>{{cardFormControl.persianLable}}</mat-label>
-    <input matInput [formControlName]="cardFormControl.formControlName"
-      [required]="cardFormControl.validation.isRequired">
-    <mat-error *ngIf="cardForm.controls[cardFormControl.formControlName]?.invalid">
-      {{cardFormControl.fieldErrorMessage}}</mat-error>
-  </mat-form-field>
-  <mat-form-field *ngIf="cardFormControl.field.type == 'textarea'" [appearance]="fieldStyle" [hideRequiredMarker]="!cardFormControl.validation.isRequired">
-    <mat-label>{{cardFormControl.persianLable}}</mat-label>
-    <textarea matInput [formControlName]="cardFormControl.formControlName"
-      [required]="cardFormControl.validation.isRequired"></textarea>
-    <mat-error *ngIf="cardForm.controls[cardFormControl.formControlName]?.invalid">
-      {{cardFormControl.fieldErrorMessage}}</mat-error>
-  </mat-form-field>
-    <ng-container *ngIf="cardFormControl.field.type == 'select'">
-      <app-mat-select-search [fieldStyle]="fieldStyle" [openAddDialog]="cardFormControl.field.openAddDialog" [optionLabels]="cardFormControl.field.objectLabel" [fieldId]="cardFormControl.formControlName" (update)="updateObjects($event)" [requestRoute]="cardFormControl.field.requestRoute" [objectTitle]="cardFormControl.persianLable" [initialValue]="currentObject?.[cardFormControl.field.objectAttribute]"></app-mat-select-search>
-    </ng-container>
-
-</ng-container>
-
-
-
-
-
-    <!-- <app-mat-select-search [optionLabels]="optionLabels" [fieldId]="'sellerId'" (update)="updateObjects($event)" [requestRoute]="'lm/v1/person'" [objectTitle]="'فروشنده'"></app-mat-select-search> -->
-    <!-- <app-mat-select-search [optionLabels]="optionLabels" [fieldId]="fieldId" (update)="updateObjects($event)" [requestRoute]="'lm/v1/company'" [objectTitle]="'کمپانی'"></app-mat-select-search> -->
-    <!-- <app-mat-select-search [optionLabels]="optionLabels" [fieldId]="'itemId'" (update)="updateObjects($event)" [requestRoute]="'lm/v1/item/vehicle'" [objectTitle]="'وسیله نقلیه'"></app-mat-select-search> -->
-
-    <mat-card>
-      <div class="attachment-feature">
-        <div *ngFor="let image of attachedImage">
-          <button type="button" mat-mini-fab (click)="removeAttache(image)">
-            <mat-icon>close</mat-icon>
+    <ng-container *ngFor="let cardFormControl of cardFormControls">
+      <mat-form-field *ngIf="cardFormControl.field.type == 'input'" [appearance]="fieldStyle"
+        [hideRequiredMarker]="!cardFormControl.validation.isRequired">
+        <mat-label>{{cardFormControl.persianLable}}</mat-label>
+        <input matInput [formControlName]="cardFormControl.formControlName"
+          [required]="cardFormControl.validation.isRequired">
+        <mat-error *ngIf="cardForm.controls[cardFormControl.formControlName]?.invalid">
+          {{cardFormControl.fieldErrorMessage}}</mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="cardFormControl.field.type == 'textarea'" [appearance]="fieldStyle"
+        [hideRequiredMarker]="!cardFormControl.validation.isRequired">
+        <mat-label>{{cardFormControl.persianLable}}</mat-label>
+        <textarea matInput [formControlName]="cardFormControl.formControlName"
+          [required]="cardFormControl.validation.isRequired"></textarea>
+        <mat-error *ngIf="cardForm.controls[cardFormControl.formControlName]?.invalid">
+          {{cardFormControl.fieldErrorMessage}}</mat-error>
+      </mat-form-field>
+      <ng-container *ngIf="cardFormControl.field.type == 'select'">
+        <app-mat-select-search [fieldStyle]="fieldStyle" [openAddDialog]="cardFormControl.field.openAddDialog"
+          [optionLabels]="cardFormControl.field.objectLabel" [fieldId]="cardFormControl.formControlName"
+          (update)="updateObjects($event)" [requestRoute]="cardFormControl.field.requestRoute"
+          [objectTitle]="cardFormControl.persianLable"
+          [initialValue]="currentObject?.[cardFormControl.field.objectAttribute]"></app-mat-select-search>
+      </ng-container>
+      <ng-container *ngIf="cardFormControl.field.type == 'imagePicker'">
+        <mat-card>
+          <div class="attachment-feature">
+            <div *ngFor="let image of cardForm.controls[cardFormControl.formControlName]?.value; let index = index">
+              <button type="button" mat-mini-fab (click)="cardForm.controls[cardFormControl.formControlName].value.splice(index, 1)">
+                <mat-icon>close</mat-icon>
+              </button>
+              <div class="image-container" [style]="'background-image:url(' + image.resourceUrl + ')'"></div>
+            </div>
+            <div *ngIf="!cardForm.controls[cardFormControl.formControlName]?.value?.length" class="post-empty-attachment-msg">
+              <h3>تصویر ندارد</h3>
+            </div>
+          </div>
+          <button mat-stroked-button color="primary" type="button" (click)="openDialog(cardFormControl)">
+            <mat-icon>add</mat-icon>افزودن
           </button>
-          <div class="image-container" [style]="'background-image:url(' + image.resourceUrl + ')'"></div>
-        </div>
-        <div *ngIf="!attachedImage?.length" class="post-empty-attachment-msg">
-          <h3>تصویر ندارد</h3>
-        </div>
-
-      </div>
-      <button mat-stroked-button color="primary" type="button" (click)="openDialog()"><mat-icon>add</mat-icon>افزودن</button>
-    </mat-card>
+        </mat-card>
+      </ng-container>
+    </ng-container>
   </div>
   <button mat-raised-button [disabled]="!cardForm.valid" class="submit-button" color="primary">ثبت</button>
 </form>

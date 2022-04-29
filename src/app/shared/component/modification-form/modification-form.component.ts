@@ -30,7 +30,6 @@ export class ModificationFormComponent implements OnInit {
   @Input() idAttributeKey = '';
   @Input() cardFormControls: CardFormControls[] = [];
   cardForm!: FormGroup;
-  attachedImage: Image[] = [];
   optionLabels: AppMatSelectOptionLabel[] = [];
 
   // disableSave!: Observable<boolean>;
@@ -64,7 +63,11 @@ export class ModificationFormComponent implements OnInit {
             break;
         }
       }
-      formGroupObject[Element.formControlName] = new FormControl('', temp);
+      if (Element.field.type == 'imagePicker') {
+        formGroupObject[Element.formControlName] = new FormControl([], temp);
+      } else {
+        formGroupObject[Element.formControlName] = new FormControl('', temp);
+      }
     });
     this.cardForm = new FormGroup(formGroupObject);
     let isEditMood = this.activatedRoute.snapshot.queryParams['ob'];
@@ -73,16 +76,15 @@ export class ModificationFormComponent implements OnInit {
         next: (response) => {
           console.log(response, 'currentObject');
           this.cardFormControls.forEach((Element) => {
-            if (Element.field.type == 'select') {
+            if (Element.field.type == 'select' || Element.field.type == 'imagePicker') {
               this.cardForm.controls[Element.formControlName].setValue(response[Element.field.objectAttribute]);
             } else {
               this.cardForm.controls[Element.formControlName].setValue(response[Element.formControlName]);
             }
           });
           this.currentObject = response;
-          this.attachedImage = response?.medias;
           this.formTitle[0] = 'ویرایش'
-          this.cardForm.setErrors({ 'incorrect': true });
+          // this.cardForm.setErrors({ 'incorrect': true });
         },
         error: (error) => {
           console.log(error);
@@ -90,31 +92,51 @@ export class ModificationFormComponent implements OnInit {
       });
       // this.disableSave = this.cardForm.valueChanges.pipe(
       //   tap(values => { console.log(values) }),
-      //   map(values => (values.alt == this.selectedImages[this.selectedImages.length - 1]?.alternateText) ? true : false),
+      //   map(values => {
+      //     let counter = 0;
+      //     this.cardFormControls.forEach((Element) => {
+      //       if (Element.field.type == 'select' || Element.field.type == 'imagePicker') {
+      //         console.log('imagePicker');
+      //         if (values[Element.formControlName] == this.currentObject[Element.field.objectAttribute]) {
+      //           counter++;
+      //         }
+      //       } else {
+      //         if (values[Element.formControlName] == this.currentObject[Element.formControlName]) {
+      //           counter++;
+      //         }
+      //       }
+      //     });
+      //     if (Object.keys(this.cardForm.controls).length == counter) {
+      //       return true;
+      //     } else {
+      //       return false;
+      //     }
+      //   }),
       //   startWith(true)
       // );
     }
 
   }
-  removeAttache(image: Image) {
-    var index = this.attachedImage.indexOf(image);
-    if (index !== -1) {
-      this.attachedImage.splice(index, 1);
-    }
-  }
-  openDialog() {
-    let dialogRef = this.dialog.open(UploadSelectDialogContentComponent, {
+  // removeAttache(index: number, formControlName: string) {
+  //   this.cardForm.controls[formControlName].value.splice(index, 1);
+  // }
+  openDialog(cardFormControl: any) {
+    let selectedImage = this.cardForm.controls[cardFormControl.formControlName].value;
+    let dialogRef = this.dialog.open(cardFormControl.field.openAddDialog, {
       width: '85%',
       height: '90%',
-      data: { element: this.currentObject, selectedImage: this.attachedImage },
+      data: { element: this.currentObject, selectedImage: selectedImage },
       panelClass: 'app-upload-select-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (Array.isArray(result)) {
         result.forEach((Element) => {
-          if (!this.attachedImage.filter((p: Image) => p.mediaUUID == Element.mediaUUID).length) {
-            this.attachedImage.push(Element);
+          if (!selectedImage.filter((p: Image) => p.mediaUUID == Element.mediaUUID).length) {
+            // this.cardForm.controls[cardFormControl.formControlName].value.push(Element);
+            let temp = this.cardForm.controls[cardFormControl.formControlName].value;
+            temp.push(Element);
+            this.cardForm.controls[cardFormControl.formControlName].setValue(temp);
           }
         });
         console.log(result, 'delete image');
@@ -147,16 +169,15 @@ export class ModificationFormComponent implements OnInit {
   submitHandler() {
     this.cardForm.setErrors({ 'incorrect': true });
     let modificationObject: any = {};
-    console.log(modificationObject);
     modificationObject[this.idAttributeKey] = (this.currentObject) ? this.currentObject[this.idAttributeKey] : null;
-    console.log(modificationObject);
     this.cardFormControls.forEach((Element) => {
-      modificationObject[Element.formControlName] = this.cardForm.controls[Element.formControlName].value;
+      if (Element.field.type == 'imagePicker') {
+        modificationObject[Element.formControlName] = this.cardForm.controls[Element.formControlName].value.map((value: Image) => value.mediaUUID);
+      } else {
+        modificationObject[Element.formControlName] = this.cardForm.controls[Element.formControlName].value;
+      }
     });
-    this.modificationMood({
-      ...modificationObject,
-      mediaIds: this.attachedImage.map(a => a.mediaUUID),
-    }).subscribe({
+    this.modificationMood(modificationObject).subscribe({
       next: (response: any) => {
         console.log(response);
         this.update.emit(response);

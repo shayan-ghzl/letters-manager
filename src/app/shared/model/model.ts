@@ -113,7 +113,7 @@ export interface CardFormControls {
     }
 }
 export interface SelectSearchAdd {
-    type: 'select';
+    type: 'select' | 'imagePicker';
     requestRoute: string;
     openAddDialog: any;
     objectLabel: AppMatSelectOptionLabel[];
