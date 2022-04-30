@@ -19,37 +19,39 @@ export class LetterListComponent {
       field: 'accountingCode',
     },
     {
-      name: 'شماره پلاک',
-      field: 'plateNumber',
-    },
-    {
-      name: 'دستگاه',
-      field: 'device',
-    },
-    {
-      name: 'نوع',
-      field: 'type',
-    },
-    {
-      name: 'مدل',
-      field: 'model',
-    },
-    {
       name: 'تاریخ',
       field: 'stringDate',
     },
-    {
-      name: 'شماره سیستم',
-      field: 'systemId',
-    },
-    {
-      name: 'شماره رنگ',
-      field: 'colorId',
-    },
+    // {
+    //   name: 'شماره پلاک',
+    //   field: 'plateNumber',
+    // },
+    // {
+    //   name: 'دستگاه',
+    //   field: 'device',
+    // },
+    // {
+    //   name: 'نوع',
+    //   field: 'type',
+    // },
+    // {
+    //   name: 'مدل',
+    //   field: 'model',
+    // },
+
+    // {
+    //   name: 'شماره سیستم',
+    //   field: 'systemId',
+    // },
+    // {
+    //   name: 'شماره رنگ',
+    //   field: 'colorId',
+    // },
   ];
 
 
-  displayedColumns = ['position', 'accountingCode', 'plateNumber', 'device', 'type', 'model', 'stringDate', 'systemId', 'colorId', 'opration'];
+  // displayedColumns = ['position', 'accountingCode', 'plateNumber', 'device', 'type', 'model', 'stringDate', 'systemId', 'colorId', 'opration'];
+  displayedColumns = ['position', 'accountingCode', 'stringDate', 'opration'];
 
   constructor() { }
 
