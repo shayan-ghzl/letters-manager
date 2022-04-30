@@ -42,7 +42,7 @@
                         <span class="upload-modal-icon"></span>
                     </button>
                 </li> -->
-                <li tabindex="0">
+                <!-- <li tabindex="0">
                     <div class="attachment-preview">
                         <div class="thumbnail">
                             <div class="upload-progress-bar">
@@ -53,7 +53,7 @@
                     <button type="button" class="check" tabindex="-1">
                         <span class="upload-modal-icon"></span>
                     </button>
-                </li>
+                </li> -->
                 <li *ngFor="let image of images;let index = index" (click)="openDialog(image)" tabindex="0" [ngClass]="{'app-remove-highlight':image.isRemoved, 'app-edit-highlight': image.isEdited, 'app-add-highlight':image.isAdded}">
                     <div class="attachment-preview">
                         <div class="thumbnail">
