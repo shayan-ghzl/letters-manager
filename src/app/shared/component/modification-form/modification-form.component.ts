@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { map, Observable, startWith, Subscription, tap } from 'rxjs';
+import { map, Observable, startWith, Subscription, tap, of } from 'rxjs';
 import { UploadService } from 'src/app/upload/upload.service';
 import { environment } from 'src/environments/environment';
 import { AppMatSelectOptionLabel, CardFormControls, SelectSearchAdd } from '../../model/model';
@@ -32,8 +32,7 @@ export class ModificationFormComponent implements OnInit {
   cardForm!: FormGroup;
   optionLabels: AppMatSelectOptionLabel[] = [];
 
-  // disableSave!: Observable<boolean>;
-  // || (disableSave | async)
+  disableSave: Observable<boolean> = of(true);
 
   constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog, private matSnackBar: MatSnackBar, private http: HttpClient, private uploadService: UploadService) {
 
@@ -76,7 +75,13 @@ export class ModificationFormComponent implements OnInit {
         next: (response) => {
           console.log(response, 'currentObject');
           this.cardFormControls.forEach((Element) => {
-            if (Element.field.type == 'select' || Element.field.type == 'imagePicker') {
+            if (Element.field.type == 'imagePicker') {
+              let temp: any[] = [];
+              response[Element.field.objectAttribute].forEach((element: any) => {
+                temp.push(element);
+              });
+              this.cardForm.controls[Element.formControlName].setValue(temp);
+            } else if (Element.field.type == 'select') {
               this.cardForm.controls[Element.formControlName].setValue(response[Element.field.objectAttribute]);
             } else {
               this.cardForm.controls[Element.formControlName].setValue(response[Element.formControlName]);
@@ -84,45 +89,53 @@ export class ModificationFormComponent implements OnInit {
           });
           this.currentObject = response;
           this.formTitle[0] = 'ویرایش'
+          this.disableSave = this.cardForm.valueChanges.pipe(
+            tap(values => { 
+              console.log(values, 'valueChanges');
+            console.log(this.currentObject, 'valueChanges')
+          }),
+            map(values => {
+              let counter = 0;
+              this.cardFormControls.forEach((Element) => {
+                if (Element.field.type == 'imagePicker') {
+                  if ((values[Element.formControlName] as Image[]).map(value =>value.mediaUUID).toString() == (this.currentObject[Element.field.objectAttribute] as Image[]).map(value =>value.mediaUUID).toString()) {
+                    counter++;
+                  }
+                } else if(Element.field.type == 'select'){
+                  let temp = (this.currentObject[Element.field.objectAttribute].customerUUID) ? this.currentObject[Element.field.objectAttribute].customerUUID : this.currentObject[Element.field.objectAttribute].itemUUID;
+                  if (values[Element.formControlName] == temp) {
+                    counter++;
+                  }
+                }else {
+                  if (values[Element.formControlName] == this.currentObject[Element.formControlName]) {
+                    counter++;
+                  }
+                }
+              });
+              console.log(counter);
+              console.log(Object.keys(this.cardForm.controls).length);
+              if (Object.keys(this.cardForm.controls).length == counter) {
+                return true;
+              } else {
+                return false;
+              }
+            }),
+            startWith(true)
+          );
           // this.cardForm.setErrors({ 'incorrect': true });
         },
         error: (error) => {
           console.log(error);
         },
       });
-      // this.disableSave = this.cardForm.valueChanges.pipe(
-      //   tap(values => { console.log(values) }),
-      //   map(values => {
-      //     let counter = 0;
-      //     this.cardFormControls.forEach((Element) => {
-      //       if (Element.field.type == 'select' || Element.field.type == 'imagePicker') {
-      //         console.log('imagePicker');
-      //         if (values[Element.formControlName] == this.currentObject[Element.field.objectAttribute]) {
-      //           counter++;
-      //         }
-      //       } else {
-      //         if (values[Element.formControlName] == this.currentObject[Element.formControlName]) {
-      //           counter++;
-      //         }
-      //       }
-      //     });
-      //     if (Object.keys(this.cardForm.controls).length == counter) {
-      //       return true;
-      //     } else {
-      //       return false;
-      //     }
-      //   }),
-      //   startWith(true)
-      // );
     }
-
   }
   removeAttache(index: number, formControlName: string) {
     let temp = this.cardForm.controls[formControlName].value;
     temp.splice(index, 1);
     this.cardForm.controls[formControlName].setValue(temp);
   }
-  
+
   openDialog(cardFormControl: any) {
     let selectedImage = this.cardForm.controls[cardFormControl.formControlName].value;
     let dialogRef = this.dialog.open(cardFormControl.field.openAddDialog, {
@@ -134,10 +147,11 @@ export class ModificationFormComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (Array.isArray(result)) {
+        let temp;
         result.forEach((Element) => {
           if (!selectedImage.filter((p: Image) => p.mediaUUID == Element.mediaUUID).length) {
             // this.cardForm.controls[cardFormControl.formControlName].value.push(Element);
-            let temp = this.cardForm.controls[cardFormControl.formControlName].value;
+            temp = this.cardForm.controls[cardFormControl.formControlName].value;
             temp.push(Element);
             this.cardForm.controls[cardFormControl.formControlName].setValue(temp);
           }
@@ -214,7 +228,7 @@ export class ModificationFormComponent implements OnInit {
   updateObjects(e: Observable<any>) {
     e.subscribe((res) => {
       // this.modificationObject[Object.keys(res)[0]] = res[Object.keys(res)[0]];
-      console.log(res);
+      console.log(res,'update');
       this.cardForm.controls[Object.keys(res)[0]].setValue(res[Object.keys(res)[0]]);
     });
   }

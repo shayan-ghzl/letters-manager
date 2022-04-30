@@ -51,5 +51,5 @@
       </ng-container>
     </ng-container>
   </div>
-  <button mat-raised-button [disabled]="!cardForm.valid" class="submit-button" color="primary">ثبت</button>
+  <button mat-raised-button [disabled]="!cardForm.valid || (disableSave | async)" class="submit-button" color="primary">ثبت</button>
 </form>
