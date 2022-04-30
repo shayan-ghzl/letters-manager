@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CardFormControls } from '../../model/model';
+import { UploadSelectDialogContentComponent } from '../upload-select-dialog-content/upload-select-dialog-content.component';
 
 @Component({
   selector: 'app-add-person-dialog-content',
@@ -112,6 +113,17 @@ export class AddPersonDialogContentComponent implements OnInit {
         'minLength': 11,
         'maxLength': 11,
         'pattern': '^[0-9]*$'
+      }
+    },
+    {
+      'field': {
+        type: 'imagePicker', openAddDialog: UploadSelectDialogContentComponent, objectAttribute: 'medias', requestRoute: '', objectLabel: []
+      },
+      'formControlName': 'mediaIds',
+      'fieldErrorMessage': '',
+      'persianLable': 'پیوست',
+      'validation': {
+        'isRequired': false,
       }
     },
   ];

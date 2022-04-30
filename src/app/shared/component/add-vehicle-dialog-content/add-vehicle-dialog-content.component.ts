@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CardFormControls } from '../../model/model';
+import { UploadSelectDialogContentComponent } from '../upload-select-dialog-content/upload-select-dialog-content.component';
 
 @Component({
   selector: 'app-add-vehicle-dialog-content',
@@ -82,6 +83,17 @@ export class AddVehicleDialogContentComponent implements OnInit {
         'isRequired': true,
         'minLength': 3,
         'maxLength': 50,
+      }
+    },
+    {
+      'field': {
+        type: 'imagePicker', openAddDialog: UploadSelectDialogContentComponent, objectAttribute: 'medias', requestRoute: '', objectLabel: []
+      },
+      'formControlName': 'mediaIds',
+      'fieldErrorMessage': '',
+      'persianLable': 'پیوست',
+      'validation': {
+        'isRequired': false,
       }
     },
   ];

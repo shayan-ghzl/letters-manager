@@ -25,7 +25,7 @@ export class AddMediaCategoryDialogContentComponent implements OnInit {
       }
     },
     {
-       'field': { 'type': 'input' },
+       'field': { 'type': 'textarea' },
       'formControlName': 'description',
       'fieldErrorMessage': 'بیش از 150 حرف مجاز نیست',
       'persianLable': 'توضیح',
@@ -36,7 +36,7 @@ export class AddMediaCategoryDialogContentComponent implements OnInit {
     },
     {
       'field': {
-        type: 'select',openAddDialog:AddMediaCategoryDialogContentComponent, objectAttribute:'category', requestRoute: 'lm/v1/media/category', objectLabel: [
+        type: 'select',openAddDialog:AddMediaCategoryDialogContentComponent , objectAttribute:'category', requestRoute: 'lm/v1/media/category', objectLabel: [
           {
             persianKey: 'نام:',
             attribute: 'name',
