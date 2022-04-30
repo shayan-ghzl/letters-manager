@@ -142,7 +142,7 @@ export class ModificationFormComponent implements OnInit {
       width: '85%',
       height: '90%',
       data: { element: this.currentObject, selectedImage: selectedImage },
-      panelClass: 'app-upload-select-dialog'
+      panelClass: 'app-dialog-no-padding'
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -127,7 +127,7 @@ export class UploadListComponent {
       width: '85%',
       height: '90%',
       data: { element: element, categories: this.categories },
-      panelClass: 'app-upload-preview-dialog'
+      panelClass: 'app-dialog-no-padding'
     });
 
     dialogRef.afterClosed().subscribe(result => {
