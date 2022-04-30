@@ -117,9 +117,12 @@ export class ModificationFormComponent implements OnInit {
     }
 
   }
-  // removeAttache(index: number, formControlName: string) {
-  //   this.cardForm.controls[formControlName].value.splice(index, 1);
-  // }
+  removeAttache(index: number, formControlName: string) {
+    let temp = this.cardForm.controls[formControlName].value;
+    temp.splice(index, 1);
+    this.cardForm.controls[formControlName].setValue(temp);
+  }
+  
   openDialog(cardFormControl: any) {
     let selectedImage = this.cardForm.controls[cardFormControl.formControlName].value;
     let dialogRef = this.dialog.open(cardFormControl.field.openAddDialog, {
