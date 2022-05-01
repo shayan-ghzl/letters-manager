@@ -1,7 +1,7 @@
 <div class="table-heading">
   <h1>{{tableHeadline}}</h1>
   <div class="row-span">
-    <mat-form-field *ngIf="tableRows.length" class="search-field" appearance="fill">
+    <mat-form-field class="search-field" appearance="fill">
       <mat-label>جستجو</mat-label>
       <input matInput type="text" [(ngModel)]="searchField" (ngModelChange)="tableSearch()">
       <button *ngIf="searchField" matSuffix mat-icon-button aria-label="Clear" (click)="searchField='';tableSearch()">

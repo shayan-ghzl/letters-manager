@@ -12,6 +12,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import {MatMenuModule} from '@angular/material/menu';
     FormsModule,
     HttpClientModule ,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCardModule,
+    MatDividerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
