@@ -10,7 +10,9 @@ body {
     margin: 0;
     font-family: Vazir, "Vazir";
 }
-
+.d-none {
+    display: none !important;
+}
 .app-remove-highlight {
     background: #f4433633;
 }
@@ -24,6 +26,15 @@ body {
     .mat-dialog-container {
         padding: 0 !important;
         overflow: hidden !important;
+    }
+}
+.app-spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    mat-spinner {
+        margin-left: 10px;
     }
 }
 app-person-modification,

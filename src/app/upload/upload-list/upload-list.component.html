@@ -77,9 +77,9 @@
                 </div>
             </ng-template>
             <div *ngIf="images.length" class="load-more-wrapper">
-               <div>
+               <div class="app-spinner-container">
+                   <mat-spinner [diameter]="20" [class.d-none]="!showLoading"></mat-spinner>
                     <p class="load-more-count">نمایش {{images.length}} از {{tableRowsTotal}} موارد رسانه</p>
-                    <mat-spinner [diameter]="20" [class.hidden]="!showLoading"></mat-spinner>
                </div>
                 <button *ngIf="!isDone" mat-raised-button type="button" color="primary" (click)="loadMoreImage()">بارگذاری بیشتر</button>
             </div>

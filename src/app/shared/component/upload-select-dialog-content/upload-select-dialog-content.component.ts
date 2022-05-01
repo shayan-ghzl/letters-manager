@@ -13,7 +13,7 @@ import { RemoveConfirmationDialogContentComponent } from '../remove-confirmation
   styleUrls: ['./upload-select-dialog-content.component.scss']
 })
 export class UploadSelectDialogContentComponent {
-
+  selectedIndex = 1;
   images: Image[] = [];
   tableRowsTotal!: number;
 
@@ -111,6 +111,8 @@ export class UploadSelectDialogContentComponent {
         // this.mediaFrameTabPanel.library = true;
         this.uploadService.addImage(file).subscribe({
           next: (response) => {
+            console.log(response);
+            this.selectedIndex = 1;
             this.images.unshift(response);
             this.tableRowsTotal++;
           },

@@ -235,18 +235,7 @@ form {
     clear: both;
     text-align: center;
     padding: 1em 0;
-    > div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 10px 0;
-    }
-    .hidden {
-        display: none;
-    }
-    mat-spinner {
-        margin-right: 10px;
-    }
+
     p {
         margin: 0;
         line-height: 20px;

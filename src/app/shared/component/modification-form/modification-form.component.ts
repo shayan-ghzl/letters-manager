@@ -32,7 +32,7 @@ export class ModificationFormComponent implements OnInit {
   cardForm!: FormGroup;
   optionLabels: AppMatSelectOptionLabel[] = [];
 
-  disableSave: Observable<boolean> = of(true);
+  disableSave!: Observable<boolean>;
 
   constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog, private matSnackBar: MatSnackBar, private http: HttpClient, private uploadService: UploadService) {
 
@@ -90,23 +90,23 @@ export class ModificationFormComponent implements OnInit {
           this.currentObject = response;
           this.formTitle[0] = 'ویرایش'
           this.disableSave = this.cardForm.valueChanges.pipe(
-            tap(values => { 
+            tap(values => {
               console.log(values, 'valueChanges');
-            console.log(this.currentObject, 'valueChanges')
-          }),
+              console.log(this.currentObject, 'valueChanges')
+            }),
             map(values => {
               let counter = 0;
               this.cardFormControls.forEach((Element) => {
                 if (Element.field.type == 'imagePicker') {
-                  if ((values[Element.formControlName] as Image[]).map(value =>value.mediaUUID).toString() == (this.currentObject[Element.field.objectAttribute] as Image[]).map(value =>value.mediaUUID).toString()) {
+                  if ((values[Element.formControlName] as Image[]).map(value => value.mediaUUID).toString() == (this.currentObject[Element.field.objectAttribute] as Image[]).map(value => value.mediaUUID).toString()) {
                     counter++;
                   }
-                } else if(Element.field.type == 'select'){
+                } else if (Element.field.type == 'select') {
                   let temp = (this.currentObject[Element.field.objectAttribute].customerUUID) ? this.currentObject[Element.field.objectAttribute].customerUUID : this.currentObject[Element.field.objectAttribute].itemUUID;
                   if (values[Element.formControlName] == temp) {
                     counter++;
                   }
-                }else {
+                } else {
                   if (values[Element.formControlName] == this.currentObject[Element.formControlName]) {
                     counter++;
                   }
@@ -128,7 +128,7 @@ export class ModificationFormComponent implements OnInit {
           console.log(error);
         },
       });
-    }
+    } 
   }
   removeAttache(index: number, formControlName: string) {
     let temp = this.cardForm.controls[formControlName].value;
@@ -142,7 +142,7 @@ export class ModificationFormComponent implements OnInit {
       width: '85%',
       height: '90%',
       data: { element: this.currentObject, selectedImage: selectedImage },
-      panelClass: 'app-dialog-no-padding'
+      panelClass: ['app-dialog-no-padding', 'app-upload-select-dialog']
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -228,7 +228,7 @@ export class ModificationFormComponent implements OnInit {
   updateObjects(e: Observable<any>) {
     e.subscribe((res) => {
       // this.modificationObject[Object.keys(res)[0]] = res[Object.keys(res)[0]];
-      console.log(res,'update');
+      console.log(res, 'update');
       this.cardForm.controls[Object.keys(res)[0]].setValue(res[Object.keys(res)[0]]);
     });
   }

@@ -22,36 +22,26 @@ export class LetterListComponent {
       name: 'تاریخ',
       field: 'stringDate',
     },
-    // {
-    //   name: 'شماره پلاک',
-    //   field: 'plateNumber',
-    // },
-    // {
-    //   name: 'دستگاه',
-    //   field: 'device',
-    // },
-    // {
-    //   name: 'نوع',
-    //   field: 'type',
-    // },
-    // {
-    //   name: 'مدل',
-    //   field: 'model',
-    // },
+    {
+      name: 'خریدار',
+      field: 'buyer',
+      subProperty: { type: 'object', readableProperty: 'firstName' },
+    },
+    {
+      name: 'فروشنده',
+      field: 'seller',
+      subProperty: { type: 'object', readableProperty: 'firstName' },
+    },
+    {
+      name: 'وسیله نقیله',
+      field: 'item',
+      subProperty: { type: 'object', readableProperty: 'system' },
+    },
 
-    // {
-    //   name: 'شماره سیستم',
-    //   field: 'systemId',
-    // },
-    // {
-    //   name: 'شماره رنگ',
-    //   field: 'colorId',
-    // },
   ];
 
 
-  // displayedColumns = ['position', 'accountingCode', 'plateNumber', 'device', 'type', 'model', 'stringDate', 'systemId', 'colorId', 'opration'];
-  displayedColumns = ['position', 'accountingCode', 'stringDate', 'opration'];
+  displayedColumns = ['position', 'accountingCode', 'stringDate', 'buyer', 'seller', 'item', 'opration'];
 
   constructor() { }
 

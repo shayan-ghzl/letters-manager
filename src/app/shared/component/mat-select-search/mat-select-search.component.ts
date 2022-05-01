@@ -64,7 +64,7 @@ export class MatSelectSearchComponent implements OnInit, AfterViewInit, OnChange
     let dialogRef = this.dialog.open(this.openAddDialog, {
       width: '85%',
       height: '90%',
-      panelClass: ''
+      panelClass: 'app-dialog-no-padding'
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {

@@ -16,6 +16,7 @@ import { RemoveConfirmationDialogContentComponent } from '../remove-confirmation
   styleUrls: ['./table-list.component.scss']
 })
 export class TableListComponent implements OnInit {
+  showLoading = true;
   // search
   searchField = '';
   searchFieldTimeout = setTimeout(() => { }, 200);
@@ -29,7 +30,7 @@ export class TableListComponent implements OnInit {
   @Input() requestRoute = '';
   @Input() addRouter = '';
   @Input() editRouter = '';
-  @Input() columns: { name: string, field: string }[] = [];
+  @Input() columns: { name: string; field: string; subProperty?: { type: string; readableProperty: string; } }[] = [];
   @Input() displayedColumns: string[] = [];
   // this is used for delete request
   @Input() idAttributeKey = '';
@@ -51,13 +52,16 @@ export class TableListComponent implements OnInit {
     this.pageSize = e.pageSize ? e.pageSize : this.pageSize;
     this.getObservable({ page: e.pageIndex, size: this.pageSize, keyword: this.searchField }).subscribe(
       (response) => {
-        console.log(response.content);
+        console.log(response);
         response.content.forEach((Element: any, Index: number) => {
           Element.position = (e.pageIndex * this.pageSize) + (Index + 1);
         });
         this.tableRows = response.content;
         this.totalRows = response.totalElements;
         this.dataSource = new MatTableDataSource<any>(this.tableRows);
+        if(response.totalElements == 0){
+          this.showLoading = false;
+        }
       }
     );
   }

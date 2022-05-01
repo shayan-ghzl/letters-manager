@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  apiUrl: location.origin + ':8080/',
-};
+  apiUrl: 'http://' + location.hostname + ':8080/',
 
-/*
- * For easier debugging in development mode, you can import the following file
+}
+  /*
+ For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
  *
  * This import should be commented out in production mode because it will have a negative impact

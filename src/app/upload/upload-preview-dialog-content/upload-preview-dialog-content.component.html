@@ -17,8 +17,8 @@
             <div><strong>اندازه پرونده:</strong> {{data.element.size }} کیلوبایت</div>
             <div class="actions">
                 <a mat-button [href]="data.element.resourceUrl" color="primary" target="_blank">نمایش صفحهٔ پیوست</a>
-                <button type="button" mat-button color="warn" (click)="openDialog(data.element)">حذف برای همیشه</button>
-            </div>
+                <button type="button" mat-button color="warn" [disabled]="!data.element['removable']" (click)="openDialog(data.element)">حذف برای همیشه</button>
+              </div>
         </div>
         <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
           
