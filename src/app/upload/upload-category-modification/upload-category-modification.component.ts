@@ -54,7 +54,7 @@ export class UploadCategoryModificationComponent {
       'fieldErrorMessage': '',
       'persianLable': 'دسته بندی رسانه',
       'validation': {
-        'isRequired': true,
+        'isRequired': false,
       }
     },
   ];

@@ -26,7 +26,7 @@
       </mat-form-field>
       <ng-container *ngIf="cardFormControl.field.type == 'select'">
         <app-mat-select-search [fieldStyle]="fieldStyle" [openAddDialog]="cardFormControl.field.openAddDialog"
-          [optionLabels]="cardFormControl.field.objectLabel" [fieldId]="cardFormControl.formControlName"
+          [optionLabels]="cardFormControl.field.objectLabel" [fieldId]="cardFormControl.formControlName" [isRequired]="cardFormControl.validation.isRequired"
           (update)="updateObjects($event)" [requestRoute]="cardFormControl.field.requestRoute"
           [objectTitle]="cardFormControl.persianLable"
           [initialValue]="currentObject?.[cardFormControl.field.objectAttribute]"></app-mat-select-search>

@@ -16,6 +16,7 @@ import { AppMatSelectOptionLabel } from '../../model/model';
 export class MatSelectSearchComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() openAddDialog: any;
+  @Input() isRequired = true;
   @Input() fieldId = '';
   @Input() initialValue: any;
   @Input() requestRoute = '';
@@ -24,7 +25,7 @@ export class MatSelectSearchComponent implements OnInit, AfterViewInit, OnChange
   @Input() optionLabels: AppMatSelectOptionLabel[] = [];
   @Output() update = new EventEmitter<Observable<any>>();
   searchSelectTimeout = setTimeout(() => { }, 200);
-  selectObject = new FormControl('', Validators.required);
+  selectObject!: FormControl;
   objects: any[] = [];
   selectGetObservable!: Subscription;
   @ViewChild('select') select!: MatSelect;
@@ -34,6 +35,11 @@ export class MatSelectSearchComponent implements OnInit, AfterViewInit, OnChange
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    let temp: any[] = [];
+    if (this.isRequired) {
+      temp.push(Validators.required);
+    }
+    this.selectObject = new FormControl('', temp);
     if (changes['initialValue'].currentValue) {
       this.selectObject.setValue(this.initialValue);
       this.initialValue.currentValue = true;

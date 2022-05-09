@@ -194,6 +194,9 @@ export class ModificationFormComponent implements OnInit {
         modificationObject[Element.formControlName] = this.cardForm.controls[Element.formControlName].value;
       }
     });
+    
+    console.log(modificationObject, 'modificationObject');
+    
     this.modificationMood(modificationObject).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -212,8 +215,7 @@ export class ModificationFormComponent implements OnInit {
           panelClass: '',
         });
       },
-    })
-      ;
+    });
   }
 
   modificationMood(object: any): Observable<any> {
@@ -229,7 +231,7 @@ export class ModificationFormComponent implements OnInit {
     e.subscribe((res) => {
       // this.modificationObject[Object.keys(res)[0]] = res[Object.keys(res)[0]];
       console.log(res, 'update');
-      this.cardForm.controls[Object.keys(res)[0]].setValue(res[Object.keys(res)[0]]);
+      this.cardForm.controls[Object.keys(res)[0]].setValue((res[Object.keys(res)[0]]) ? res[Object.keys(res)[0]] : null);
     });
   }
 }
