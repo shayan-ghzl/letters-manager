@@ -34,7 +34,7 @@ export class UploadSelectDialogContentComponent {
     public dialogRef: MatDialogRef<UploadSelectDialogContentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private matSnackBar: MatSnackBar, private uploadService: UploadService
   ) {
-    console.log(data, 'UploadSelectDialogContentComponent data');
+    // console.log(data, 'UploadSelectDialogContentComponent data');
     this.getImages({ page: this.currentPage, size: this.tableRows });
   }
 
@@ -61,7 +61,7 @@ export class UploadSelectDialogContentComponent {
   }
 
   selectImage(e: any, image: Image) {
-    console.log(e);
+    // console.log(e);
     if (e.ctrlKey || e.shiftKey) {
       if (image.isSelected) {
         image.isSelected = false;
@@ -87,12 +87,12 @@ export class UploadSelectDialogContentComponent {
         this.selectedImages = [image];
       }
     }
-    console.log(this.selectedImages[this.selectedImages.length - 1]);
+    // console.log(this.selectedImages[this.selectedImages.length - 1]);
     this.cardForm.controls['alt'].setValue(this.selectedImages[this.selectedImages.length - 1]?.alternateText);
     this.cardForm.controls['description'].setValue(this.selectedImages[this.selectedImages.length - 1]?.description);
 
     this.disableSave = this.cardForm.valueChanges.pipe(
-      tap(values => { console.log(values) }),
+      // tap(values => { console.log(values) }),
       map(values => (values.alt == this.selectedImages[this.selectedImages.length - 1]?.alternateText && values.description == this.selectedImages[this.selectedImages.length - 1]?.description) ? true : false),
       startWith(true)
     );
@@ -111,7 +111,7 @@ export class UploadSelectDialogContentComponent {
         // this.mediaFrameTabPanel.library = true;
         this.uploadService.addImage(file).subscribe({
           next: (response) => {
-            console.log(response);
+            // console.log(response);
             this.selectedIndex = 1;
             this.images.unshift(response);
             this.tableRowsTotal++;

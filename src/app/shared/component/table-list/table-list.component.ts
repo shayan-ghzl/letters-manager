@@ -52,7 +52,7 @@ export class TableListComponent implements OnInit {
     this.pageSize = e.pageSize ? e.pageSize : this.pageSize;
     this.getObservable({ page: e.pageIndex, size: this.pageSize, keyword: this.searchField }).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         response.content.forEach((Element: any, Index: number) => {
           Element.position = (e.pageIndex * this.pageSize) + (Index + 1);
         });

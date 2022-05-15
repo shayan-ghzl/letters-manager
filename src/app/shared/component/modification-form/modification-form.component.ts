@@ -73,7 +73,7 @@ export class ModificationFormComponent implements OnInit {
     if (isEditMood) {
       this.http.get<any>(environment.apiUrl + this.requestRoute + '/' + isEditMood).subscribe({
         next: (response) => {
-          console.log(response, 'currentObject');
+          // console.log(response, 'currentObject');
           this.cardFormControls.forEach((Element) => {
             if (Element.field.type == 'imagePicker') {
               let temp: any[] = [];
@@ -90,10 +90,10 @@ export class ModificationFormComponent implements OnInit {
           this.currentObject = response;
           this.formTitle[0] = 'ویرایش'
           this.disableSave = this.cardForm.valueChanges.pipe(
-            tap(values => {
-              console.log(values, 'valueChanges');
-              console.log(this.currentObject, 'valueChanges')
-            }),
+            // tap(values => {
+            //   console.log(values, 'valueChanges');
+            //   console.log(this.currentObject, 'valueChanges')
+            // }),
             map(values => {
               let counter = 0;
               this.cardFormControls.forEach((Element) => {
@@ -112,8 +112,8 @@ export class ModificationFormComponent implements OnInit {
                   }
                 }
               });
-              console.log(counter);
-              console.log(Object.keys(this.cardForm.controls).length);
+              // console.log(counter);
+              // console.log(Object.keys(this.cardForm.controls).length);
               if (Object.keys(this.cardForm.controls).length == counter) {
                 return true;
               } else {
@@ -156,7 +156,7 @@ export class ModificationFormComponent implements OnInit {
             this.cardForm.controls[cardFormControl.formControlName].setValue(temp);
           }
         });
-        console.log(result, 'delete image');
+        // console.log(result, 'delete image');
       } else if (result) {
         this.uploadService.deleteImage(result.mediaUUID).subscribe({
           next: (response: any) => {
@@ -199,7 +199,7 @@ export class ModificationFormComponent implements OnInit {
     
     this.modificationMood(modificationObject).subscribe({
       next: (response: any) => {
-        console.log(response);
+        // console.log(response);
         this.update.emit(response);
         this.matSnackBar.open(`با موفقیت اضافه شد`, 'بستن', {
           duration: 7000,
@@ -219,7 +219,7 @@ export class ModificationFormComponent implements OnInit {
   }
 
   modificationMood(object: any): Observable<any> {
-    console.log(object);
+    // console.log(object);
     if (object[this.idAttributeKey]) {
       return this.http.put<any>(environment.apiUrl + this.requestRoute, object);
     } else {

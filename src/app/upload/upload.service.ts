@@ -15,7 +15,7 @@ export class UploadService {
 
   // this is for get image
   getImages(parameters: ImageParams): Observable<any> {
-    console.log(parameters);
+    // console.log(parameters);
     let params = new HttpParams();
     // these params are integer and maybe value will be zero so condition will be false
     if (typeof parameters.page !== 'undefined') {

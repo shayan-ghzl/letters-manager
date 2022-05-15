@@ -55,7 +55,7 @@ export class UploadListComponent {
       this.showLoading = true;
       this.getImageObservable = this.uploadService.getImages(params).subscribe({
         next: (response) => {
-          console.log(response.content);
+          // console.log(response.content);
           this.tableRowsTotal = response.totalElements;
           if (append) {
             this.images = [...this.images, ...response.content];

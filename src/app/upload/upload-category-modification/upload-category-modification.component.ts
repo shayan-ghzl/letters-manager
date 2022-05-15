@@ -50,9 +50,10 @@ export class UploadCategoryModificationComponent {
           }
         ]
       },
-      'formControlName': 'categoryUUID',
+      // 'formControlName': 'categoryUUID',
+      'formControlName': 'parentId',
       'fieldErrorMessage': '',
-      'persianLable': 'دسته بندی رسانه',
+      'persianLable': 'دسته بندی پدر',
       'validation': {
         'isRequired': false,
       }

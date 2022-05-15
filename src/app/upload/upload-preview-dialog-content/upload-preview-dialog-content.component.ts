@@ -39,7 +39,7 @@ export class UploadPreviewDialogContentComponent {
       map((fieldValue: string | null) => (fieldValue ? this._filter(fieldValue) : this.allCategories.slice())),
     );
     this.disableSave = this.cardForm.valueChanges.pipe(
-      tap(values => {console.log(values)}),
+      // tap(values => {console.log(values)}),
       map(values => (values.alt == this.data.element.alternateText && values.description == this.data.element.description) ? true : false),
       startWith(true)
     );
@@ -59,7 +59,7 @@ export class UploadPreviewDialogContentComponent {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    console.log(this.selectedCategories,'selected');
+    // console.log(this.selectedCategories,'selected');
     if (this.selectedCategories.indexOf(event.option.value) == -1)
       this.selectedCategories.push(event.option.value);
     this.fruitInput.nativeElement.value = '';
@@ -91,8 +91,8 @@ export class UploadPreviewDialogContentComponent {
 
 
   onSubmit() {
-    console.log(this.cardForm.controls['category'].valid, 'this.cardForm.controls.valid');
-    console.log(this.selectedCategories, 'selectedCategories');
+    // console.log(this.cardForm.controls['category'].valid, 'this.cardForm.controls.valid');
+    // console.log(this.selectedCategories, 'selectedCategories');
     this.cardForm.setErrors({'incorrect': true});
     let temp: string[] = [];
     this.selectedCategories.forEach((Element) => {
@@ -105,7 +105,7 @@ export class UploadPreviewDialogContentComponent {
       "alternateText": this.cardForm.controls['alt'].value
     }).subscribe({
       next: (response) => {
-        console.log(response);
+        // console.log(response);
         this.matSnackBar.open('ذخیره گردید.', 'بستن', {
           duration: 7000,
           direction: 'rtl',

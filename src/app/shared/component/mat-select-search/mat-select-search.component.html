@@ -11,7 +11,7 @@
         <mat-option style="display: none;">
             هیچ کدام
         </mat-option>
-        <mat-option *ngIf="!isRequired">
+        <mat-option value="ندارد" *ngIf="!isRequired">
             ندارد
         </mat-option>
         <mat-option *ngFor="let person of objects" [value]="person" [class.current-value]="person?.currentValue">
