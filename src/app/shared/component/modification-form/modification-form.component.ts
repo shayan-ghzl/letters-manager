@@ -7,11 +7,12 @@ import { ActivatedRoute } from '@angular/router';
 import { map, Observable, startWith, Subscription, tap, of } from 'rxjs';
 import { UploadService } from 'src/app/upload/upload.service';
 import { environment } from 'src/environments/environment';
-import { AppMatSelectOptionLabel, CardFormControls, SelectSearchAdd } from '../../model/model';
+import { AppMatSelectOptionLabel, CardFormControls, MediaCategory, SelectSearchAdd } from '../../model/model';
 import { UploadSelectDialogContentComponent } from '../upload-select-dialog-content/upload-select-dialog-content.component';
 import { Image } from '../../model/model';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { UploadPreviewDialogContentComponent } from '../upload-preview-dialog-content/upload-preview-dialog-content.component';
 
 @Component({
   selector: 'app-modification-form',
@@ -35,7 +36,7 @@ export class ModificationFormComponent implements OnInit {
   disableSave!: Observable<boolean>;
 
   constructor(private activatedRoute: ActivatedRoute, private dialog: MatDialog, private matSnackBar: MatSnackBar, private http: HttpClient, private uploadService: UploadService) {
-
+   
   }
 
   ngOnInit(): void {
@@ -64,6 +65,7 @@ export class ModificationFormComponent implements OnInit {
       }
       if (Element.field.type == 'imagePicker') {
         formGroupObject[Element.formControlName] = new FormControl([], temp);
+         this.getCategories();
       } else {
         formGroupObject[Element.formControlName] = new FormControl('', temp);
       }
@@ -234,4 +236,66 @@ export class ModificationFormComponent implements OnInit {
       this.cardForm.controls[Object.keys(res)[0]].setValue((res[Object.keys(res)[0]]) ? res[Object.keys(res)[0]] : null);
     });
   }
+
+  openPreviewDialog(element: any, index:number, formControlName:string) {
+    let dialogRef = this.dialog.open(UploadPreviewDialogContentComponent, {
+      width: '85%',
+      height: '90%',
+      data: { element: element, categories: this.categories},
+      panelClass: 'app-dialog-no-padding'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.uploadService.deleteImage(result.mediaUUID).subscribe({
+          next: (response) => {
+            result.isRemoved = true;
+            setTimeout(() => {
+              
+              this.removeAttache(index, formControlName);
+              // const index = this.images.indexOf(result);
+              // if (index > -1) {
+              //   this.images.splice(index, 1);
+              // }
+            }, 1000);
+            this.matSnackBar.open(`مورد ${result.position} (${result.name}) حذف گردید.`, 'بستن', {
+              duration: 7000,
+              direction: 'rtl',
+              panelClass: '',
+            });
+          },
+          error: (error) => {
+            console.log(error);
+            result.isEdited = true;
+            setTimeout(() => {
+              result.isEdited = false;
+            }, 7000);
+            this.matSnackBar.open(`خطا: ${error.error.message}.`, 'بستن', {
+              duration: 7000,
+              direction: 'rtl',
+              panelClass: '',
+            });
+          },
+        });
+      }
+    });
+  }
+
+    // this is for get all media categories 100 by 100 till its end
+    categories: MediaCategory[] = [];
+    categoriesPage = 0;
+    getCategories() {
+      this.uploadService.getCategories({ page: this.categoriesPage, size: 100 }).subscribe({
+        next: (response) => {
+          this.categories = this.categories.concat(response.content);
+          if (this.categories.length < response.totalElements) {
+            this.categoriesPage++;
+            this.getCategories();
+          }
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+    }
 }

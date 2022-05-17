@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import { UploadPreviewDialogContentComponent } from 'src/app/shared/component/upload-preview-dialog-content/upload-preview-dialog-content.component';
 import { ImageParams, Image, MediaCategory } from 'src/app/shared/model/model';
-import { UploadPreviewDialogContentComponent } from '../upload-preview-dialog-content/upload-preview-dialog-content.component';
 import { UploadService } from '../upload.service';
 
 
@@ -163,4 +163,4 @@ export class UploadListComponent {
       }
     });
   }
-}
+} 

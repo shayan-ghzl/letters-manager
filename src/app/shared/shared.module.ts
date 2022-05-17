@@ -24,7 +24,9 @@ import { MatSelectSearchComponent } from './component/mat-select-search/mat-sele
 import { AddPersonDialogContentComponent } from './component/add-person-dialog-content/add-person-dialog-content.component';
 import { AddVehicleDialogContentComponent } from './component/add-vehicle-dialog-content/add-vehicle-dialog-content.component';
 import { AddMediaCategoryDialogContentComponent } from './component/add-media-category-dialog-content/add-media-category-dialog-content.component';
-
+import { UploadPreviewDialogContentComponent } from './component/upload-preview-dialog-content/upload-preview-dialog-content.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { AddMediaCategoryDialogContentComponent } from './component/add-media-ca
     MatSelectSearchComponent,
     AddPersonDialogContentComponent,
     AddVehicleDialogContentComponent,
-    AddMediaCategoryDialogContentComponent
+    AddMediaCategoryDialogContentComponent,
+    UploadPreviewDialogContentComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +57,9 @@ import { AddMediaCategoryDialogContentComponent } from './component/add-media-ca
     ReactiveFormsModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatChipsModule
   ],
   exports:[
     TableListComponent,

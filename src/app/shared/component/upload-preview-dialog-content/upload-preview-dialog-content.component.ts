@@ -7,7 +7,7 @@ import { map, Observable, startWith, tap } from 'rxjs';
 import { RemoveConfirmationDialogContentComponent } from 'src/app/shared/component/remove-confirmation-dialog-content/remove-confirmation-dialog-content.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MediaCategory } from 'src/app/shared/model/model';
-import { UploadService } from '../upload.service';
+import { UploadService } from 'src/app/upload/upload.service';
 
 @Component({
   selector: 'app-upload-preview-dialog-content',

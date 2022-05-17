@@ -38,7 +38,7 @@
               <button type="button" mat-mini-fab (click)="removeAttache(index, cardFormControl.formControlName)">
                 <mat-icon>close</mat-icon>
               </button>
-              <div class="image-container" [style]="'background-image:url(' + image.resourceUrl + ')'"></div>
+              <div class="image-container" (click)="openPreviewDialog(image, index, cardFormControl.formControlName)" [style]="'background-image:url(' + image.resourceUrl + ')'"></div>
             </div>
             <div *ngIf="!cardForm.controls[cardFormControl.formControlName]?.value?.length" class="post-empty-attachment-msg">
               <h3>تصویر ندارد</h3>

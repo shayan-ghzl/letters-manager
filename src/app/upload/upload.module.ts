@@ -10,18 +10,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SharedModule } from '../shared/shared.module';
 import {MatButtonModule} from '@angular/material/button';
-import { UploadPreviewDialogContentComponent } from './upload-preview-dialog-content/upload-preview-dialog-content.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
-
+ 
 @NgModule({
   declarations: [
     UploadListComponent,
     UploadCategoryListComponent,
     UploadCategoryModificationComponent,
-    UploadPreviewDialogContentComponent,
   ],
   imports: [
     CommonModule,
