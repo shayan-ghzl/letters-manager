@@ -91,7 +91,7 @@ export class DialogPersonComponent implements OnInit {
       'hasError': false,
       'errorMessage': 'xxxx/xx/xx فرمت مجاز می باشد',
       isValid: () => {
-        return (this.editPerson_string_birth_date.trim().match("^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|([1-2][0-9])|(0[1-9]))))$") != null);
+        return (this.editPerson_string_birth_date.trim().match("'pattern': '^[1-4]\d{3}\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])$'") != null);
       }
     },
     'address': {
@@ -109,7 +109,7 @@ export class DialogPersonComponent implements OnInit {
       'errorMessage': '11 رقم مجاز است',
       isValid: () => {
         let temp = this.editPerson_phone_number.trim();
-        return (11 == temp.length && temp.match("[0-9]+") != null);
+        return (temp.match("[09][0-9]{9}") != null);
       }
     },
   };

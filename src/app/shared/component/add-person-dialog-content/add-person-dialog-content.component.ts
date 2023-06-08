@@ -56,7 +56,7 @@ export class AddPersonDialogContentComponent implements OnInit {
         'isRequired': true,
         'minLength': 10,
         'maxLength': 10,
-        'pattern': '^[0-9]*$'
+        'pattern': '/^[0-9]*$/'
       }
     },
     {
@@ -68,7 +68,7 @@ export class AddPersonDialogContentComponent implements OnInit {
         'isRequired': true,
         'minLength': 2,
         'maxLength': 12,
-        'pattern': '^[0-9]*$'
+        'pattern': '/^[0-9]*$/'
       }
     },
     {
@@ -89,7 +89,7 @@ export class AddPersonDialogContentComponent implements OnInit {
       'persianLable': 'تاریخ تولد',
       'validation': {
         'isRequired': true,
-        'pattern': '^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|([1-2][0-9])|(0[1-9]))))$'
+        'pattern': '/^[1-4]\d{3}\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])$/'
       }
     },
     {
@@ -112,7 +112,7 @@ export class AddPersonDialogContentComponent implements OnInit {
         'isRequired': true,
         'minLength': 11,
         'maxLength': 11,
-        'pattern': '^[0-9]*$'
+        'pattern': '/^09[0-9]{9}$/'
       }
     },
     {

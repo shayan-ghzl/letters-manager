@@ -33,7 +33,7 @@ export class CompanyModificationComponent {
         'isRequired': true,
         'minLength': 11,
         'maxLength': 11,
-        'pattern': '^[0-9]*$'
+        'pattern': '/^09[0-9]{9}$/'
 
       }
     },
@@ -68,7 +68,7 @@ export class CompanyModificationComponent {
         'isRequired': true,
         'minLength': 2,
         'maxLength': 15,
-        'pattern': '^[0-9]*$'
+        'pattern': '/^\d{2,15}$/'
 
       }
     },
@@ -81,7 +81,7 @@ export class CompanyModificationComponent {
         'isRequired': true,
         'minLength': 2,
         'maxLength': 15,
-        'pattern': '^[0-9]*$'
+        'pattern': '/^\d{2,15}$/'
 
       }
     },
